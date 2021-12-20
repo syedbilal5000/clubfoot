@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body  style="background-image: url('https://med.nyu.edu/departments-institutes/orthopedic-surgery/research/sites/default/files/styles/fixed_height_450_1600w_565h/public/2019-07/orthopedic-surgery-research-landing-hero.jpg?h=ee874d6d&itok=ChF95D3r');">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -75,7 +75,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" >
             @yield('content')
         </main>
     </div>
