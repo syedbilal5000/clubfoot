@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Patient;
 
 class HomeController extends Controller
 {
@@ -26,8 +27,19 @@ class HomeController extends Controller
         return view('home');
     }
 
+    // show registration index
     public function register_index()
     {
         return view('registration.index');
+    }
+
+    // registration add
+    public function register_store(Request $request)
+    {
+        // dd($request);
+        $patient = new Patient;
+        $patient->patient_name = $request->patient_name;
+        $patient->save();
+        return redirect('registration');
     }
 }

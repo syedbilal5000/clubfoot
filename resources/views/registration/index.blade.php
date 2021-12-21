@@ -10,8 +10,8 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Starter Page</li>
+            <li class="breadcrumb-item"><a href="home">Home</a></li>
+            <li class="breadcrumb-item active">Registration Page</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -21,6 +21,8 @@
 
 {{-- Main Content --}}
 
+<form method="POST" action="registration/add">
+  @csrf
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -60,7 +62,7 @@
             <label>Last name/ Surname: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="lastName" class="form-control" placeholder="Enter Last Name">
+              <input type="text" name="patient_name" class="form-control" placeholder="Enter Last Name">
             </div>
             <span id="custlErrormsg" style="color: red;"></span>
           </div>
@@ -640,6 +642,8 @@
           </div>
         </div>
       </div>  <!-- div row end -->
+      <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
     </div>
   </div>
+</form>
 @endsection
