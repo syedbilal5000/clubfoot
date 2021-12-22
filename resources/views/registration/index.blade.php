@@ -31,58 +31,22 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <div class="form-group">
-            <label>Does the parent or guardian consent to being included: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="consentYN"> No </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="consentYN"> Yes </label> 
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Does the parent or guardian consent to photographs of the patient being used for evaluation and marketing purposes: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="photographsYN"> No </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="photographsYN"> Yes </label> 
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Last name/ Surname: </label><label style="color: red;"> &nbsp;*</label>
+            <label>Patient Name: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" name="patient_name" class="form-control" placeholder="Enter Last Name">
+              <input type="text" name="patient_name" class="form-control" placeholder="Enter Patient Name">
             </div>
             <span id="custlErrormsg" style="color: red;"></span>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="form-group">
-            <label>First Name: </label><label style="color: red;"> &nbsp;*</label>
+            <label>Father's Name: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="firstName" class="form-control" placeholder="Enter First Name">
-            </div>
-            <span id="custfErrormsg" style="color: red;"></span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Middle Name: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="middleName" class="form-control" placeholder="Enter Middle Name">
+              <input type="text" id="father_name" class="form-control" placeholder="Enter Father Name">
             </div>
           </div>
         </div>
@@ -90,55 +54,30 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label>Sex: </label><label style="color: red;"> &nbsp;*</label>
+            <label>Gender: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
-              <label> <input id="" type="radio" name="gender"> Male </label> 
+              <label> <input id="" type="radio" name="gender" value="Male"> Male </label> 
             </div>
             <div class="input-group">
-              <label> <input id="" type="radio" name="gender"> Female </label> 
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Race: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="race"> Asian </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="race"> Caucasion </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="race"> African (Black) </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="race"> Asian(Indian) </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="race"> Mixed </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="race"> Other </label> 
+              <label> <input id="" type="radio" name="gender" value="Female"> Female </label> 
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="form-group">
             <label>Date of birth(DD/MM/YYYY): </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
-              <input type="date" name="dob" class="form-control">
+              <input type="date" name="birth_date" class="form-control">
             </div>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="form-group">
-            <label>Tribe: </label>
+            <label>Age: </label>
             <div class="input-group">
-              <input type="text" name="tribe" placeholder="Enter Tribe" class="form-control">
+              <input type="text" name="age" placeholder="Enter Tribe" class="form-control">
             </div>
           </div>
         </div>
@@ -149,7 +88,7 @@
             <label>Address 1: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-home"></i></span>
-              <input type="text" name="address1" placeholder="Enter Address 1" class="form-control">
+              <input type="text" name="address" placeholder="Enter Address 1" class="form-control">
             </div>
           </div>
         </div>
@@ -166,34 +105,18 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
           <div class="form-group">
-            <label>Village/Town/City: </label>
+            <label>Does the parent or guardian consent to photographs of the patient being used for evaluation and marketing purposes: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-city"></i></span>
-              <input type="text" id="cityName" class="form-control" placeholder="Enter City Name">
+              <label> <input id="" type="radio" name="has_photo_consent"> No </label> 
+            </div>
+            <div class="input-group">
+              <label> <input id="" type="radio" name="has_photo_consent"> Yes </label> 
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>State/Province: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-home"></i></span>
-              <input type="text" id="stateName" class="form-control" placeholder="Enter State Name">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Country: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-flag"></i></span>
-              <input type="text" id="countryName" class="form-control" placeholder="Enter Country Name">
-            </div>
-          </div>
-        </div>
-      </div>  <!-- div row end -->
+      </div>
       <hr>
       <div class="row">
         <div class="col-sm-12">
@@ -207,262 +130,58 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
           <div class="form-group">
-            <label>Last name/ Surname: </label>
+            <label>Relationship to patient: </label>
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="lastPrimaryName" class="form-control" placeholder="Enter Last Name">
+              <label> <input id="" type="radio" name="relation_to_patient"> Mother </label> 
+            </div>
+            <div class="input-group">
+              <label> <input id="" type="radio" name="relation_to_patient"> Father </label> 
+            </div>
+            <div class="input-group">
+              <label> <input id="" type="radio" name="relation_to_patient"> Sibling </label>             
+            </div>
+            <div class="input-group">
+              <label> <input id="" type="radio" name="relation_to_patient"> Other </label> 
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label>First Name: </label>
+            <label>Name: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="firstPrimaryName" class="form-control" placeholder="Enter First Name">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Middle Name: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="middlePrimaryName" class="form-control" placeholder="Enter Middle Name">
+              <input type="text" name="guardian_name" class="form-control" placeholder="Enter Parents Name">
             </div>
           </div>
         </div>
       </div>  <!-- div row end -->
       <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Relationship to patient: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Mother </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Father </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Grandparent </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Brother </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Sister </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Aunt </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Uncle </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Friend </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="primaryPatient"> Other </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="form-group">
             <label>Phone number 1: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="number" id="phone1PrimaryName" class="form-control">
+              <input type="number" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="form-group">
             <label>Phone number 2: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="number" id="phone2PrimaryName" class="form-control">
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <hr>
-      <div class="row">
-        <div class="col-sm-12">
-          <h4>Secondary Parent/Guadrian Information</h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Last name/ Surname: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="lastSecondaryName" class="form-control" placeholder="Enter Last Name">
+              <input type="number" name="guardian_number_2" class="form-control">
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label>First Name: </label>
+            <label>CNIC No: </label>
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="firstSecondaryName" class="form-control" placeholder="Enter First Name">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Middle Name: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="middleSecondaryName" class="form-control" placeholder="Enter Middle Name">
-            </div>
-          </div>
-        </div>
-      </div>  <!-- div row end -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Relationship to patient: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Mother </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Father </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Grandparent </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Brother </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Sister </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Aunt </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Uncle </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Friend </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="secondaryPatient"> Other </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Phone number 1: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="number" id="phone1SecondaryName" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Phone number 2: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="number" id="phone2SecondaryName" class="form-control">
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <hr>
-      <div class="row">
-        <div class="col-sm-12">
-          <h4>Other Emergency Contact</h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Last name/ Surname: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="lastOtherName" class="form-control" placeholder="Enter Last Name">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>First Name: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="firstOtherName" class="form-control" placeholder="Enter First Name">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Middle Name: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="middleOtherName" class="form-control" placeholder="Enter Middle Name">
-            </div>
-          </div>
-        </div>
-      </div>  <!-- div row end -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Relationship to patient: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Mother </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Father </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Grandparent </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Brother </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Sister </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Aunt </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Uncle </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Friend </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="otherPatient"> Other </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Phone number 1: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="number" id="phone1OtherName" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Phone number 2: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="number" id="phone2OtherName" class="form-control">
+              <span class="input-group-addon"><i class="fa fa-card"></i></span>
+              <input type="number" name="guardian_cnic" class="form-control">
             </div>
           </div>
         </div>
@@ -474,7 +193,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <div class="form-group">
             <label>Any Relatives with the clubfoot deformity: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
@@ -482,17 +201,6 @@
             </div>
             <div class="input-group">
               <label> <input id="" type="radio" name="relative1YN"> No </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>If so, how many: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-              <input type="text" id="ifsoDetail" class="form-control">
             </div>
           </div>
         </div>
@@ -603,9 +311,6 @@
             </div>
             <div class="input-group">
               <label> <input id="" type="radio" name="referralSource"> Word of mouth </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="referralSource"> Promotional materials </label> 
             </div>
             <div class="input-group">
               <label> <input id="" type="radio" name="referralSource"> Other </label> 
