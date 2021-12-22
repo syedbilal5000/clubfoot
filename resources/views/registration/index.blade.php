@@ -163,7 +163,7 @@
             <label>Phone number 1: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="number" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
+              <input type="text" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
             </div>
           </div>
         </div>
@@ -172,7 +172,7 @@
             <label>Phone number 2: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="number" name="guardian_number_2" class="form-control">
+              <input type="text" name="guardian_number_2" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
             </div>
           </div>
         </div>
@@ -181,7 +181,7 @@
             <label>CNIC No: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-card"></i></span>
-              <input type="number" name="guardian_cnic" class="form-control">
+              <input type="text" name="guardian_cnic" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask>
             </div>
           </div>
         </div>
