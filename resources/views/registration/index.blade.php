@@ -46,7 +46,7 @@
             <label>Father's Name: </label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="father_name" class="form-control" placeholder="Enter Father Name">
+              <input type="text" name="father_name" class="form-control" placeholder="Enter Father Name">
             </div>
           </div>
         </div>
@@ -56,10 +56,10 @@
           <div class="form-group">
             <label>Gender: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
-              <label> <input id="" type="radio" name="gender" value="Male"> Male </label> 
+              <label> <input type="radio" name="gender" value="1"> Male </label> 
             </div>
             <div class="input-group">
-              <label> <input id="" type="radio" name="gender" value="Female"> Female </label> 
+              <label> <input type="radio" name="gender" value="2"> Female </label> 
             </div>
           </div>
         </div>
@@ -109,10 +109,10 @@
           <div class="form-group">
             <label>Does the parent or guardian consent to photographs of the patient being used for evaluation and marketing purposes: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
-              <label> <input id="" type="radio" name="has_photo_consent"> No </label> 
+              <label> <input type="radio" name="has_photo_consent" value="0"> No </label> 
             </div>
             <div class="input-group">
-              <label> <input id="" type="radio" name="has_photo_consent"> Yes </label> 
+              <label> <input type="radio" name="has_photo_consent" value="1"> Yes </label> 
             </div>
           </div>
         </div>
@@ -134,16 +134,16 @@
           <div class="form-group">
             <label>Relationship to patient: </label>
             <div class="input-group">
-              <label> <input id="" type="radio" name="relation_to_patient"> Mother </label> 
+              <label> <input type="radio" name="relation_to_patient" value="1"> Mother </label> 
             </div>
             <div class="input-group">
-              <label> <input id="" type="radio" name="relation_to_patient"> Father </label> 
+              <label> <input type="radio" name="relation_to_patient" value="2"> Father </label> 
             </div>
             <div class="input-group">
-              <label> <input id="" type="radio" name="relation_to_patient"> Sibling </label>             
+              <label> <input type="radio" name="relation_to_patient" value="3"> Sibling </label>             
             </div>
             <div class="input-group">
-              <label> <input id="" type="radio" name="relation_to_patient"> Other </label> 
+              <label> <input type="radio" name="relation_to_patient" value="0"> Other </label> 
             </div>
           </div>
         </div>

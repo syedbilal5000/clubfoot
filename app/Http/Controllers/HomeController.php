@@ -39,7 +39,22 @@ class HomeController extends Controller
         // dd($request);
         $patient = new Patient;
         $patient->patient_name = $request->patient_name;
+        $patient->father_name = $request->father_name;
+        // 0: "Other", 1: "Male", 2: "Female"
+        $patient->gender = isset($request->gender) ? $request->gender : 0;
+        $patient->birth_date = $request->birth_date;
+        $patient->address = $request->address;
+        // 0: false, 1: true
+        $patient->has_photo_consent = isset($request->has_photo_consent) ? $request->has_photo_consent : 0;
+        // 0: "Other", 1: "Mother", 2: "Father", 3: "Sibling"
+        $patient->relation_to_patient = isset($request->relation_to_patient) ? $request->relation_to_patient : 0;
+        $patient->guardian_name = $request->guardian_name;
+        $patient->guardian_number = $request->guardian_number;
+        $patient->guardian_number_2 = $request->guardian_number_2;
+        $patient->guardian_cnic = $request->guardian_cnic;
         $patient->save();
+        // print_r($patient);
+        // dd(11);
         return redirect('registration');
     }
 }
