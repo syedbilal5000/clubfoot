@@ -27,165 +27,167 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
-          <h3>General Information</h3>
+          <h3 id="general_info" onclick="general_clickable();" style="cursor: pointer; text-decoration: underline;">General Information</h3>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Patient Name: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" name="patient_name" class="form-control" placeholder="Enter Patient Name">
-            </div>
-            <span id="custlErrormsg" style="color: red;"></span>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Father's Name: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" name="father_name" class="form-control" placeholder="Enter Father Name">
+      <div id="general_view">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Patient Name: </label><label style="color: red;"> &nbsp;*</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="patient_name" class="form-control" placeholder="Enter Patient Name">
+              </div>
+              <span id="custlErrormsg" style="color: red;"></span>
             </div>
           </div>
-        </div>
-      </div>  <!-- div row end -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Gender: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <label> <input type="radio" name="gender" value="1"> Male </label> 
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Father's Name: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="father_name" class="form-control" placeholder="Enter Father Name">
+              </div>
             </div>
-            <div class="input-group">
-              <label> <input type="radio" name="gender" value="2"> Female </label> 
+          </div>
+        </div>  <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Gender: </label><label style="color: red;"> &nbsp;*</label>
+              <div class="input-group">
+                <label> <input type="radio" name="gender" value="1"> Male </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="gender" value="2"> Female </label> 
+              </div>
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Date of birth(DD/MM/YYYY): </label><label style="color: red;"> &nbsp;*</label>
+              <div class="input-group">
+                <input type="date" name="birth_date" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Age: </label>
+              <div class="input-group">
+                <input type="text" name="age" placeholder="Enter Tribe" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Address 1: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                <input type="text" name="address" placeholder="Enter Address 1" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Address 2: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                <input type="text" name="address2" placeholder="Enter Address 2" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Does the parent or guardian consent to photographs of the patient being used for evaluation and marketing purposes: </label><label style="color: red;"> &nbsp;*</label>
+              <div class="input-group">
+                <label> <input type="radio" name="has_photo_consent" value="0"> No </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="has_photo_consent" value="1"> Yes </label> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Parent/Guadrian Information</h3>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-12">
+            <h4>Primary Parent/Guadrian Information</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group">
+              <label>Relationship to patient: </label>
+              <div class="input-group">
+                <label> <input type="radio" name="relation_to_patient" value="1"> Mother </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="relation_to_patient" value="2"> Father </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="relation_to_patient" value="3"> Sibling </label>             
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="relation_to_patient" value="0"> Other </label> 
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Name: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="guardian_name" class="form-control" placeholder="Enter Parents Name">
+              </div>
+            </div>
+          </div>
+        </div>  <!-- div row end -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Phone number 1: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <input type="text" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Phone number 2: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <input type="text" name="guardian_number_2" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>CNIC No: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-card"></i></span>
+                <input type="text" name="guardian_cnic" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask>
+              </div>
+            </div>
+          </div>
+        </div> <!-- div row end -->
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Date of birth(DD/MM/YYYY): </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <input type="date" name="birth_date" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Age: </label>
-            <div class="input-group">
-              <input type="text" name="age" placeholder="Enter Tribe" class="form-control">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Address 1: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-home"></i></span>
-              <input type="text" name="address" placeholder="Enter Address 1" class="form-control">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Address 2: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-home"></i></span>
-              <input type="text" name="address2" placeholder="Enter Address 2" class="form-control">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Does the parent or guardian consent to photographs of the patient being used for evaluation and marketing purposes: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <label> <input type="radio" name="has_photo_consent" value="0"> No </label> 
-            </div>
-            <div class="input-group">
-              <label> <input type="radio" name="has_photo_consent" value="1"> Yes </label> 
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-12">
-          <h3>Parent/Guadrian Information</h3>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-12">
-          <h4>Primary Parent/Guadrian Information</h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8">
-          <div class="form-group">
-            <label>Relationship to patient: </label>
-            <div class="input-group">
-              <label> <input type="radio" name="relation_to_patient" value="1"> Mother </label> 
-            </div>
-            <div class="input-group">
-              <label> <input type="radio" name="relation_to_patient" value="2"> Father </label> 
-            </div>
-            <div class="input-group">
-              <label> <input type="radio" name="relation_to_patient" value="3"> Sibling </label>             
-            </div>
-            <div class="input-group">
-              <label> <input type="radio" name="relation_to_patient" value="0"> Other </label> 
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Name: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" name="guardian_name" class="form-control" placeholder="Enter Parents Name">
-            </div>
-          </div>
-        </div>
-      </div>  <!-- div row end -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Phone number 1: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="text" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Phone number 2: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="text" name="guardian_number_2" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>CNIC No: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-card"></i></span>
-              <input type="text" name="guardian_cnic" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask>
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
       <hr>
       <div class="row">
         <div class="col-sm-12">
@@ -351,4 +353,14 @@
     </div>
   </div>
 </form>
+<script type="text/javascript">
+  function general_clickable(argument) {
+    if($('#general_view').css('display') == 'block') {
+      $('#general_view').css('display', 'none');
+    }
+    else {
+      $('#general_view').css('display', 'block');
+    }
+  }
+</script>
 @endsection
