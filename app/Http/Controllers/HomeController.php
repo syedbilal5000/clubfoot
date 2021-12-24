@@ -38,6 +38,10 @@ class HomeController extends Controller
     {
         return view('appointment.index');
     }
+    public function visits_index()
+    {
+        return view('visits.index');
+    }
 
     // registration add
     public function register_store(Request $request)

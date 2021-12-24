@@ -191,164 +191,353 @@
       <hr>
       <div class="row">
         <div class="col-sm-12">
-          <h3>Family History</h3>
+          <h3 id="history_info" onclick="history_clickable();" style="cursor: pointer; text-decoration: underline;">Family History</h3>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Any Relatives with the clubfoot deformity: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative1YN"> Yes </label> 
+      <div id="history_view">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Any Relatives with the clubfoot deformity: </label><label style="color: red;"> &nbsp;*</label>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative1YN"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative1YN"> No </label> 
+              </div>
             </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative1YN"> No </label> 
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Length of Pregnancy(in weeks): </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                <input type="text" id="weekDetail" class="form-control">
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Length of Pregnancy(in weeks): </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-              <input type="text" id="weekDetail" class="form-control">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Did the mother have any complications during pregnancy: </label>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative2YN"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative2YN"> No </label> 
+              </div>
+            </div>
+          </div>
+        </div> <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>What were the complications: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                <input type="text" id="complicationsDetail" class="form-control">
+              </div>
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Did the mother consume alcohol during pregnancy: </label>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative3YN"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative3YN"> No </label> 
+              </div>
+            </div>
+          </div>
+        </div> <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Did the mother smoke during pregnancy: </label>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative4YN"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative4YN"> No </label> 
+              </div>
+            </div>
+          </div>
+        </div> <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Any complications during birth: </label>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative5YN"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative5YN"> No </label> 
+              </div>
+            </div>
+          </div>
+        </div> <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Place of birth: </label>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative6YN"> Hospital </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative6YN"> Clinic </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="relative6YN"> Home </label> 
+              </div>
+            </div>
+          </div>
+        </div> <!-- div row end -->
+        <hr>
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Referral Information</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Referral source: </label>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="referralSource"> Hospital/Clinic </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="referralSource"> Midwife </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="referralSource"> Word of mouth </label> 
+              </div>
+              <div class="input-group">
+                <label> <input id="" type="radio" name="referralSource"> Other </label> 
+              </div>
+            </div>
+          </div>
+        </div> <!-- div row end -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Doctor name: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" id="doctorName" class="form-control" placeholder="Enter Doctor Name">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Hospital/Clinic name: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-hospital"></i></span>
+                <input type="text" id="clinicName" class="form-control" placeholder="Enter Hospital/Clinic Name">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>If Other, please specify: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" id="otherName" class="form-control" placeholder="Enter Name">
+              </div>
+            </div>
+          </div>
+        </div>  <!-- div row end -->
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Did the mother have any complications during pregnancy: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative2YN"> Yes </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative2YN"> No </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>What were the complications: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-              <input type="text" id="complicationsDetail" class="form-control">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Did the mother consume alcohol during pregnancy: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative3YN"> Yes </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative3YN"> No </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Did the mother smoke during pregnancy: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative4YN"> Yes </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative4YN"> No </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Any complications during birth: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative5YN"> Yes </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative5YN"> No </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Place of birth: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative6YN"> Hospital </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative6YN"> Clinic </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="relative6YN"> Home </label> 
-            </div>
-          </div>
-        </div>
-      </div> <!-- div row end -->
       <hr>
       <div class="row">
         <div class="col-sm-12">
-          <h3>Referral Information</h3>
+          <h3 id="diagnosis_info" onclick="diagnosis_clickable();" style="cursor: pointer; text-decoration: underline;">Diagnosis</h3>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Referral source: </label>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="referralSource"> Hospital/Clinic </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="referralSource"> Midwife </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="referralSource"> Word of mouth </label> 
-            </div>
-            <div class="input-group">
-              <label> <input id="" type="radio" name="referralSource"> Other </label> 
+      <div id="diagnosis_view">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Name of evaluator: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="evaluator_name" class="form-control" placeholder="Enter Evaluator Name">
+              </div>
             </div>
           </div>
-        </div>
-      </div> <!-- div row end -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Doctor name: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="doctorName" class="form-control" placeholder="Enter Doctor Name">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Evaluation Date: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="date" name="evaluation_date" class="form-control" >
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>Hospital/Clinic name: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-hospital"></i></span>
-              <input type="text" id="clinicName" class="form-control" placeholder="Enter Hospital/Clinic Name">
+        </div>  <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Title of evaluator: </label>
+              <div class="input-group">
+                <label> <input type="radio" name="title_evaluator" value="1"> Doctor </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="title_evaluator" value="2"> Nurse </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="title_evaluator" value="3"> Midwife </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="title_evaluator" value="4"> Physical therapist </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="title_evaluator" value="5"> Other </label> 
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label>If Other, please specify: </label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" id="otherName" class="form-control" placeholder="Enter Name">
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Feet Affected: </label>
+              <div class="input-group">
+                <label> <input type="radio" name="feet_affected" value="1"> Right </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="feet_affected" value="2"> Left </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="feet_affected" value="3"> Both </label> 
+              </div>
             </div>
           </div>
-        </div>
-      </div>  <!-- div row end -->
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Diagnosis: </label>
+              <div class="input-group">
+                <label> <input type="radio" name="diagnosis" value="1"> Idiopathic Clubfoot </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="diagnosis" value="2"> Syndromic Clubfoot </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="diagnosis" value="3"> Neuropathic Clubfoot </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="diagnosis" value="4"> Other </label> 
+              </div>
+            </div>
+          </div>
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Deformity present at birth: </label>
+              <div class="input-group">
+                <label> <input type="radio" name="present_at_birth" value="1"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="present_at_birth" value="2"> No </label> 
+              </div>
+            </div>
+          </div>
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Any Pervious treatments: </label>
+              <div class="input-group">
+                <label> <input type="radio" name="pervious_treatments" value="1"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="pervious_treatments" value="2"> No </label> 
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>How many previous treatment sessions: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="previous_treatment_sessions" class="form-control" placeholder="Enter Sessions">
+              </div>
+            </div>
+          </div>
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Type of previous treatment(S): </label>
+              <div class="input-group">
+                <label> <input type="radio" name="previous_treatment_type" value="1"> Casting above knee </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="previous_treatment_type" value="2"> Casting below knee </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="previous_treatment_type" value="3"> Physiotherapy </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="previous_treatment_type" value="4"> Other </label> 
+              </div>
+            </div>
+          </div>
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Diagnosed prenatally: </label>
+              <div class="input-group">
+                <label> <input type="radio" name="diagnosed_prenatally" value="1"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="diagnosed_prenatally" value="2"> No </label> 
+              </div>
+            </div>
+          </div>
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>At pregnancy Week: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="pregnancy_week" class="form-control" placeholder="Enter Value">
+              </div>
+            </div>
+          </div>
+        </div>  <!-- div row end -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Confirmed at birth: </label>
+              <div class="input-group">
+                <label> <input type="radio" name="confirmed_at_birth" value="1"> Yes </label> 
+              </div>
+              <div class="input-group">
+                <label> <input type="radio" name="confirmed_at_birth" value="2"> No </label> 
+              </div>
+            </div>
+          </div>
+        </div>  <!-- div row end -->        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Diagnosis comments: </label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="diagnosis_comments" class="form-control" placeholder="Enter Diagnosis Comments">
+              </div>
+            </div>
+          </div>
+        </div>  <!-- div row end -->
+      </div>
       <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
     </div>
   </div>
@@ -360,6 +549,22 @@
     }
     else {
       $('#general_view').css('display', 'block');
+    }
+  }
+  function history_clickable(argument) {
+    if($('#history_view').css('display') == 'block') {
+      $('#history_view').css('display', 'none');
+    }
+    else {
+      $('#history_view').css('display', 'block');
+    }
+  }
+  function diagnosis_clickable(argument) {
+    if($('#diagnosis_view').css('display') == 'block') {
+      $('#diagnosis_view').css('display', 'none');
+    }
+    else {
+      $('#diagnosis_view').css('display', 'block');
     }
   }
 </script>
