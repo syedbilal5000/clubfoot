@@ -33,6 +33,12 @@ class HomeController extends Controller
         return view('registration.index');
     }
 
+    // show appointment index
+    public function appointment_index()
+    {
+        return view('appointment.index');
+    }
+
     // registration add
     public function register_store(Request $request)
     {
@@ -44,6 +50,7 @@ class HomeController extends Controller
         $patient->gender = isset($request->gender) ? $request->gender : 0;
         $patient->birth_date = $request->birth_date;
         $patient->address = $request->address;
+        $patient->address2 = $request->address2;
         // 0: false, 1: true
         $patient->has_photo_consent = isset($request->has_photo_consent) ? $request->has_photo_consent : 0;
         // 0: "Other", 1: "Mother", 2: "Father", 3: "Sibling"

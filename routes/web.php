@@ -26,3 +26,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // });
 Route::get('registration', [App\Http\Controllers\HomeController::class, 'register_index'])->name('register_index');
 Route::post('registration/add', [App\Http\Controllers\HomeController::class, 'register_store'])->name('register_store');
+Route::get('appointment', [App\Http\Controllers\HomeController::class, 'appointment_index'])->name('appointment_index');
