@@ -122,11 +122,11 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Does the parent or guardian consent to photographs of the patient being used for evaluation and marketing purposes: </label><label style="color: red;"> &nbsp;*</label>
-              <div class="input-group">
-                <label> <input type="radio" name="has_photo_consent" value="0"> No </label> 
+              <div class="form-check form-check-inline">
+                <label> <input type="radio" class="form-check-input" name="has_photo_consent" value="0"> No </label> 
               </div>
-              <div class="input-group">
-                <label> <input type="radio" name="has_photo_consent" value="1"> Yes </label> 
+              <div class="form-check form-check-inline">
+                <label> <input type="radio" class="form-check-input" name="has_photo_consent" value="1"> Yes </label> 
               </div>
             </div>
           </div>
@@ -147,17 +147,17 @@
           <div class="col-md-8">
             <div class="form-group">
               <label>Relationship to patient: </label>
-              <div class="input-group">
-                <label> <input type="radio" name="relation_to_patient" value="1"> Mother </label> 
+              <div class="form-check form-check-inline">
+                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="1"> Mother </label> 
               </div>
-              <div class="input-group">
-                <label> <input type="radio" name="relation_to_patient" value="2"> Father </label> 
+              <div class="form-check form-check-inline">
+                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="2"> Father </label> 
               </div>
-              <div class="input-group">
-                <label> <input type="radio" name="relation_to_patient" value="3"> Sibling </label>             
+              <div class="form-check form-check-inline">
+                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="3"> Sibling </label>             
               </div>
-              <div class="input-group">
-                <label> <input type="radio" name="relation_to_patient" value="0"> Other </label> 
+              <div class="form-check form-check-inline">
+                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="0"> Other </label> 
               </div>
             </div>
           </div>
@@ -212,10 +212,10 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Any Relatives with the clubfoot deformity: </label><label style="color: red;"> &nbsp;*</label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_relatable" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_relatable" value="0"> No </label> 
               </div>
             </div>
@@ -234,10 +234,10 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Did the mother have any complications during pregnancy: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_complicated_preg" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_complicated_preg" value="0"> No </label> 
               </div>
             </div>
@@ -258,10 +258,10 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Did the mother consume alcohol during pregnancy: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_alcoholic" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_alcoholic" value="0"> No </label> 
               </div>
             </div>
@@ -271,10 +271,10 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Did the mother smoke during pregnancy: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_smoked" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_smoked" value="0"> No </label> 
               </div>
             </div>
@@ -284,10 +284,10 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Any complications during birth: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_complicated_birth" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_complicated_birth" value="0"> No </label> 
               </div>
             </div>
@@ -297,13 +297,13 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Place of birth: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="birth_place" value="1"> Hospital </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="birth_place" value="2"> Clinic </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="birth_place" value="3"> Home </label> 
               </div>
             </div>
@@ -319,16 +319,16 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Referral source: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="referral_source" value="1"> Hospital/Clinic </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="referral_source" value="2"> Midwife </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="referral_source" value="3"> Word of mouth </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="referral_source" value="0"> Other </label> 
               </div>
             </div>
@@ -395,19 +395,19 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Title of evaluator: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="evaluator_title" value="1"> Doctor </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="evaluator_title" value="2"> Nurse </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="evaluator_title" value="3"> Midwife </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="evaluator_title" value="4"> Physical therapist </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="evaluator_title" value="0"> Other </label> 
               </div>
             </div>
@@ -417,13 +417,13 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Feet Affected: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="feet_affected" value="1"> Right </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="feet_affected" value="2"> Left </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="feet_affected" value="3"> Both </label> 
               </div>
             </div>
@@ -433,16 +433,16 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Diagnosis: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="diagnosis" value="1"> Idiopathic Clubfoot </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="diagnosis" value="2"> Syndromic Clubfoot </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="diagnosis" value="3"> Neuropathic Clubfoot </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="diagnosis" value="0"> Other </label> 
               </div>
             </div>
@@ -452,10 +452,10 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Deformity present at birth: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_birth_deformity" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_birth_deformity" value="0"> No </label> 
               </div>
             </div>
@@ -465,10 +465,10 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Any Pervious treatments: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_treated" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_treated" value="0"> No </label> 
               </div>
             </div>
@@ -487,16 +487,16 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Type of previous treatment(S): </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="treatment_type" value="1"> Casting above knee </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="treatment_type" value="2"> Casting below knee </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="treatment_type" value="3"> Physiotherapy </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="treatment_type" value="0"> Other </label> 
               </div>
             </div>
@@ -506,10 +506,10 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Diagnosed prenatally: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_diagnosed" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_diagnosed" value="0"> No </label> 
               </div>
             </div>
@@ -530,10 +530,10 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Confirmed at birth: </label>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_birth_confirmed" value="1"> Yes </label> 
               </div>
-              <div class="input-group">
+              <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_birth_confirmed" value="0"> No </label> 
               </div>
             </div>
