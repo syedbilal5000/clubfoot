@@ -36,17 +36,23 @@
             <div class="form-group">
               <label>Patient Name: </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input type="text" name="patient_name" class="form-control" placeholder="Enter Patient Name">
               </div>
               <span id="custlErrormsg" style="color: red;"></span>
             </div>
+            <!-- <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+              </div>
+              <input type="text" name="patient_name" class="form-control" placeholder="Enter Patient Name">
+            </div> -->
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label>Father's Name: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input type="text" name="father_name" class="form-control" placeholder="Enter Father Name">
               </div>
             </div>
@@ -55,12 +61,19 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Gender: </label><label style="color: red;"> &nbsp;*</label>
-              <div class="input-group">
+              <label>Gender: </label>
+              <!-- <div class="input-group">
                 <label> <input type="radio" name="gender" value="1"> Male </label> 
               </div>
               <div class="input-group">
                 <label> <input type="radio" name="gender" value="2"> Female </label> 
+              </div> -->
+              <br>
+              <div class="form-check form-check-inline">
+                <label> <input class="form-check-input" type="radio" name="gender" value="1"> Male </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input class="form-check-input" type="radio" name="gender" value="2"> Female </label>
               </div>
             </div>
           </div>
@@ -88,7 +101,7 @@
             <div class="form-group">
               <label>Address 1: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                <span class="input-group-text"><i class="fa fa-home"></i></span>
                 <input type="text" name="address" placeholder="Enter Address 1" class="form-control">
               </div>
             </div>
@@ -99,7 +112,7 @@
             <div class="form-group">
               <label>Address 2: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                <span class="input-group-text"><i class="fa fa-home"></i></span>
                 <input type="text" name="address2" placeholder="Enter Address 2" class="form-control">
               </div>
             </div>
@@ -152,7 +165,7 @@
             <div class="form-group">
               <label>Name: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input type="text" name="guardian_name" class="form-control" placeholder="Enter Parents Name">
               </div>
             </div>
@@ -163,7 +176,7 @@
             <div class="form-group">
               <label>Phone number 1: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <span class="input-group-text"><i class="fa fa-phone"></i></span>
                 <input type="text" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
               </div>
             </div>
@@ -172,7 +185,7 @@
             <div class="form-group">
               <label>Phone number 2: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <span class="input-group-text"><i class="fa fa-phone"></i></span>
                 <input type="text" name="guardian_number_2" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
               </div>
             </div>
@@ -181,7 +194,7 @@
             <div class="form-group">
               <label>CNIC No: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-card"></i></span>
+                <span class="input-group-text">&nbsp; <i class="fas fa-info"></i>&nbsp; </span>
                 <input type="text" name="guardian_cnic" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask>
               </div>
             </div>
@@ -200,10 +213,10 @@
             <div class="form-group">
               <label>Any Relatives with the clubfoot deformity: </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative1YN"> Yes </label> 
+                <label> <input type="radio" name="is_relatable" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative1YN"> No </label> 
+                <label> <input type="radio" name="is_relatable" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -211,8 +224,8 @@
             <div class="form-group">
               <label>Length of Pregnancy(in weeks): </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                <input type="text" id="weekDetail" class="form-control">
+                <span class="input-group-text"><i class="fa fa-edit"></i></span>
+                <input type="text" id="weekDetail" name="preg_len" class="form-control">
               </div>
             </div>
           </div>
@@ -222,10 +235,10 @@
             <div class="form-group">
               <label>Did the mother have any complications during pregnancy: </label>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative2YN"> Yes </label> 
+                <label> <input type="radio" name="has_complicated_preg" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative2YN"> No </label> 
+                <label> <input type="radio" name="has_complicated_preg" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -235,7 +248,7 @@
             <div class="form-group">
               <label>What were the complications: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+                <span class="input-group-text"><i class="fa fa-edit"></i></span>
                 <input type="text" id="complicationsDetail" class="form-control">
               </div>
             </div>
@@ -246,10 +259,10 @@
             <div class="form-group">
               <label>Did the mother consume alcohol during pregnancy: </label>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative3YN"> Yes </label> 
+                <label> <input type="radio" name="is_alcoholic" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative3YN"> No </label> 
+                <label> <input type="radio" name="is_alcoholic" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -259,10 +272,10 @@
             <div class="form-group">
               <label>Did the mother smoke during pregnancy: </label>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative4YN"> Yes </label> 
+                <label> <input type="radio" name="is_smoked" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative4YN"> No </label> 
+                <label> <input type="radio" name="is_smoked" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -272,10 +285,10 @@
             <div class="form-group">
               <label>Any complications during birth: </label>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative5YN"> Yes </label> 
+                <label> <input type="radio" name="has_complicated_birth" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative5YN"> No </label> 
+                <label> <input type="radio" name="has_complicated_birth" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -285,13 +298,13 @@
             <div class="form-group">
               <label>Place of birth: </label>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative6YN"> Hospital </label> 
+                <label> <input type="radio" name="birth_place" value="1"> Hospital </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative6YN"> Clinic </label> 
+                <label> <input type="radio" name="birth_place" value="2"> Clinic </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="relative6YN"> Home </label> 
+                <label> <input type="radio" name="birth_place" value="3"> Home </label> 
               </div>
             </div>
           </div>
@@ -307,16 +320,16 @@
             <div class="form-group">
               <label>Referral source: </label>
               <div class="input-group">
-                <label> <input id="" type="radio" name="referralSource"> Hospital/Clinic </label> 
+                <label> <input type="radio" name="referral_source" value="1"> Hospital/Clinic </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="referralSource"> Midwife </label> 
+                <label> <input type="radio" name="referral_source" value="2"> Midwife </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="referralSource"> Word of mouth </label> 
+                <label> <input type="radio" name="referral_source" value="3"> Word of mouth </label> 
               </div>
               <div class="input-group">
-                <label> <input id="" type="radio" name="referralSource"> Other </label> 
+                <label> <input type="radio" name="referral_source" value="0"> Other </label> 
               </div>
             </div>
           </div>
@@ -326,8 +339,8 @@
             <div class="form-group">
               <label>Doctor name: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" id="doctorName" class="form-control" placeholder="Enter Doctor Name">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <input type="text" name="doctor_name" class="form-control" placeholder="Enter Doctor Name">
               </div>
             </div>
           </div>
@@ -335,8 +348,8 @@
             <div class="form-group">
               <label>Hospital/Clinic name: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-hospital"></i></span>
-                <input type="text" id="clinicName" class="form-control" placeholder="Enter Hospital/Clinic Name">
+                <span class="input-group-text"><i class="fa fa-hospital"></i></span>
+                <input type="text" name="referral_hospital" class="form-control" placeholder="Enter Hospital/Clinic Name">
               </div>
             </div>
           </div>
@@ -344,8 +357,8 @@
             <div class="form-group">
               <label>If Other, please specify: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" id="otherName" class="form-control" placeholder="Enter Name">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <input type="text" name="other_referral" class="form-control" placeholder="Enter Name">
               </div>
             </div>
           </div>
@@ -363,7 +376,7 @@
             <div class="form-group">
               <label>Name of evaluator: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input type="text" name="evaluator_name" class="form-control" placeholder="Enter Evaluator Name">
               </div>
             </div>
@@ -372,7 +385,7 @@
             <div class="form-group">
               <label>Evaluation Date: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input type="date" name="evaluation_date" class="form-control" >
               </div>
             </div>
@@ -383,19 +396,19 @@
             <div class="form-group">
               <label>Title of evaluator: </label>
               <div class="input-group">
-                <label> <input type="radio" name="title_evaluator" value="1"> Doctor </label> 
+                <label> <input type="radio" name="evaluator_title" value="1"> Doctor </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="title_evaluator" value="2"> Nurse </label> 
+                <label> <input type="radio" name="evaluator_title" value="2"> Nurse </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="title_evaluator" value="3"> Midwife </label> 
+                <label> <input type="radio" name="evaluator_title" value="3"> Midwife </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="title_evaluator" value="4"> Physical therapist </label> 
+                <label> <input type="radio" name="evaluator_title" value="4"> Physical therapist </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="title_evaluator" value="5"> Other </label> 
+                <label> <input type="radio" name="evaluator_title" value="0"> Other </label> 
               </div>
             </div>
           </div>
@@ -430,7 +443,7 @@
                 <label> <input type="radio" name="diagnosis" value="3"> Neuropathic Clubfoot </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="diagnosis" value="4"> Other </label> 
+                <label> <input type="radio" name="diagnosis" value="0"> Other </label> 
               </div>
             </div>
           </div>
@@ -440,10 +453,10 @@
             <div class="form-group">
               <label>Deformity present at birth: </label>
               <div class="input-group">
-                <label> <input type="radio" name="present_at_birth" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_birth_deformity" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="present_at_birth" value="2"> No </label> 
+                <label> <input type="radio" name="has_birth_deformity" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -453,10 +466,10 @@
             <div class="form-group">
               <label>Any Pervious treatments: </label>
               <div class="input-group">
-                <label> <input type="radio" name="pervious_treatments" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_treated" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="pervious_treatments" value="2"> No </label> 
+                <label> <input type="radio" name="has_treated" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -464,8 +477,8 @@
             <div class="form-group">
               <label>How many previous treatment sessions: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" name="previous_treatment_sessions" class="form-control" placeholder="Enter Sessions">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <input type="text" name="treatments" class="form-control" placeholder="Enter Sessions">
               </div>
             </div>
           </div>
@@ -475,16 +488,16 @@
             <div class="form-group">
               <label>Type of previous treatment(S): </label>
               <div class="input-group">
-                <label> <input type="radio" name="previous_treatment_type" value="1"> Casting above knee </label> 
+                <label> <input type="radio" name="treatment_type" value="1"> Casting above knee </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="previous_treatment_type" value="2"> Casting below knee </label> 
+                <label> <input type="radio" name="treatment_type" value="2"> Casting below knee </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="previous_treatment_type" value="3"> Physiotherapy </label> 
+                <label> <input type="radio" name="treatment_type" value="3"> Physiotherapy </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="previous_treatment_type" value="4"> Other </label> 
+                <label> <input type="radio" name="treatment_type" value="0"> Other </label> 
               </div>
             </div>
           </div>
@@ -494,10 +507,10 @@
             <div class="form-group">
               <label>Diagnosed prenatally: </label>
               <div class="input-group">
-                <label> <input type="radio" name="diagnosed_prenatally" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_diagnosed" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="diagnosed_prenatally" value="2"> No </label> 
+                <label> <input type="radio" name="has_diagnosed" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -507,8 +520,8 @@
             <div class="form-group">
               <label>At pregnancy Week: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" name="pregnancy_week" class="form-control" placeholder="Enter Value">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <input type="text" name="preg_week" class="form-control" placeholder="Enter Value">
               </div>
             </div>
           </div>
@@ -518,10 +531,10 @@
             <div class="form-group">
               <label>Confirmed at birth: </label>
               <div class="input-group">
-                <label> <input type="radio" name="confirmed_at_birth" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="1"> Yes </label> 
               </div>
               <div class="input-group">
-                <label> <input type="radio" name="confirmed_at_birth" value="2"> No </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -531,7 +544,7 @@
             <div class="form-group">
               <label>Diagnosis comments: </label>
               <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input type="text" name="diagnosis_comments" class="form-control" placeholder="Enter Diagnosis Comments">
               </div>
             </div>
@@ -543,7 +556,7 @@
   </div>
 </form>
 <script type="text/javascript">
-  function general_clickable(argument) {
+  function general_clickable() {
     if($('#general_view').css('display') == 'block') {
       $('#general_view').css('display', 'none');
     }
@@ -551,7 +564,7 @@
       $('#general_view').css('display', 'block');
     }
   }
-  function history_clickable(argument) {
+  function history_clickable() {
     if($('#history_view').css('display') == 'block') {
       $('#history_view').css('display', 'none');
     }
@@ -559,7 +572,7 @@
       $('#history_view').css('display', 'block');
     }
   }
-  function diagnosis_clickable(argument) {
+  function diagnosis_clickable() {
     if($('#diagnosis_view').css('display') == 'block') {
       $('#diagnosis_view').css('display', 'none');
     }

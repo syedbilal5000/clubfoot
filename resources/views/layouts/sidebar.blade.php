@@ -77,10 +77,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="visits" class="nav-link">
+          <a href="visit" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
-              Visits
+              Visit
             </p>
           </a>
         </li>

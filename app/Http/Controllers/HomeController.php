@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Patient;
+use App\PatientFamily;
+use App\PatientDiagnosis;
 
 class HomeController extends Controller
 {
@@ -38,15 +40,18 @@ class HomeController extends Controller
     {
         return view('appointment.index');
     }
-    public function visits_index()
+
+    // show visit index
+    public function visit_index()
     {
-        return view('visits.index');
+        return view('visit.index');
     }
 
     // registration add
     public function register_store(Request $request)
     {
         // dd($request);
+        // Add patient general info
         $patient = new Patient;
         $patient->patient_name = $request->patient_name;
         $patient->father_name = $request->father_name;
@@ -64,6 +69,40 @@ class HomeController extends Controller
         $patient->guardian_number_2 = $request->guardian_number_2;
         $patient->guardian_cnic = $request->guardian_cnic;
         $patient->save();
+        // Add patient family info
+        $patient_family = new PatientFamily;
+        $patient_family->patient_id = $patient->id;
+        $patient_family->is_relatable = isset($request->is_relatable) ? $request->is_relatable : 0;
+        $patient_family->preg_len = isset($request->preg_len) ? $request->preg_len : 0;
+        $patient_family->has_complicated_preg = isset($request->has_complicated_preg) ? $request->has_complicated_preg : 0;
+        $patient_family->is_alcoholic = isset($request->is_alcoholic) ? $request->is_alcoholic : 0;
+        $patient_family->is_smoked = isset($request->is_smoked) ? $request->is_smoked : 0;
+        $patient_family->has_complicated_birth = isset($request->has_complicated_birth) ? $request->has_complicated_birth : 0;
+        // 0: "Other", 1: "Hospital", 2: "Clinic", 3: "Home"
+        $patient_family->birth_place = isset($request->birth_place) ? $request->birth_place : 0;
+        // 0: "Other", 1: "Hospital/Clinic", 2: "Midwife", 3: "Word of mouth"
+        $patient_family->referral_source = isset($request->referral_source) ? $request->referral_source : 0;
+        $patient_family->doctor_name = $request->doctor_name;
+        $patient_family->referral_hospital = $request->referral_hospital;
+        $patient_family->other_referral = $request->other_referral;
+        $patient_family->save();
+        $patient_diagnosis = new PatientDiagnosis;
+        $patient_diagnosis->patient_id = $patient->id;
+        $patient_diagnosis->patient_id = $patient->id;
+        $patient_diagnosis->evaluator_name = $request->evaluator_name;
+        $patient_diagnosis->evaluation_date = $request->evaluation_date;
+        $patient_diagnosis->evaluator_title = isset($request->evaluator_title) ? $request->evaluator_title : 0;
+        $patient_diagnosis->feet_affected = isset($request->feet_affected) ? $request->feet_affected : 0;
+        $patient_diagnosis->diagnosis = isset($request->diagnosis) ? $request->diagnosis : 0;
+        $patient_diagnosis->has_birth_deformity = isset($request->has_birth_deformity) ? $request->has_birth_deformity : 0;
+        $patient_diagnosis->has_treated = isset($request->has_treated) ? $request->has_treated : 0;
+        $patient_diagnosis->treatments = isset($request->treatments) ? $request->treatments : 0;
+        $patient_diagnosis->treatment_type = isset($request->treatment_type) ? $request->treatment_type : 0;
+        $patient_diagnosis->has_diagnosed = isset($request->has_diagnosed) ? $request->has_diagnosed : 0;
+        $patient_diagnosis->preg_week = isset($request->preg_week) ? $request->preg_week : 0;
+        $patient_diagnosis->has_birth_confirmed = isset($request->has_birth_confirmed) ? $request->has_birth_confirmed : 0;
+        $patient_diagnosis->diagnosis_comments = $request->diagnosis_comments;
+        $patient_diagnosis->save();
         // print_r($patient);
         // dd(11);
         return redirect('registration');
