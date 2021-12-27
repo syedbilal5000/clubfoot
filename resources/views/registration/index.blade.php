@@ -122,6 +122,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Does the parent or guardian consent to photographs of the patient being used for evaluation and marketing purposes: </label><label style="color: red;"> &nbsp;*</label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" class="form-check-input" name="has_photo_consent" value="0"> No </label> 
               </div>
@@ -147,6 +148,7 @@
           <div class="col-md-8">
             <div class="form-group">
               <label>Relationship to patient: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="1"> Mother </label> 
               </div>
@@ -212,6 +214,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Any Relatives with the clubfoot deformity: </label><label style="color: red;"> &nbsp;*</label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_relatable" value="1"> Yes </label> 
               </div>
@@ -234,6 +237,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Did the mother have any complications during pregnancy: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_complicated_preg" value="1"> Yes </label> 
               </div>
@@ -258,6 +262,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Did the mother consume alcohol during pregnancy: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_alcoholic" value="1"> Yes </label> 
               </div>
@@ -271,6 +276,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Did the mother smoke during pregnancy: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_smoked" value="1"> Yes </label> 
               </div>
@@ -284,6 +290,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Any complications during birth: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_complicated_birth" value="1"> Yes </label> 
               </div>
@@ -297,6 +304,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Place of birth: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="birth_place" value="1"> Hospital </label> 
               </div>
@@ -319,6 +327,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Referral source: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="referral_source" value="1"> Hospital/Clinic </label> 
               </div>
@@ -395,6 +404,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Title of evaluator: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="evaluator_title" value="1"> Doctor </label> 
               </div>
@@ -417,6 +427,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Feet Affected: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="feet_affected" value="1"> Right </label> 
               </div>
@@ -433,6 +444,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Diagnosis: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="diagnosis" value="1"> Idiopathic Clubfoot </label> 
               </div>
@@ -452,6 +464,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Deformity present at birth: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_birth_deformity" value="1"> Yes </label> 
               </div>
@@ -465,6 +478,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Any Pervious treatments: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_treated" value="1"> Yes </label> 
               </div>
@@ -487,6 +501,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Type of previous treatment(S): </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="treatment_type" value="1"> Casting above knee </label> 
               </div>
@@ -506,6 +521,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>Diagnosed prenatally: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_diagnosed" value="1"> Yes </label> 
               </div>
@@ -530,6 +546,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Confirmed at birth: </label>
+              <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="has_birth_confirmed" value="1"> Yes </label> 
               </div>
