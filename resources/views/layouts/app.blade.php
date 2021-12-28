@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body  style="background-image: url('https://med.nyu.edu/departments-institutes/orthopedic-surgery/research/sites/default/files/styles/fixed_height_450_1600w_565h/public/2019-07/orthopedic-surgery-research-landing-hero.jpg?h=ee874d6d&itok=ChF95D3r');">
+<body style="background-image: url({{url('img/healthcare_background.jpg')}}); background-size: cover;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -42,7 +42,7 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <!-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> -->
                                 </li>
                             @endif
 
