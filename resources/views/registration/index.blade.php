@@ -348,7 +348,7 @@
             <div class="form-group">
               <label>Doctor name: </label>
               <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user-md"></i></span>
                 <input type="text" name="doctor_name" class="form-control" placeholder="Enter Doctor Name">
               </div>
             </div>
@@ -385,7 +385,7 @@
             <div class="form-group">
               <label>Name of evaluator: </label>
               <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-user-md"></i></span>
                 <input type="text" name="evaluator_name" class="form-control" placeholder="Enter Evaluator Name">
               </div>
             </div>
@@ -394,7 +394,7 @@
             <div class="form-group">
               <label>Evaluation Date: </label>
               <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 <input type="date" name="evaluation_date" class="form-control" >
               </div>
             </div>
@@ -491,7 +491,7 @@
             <div class="form-group">
               <label>How many previous treatment sessions: </label>
               <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-check"></i></span>
                 <input type="text" name="treatments" class="form-control" placeholder="Enter Sessions">
               </div>
             </div>
@@ -536,7 +536,7 @@
             <div class="form-group">
               <label>At pregnancy Week: </label>
               <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 <input type="text" name="preg_week" class="form-control" placeholder="Enter Value">
               </div>
             </div>
@@ -561,7 +561,7 @@
             <div class="form-group">
               <label>Diagnosis comments: </label>
               <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <span class="input-group-text"><i class="fa fa-edit"></i></span>
                 <input type="text" name="diagnosis_comments" class="form-control" placeholder="Enter Diagnosis Comments">
               </div>
             </div>
