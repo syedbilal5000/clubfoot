@@ -1,6 +1,13 @@
 @extends('layouts.admin')
 
 @section('content')
+<style type="text/css">
+  .fc-view>table {
+    background-color: white;
+  }
+</style>
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/fullcalendar/dist/fullcalendar.min.css') }}">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/fullcalendar/dist/fullcalendar.print.min.css') }}" media="print">
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
@@ -20,10 +27,11 @@
   <!-- /.content-header -->
 
 {{-- Main Content --}}
-<section class="content">
+<div class="content">
+<div class="container-fluid">
       <div class="row">
         <!-- /.col -->
-        <div class="col-md-9">
+        <div class="col-md-12">
           <div class="box box-primary">
             <div class="box-body no-padding">
               <!-- THE CALENDAR -->
@@ -36,7 +44,8 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-    </section>
+    </div>
+    </div>
 
 <!-- ./wrapper -->
 

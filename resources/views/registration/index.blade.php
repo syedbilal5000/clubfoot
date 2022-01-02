@@ -568,6 +568,75 @@
           </div>
         </div>  <!-- div row end -->
       </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 id="physical_info" onclick="physical_clickable();" style="cursor: pointer; text-decoration: underline;">Physical Examination</h3>
+        </div>
+      </div>
+      <div id="physical_view">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <br>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_examination" value="0"> Head </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_examination" value="0"> Heart/Lungs  </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_examination" value="0"> Urinary/Digestive </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_examination" value="0"> Skin </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_examination" value="0"> Spine </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_examination" value="0"> Hips </label> 
+              </div>
+            </div>
+          </div>
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Any Abnormalities: </label>
+              <br>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_abnormalities" value="0"> Upper Extremities </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_abnormalities" value="0"> Lower Extremities  </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_abnormalities" value="0"> Neurological </label> 
+              </div>
+            </div>
+          </div>
+        </div>    <!-- div row end -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Any Weakness: </label>
+              <br>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_weakness" value="0"> Arms </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_weakness" value="0"> Legs  </label> 
+              </div>
+              <div class="form-check form-check-inline">
+                <label> <input type="checkbox" name="phy_weakness" value="0"> Other Parts of Body </label> 
+              </div>
+            </div>
+          </div>
+        </div>    <!-- div row end -->
+
+      </div>
+      <br>
       <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
     </div>
   </div>
@@ -600,6 +669,14 @@
     }
     else {
       $('#diagnosis_view').css('display', 'block');
+    }
+  }
+  function physical_clickable() {
+    if($('#physical_view').css('display') == 'block') {
+      $('#physical_view').css('display', 'none');
+    }
+    else {
+      $('#physical_view').css('display', 'block');
     }
   }
 </script>
