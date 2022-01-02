@@ -3,6 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="utf-8">
@@ -50,16 +51,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+<script type="text/javascript">
+  if (typeof jQuery == "undefined")
+  {
+    document.write(unescape("%3Cscript type='text/javascript' src='{{ asset('adminlte/plugins/jquery/jquery.min.js') }}'%3E%3C/script%3E"));
+  }
+</script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>
-<script >
-  $(function () {
-    $('[data-mask]').inputmask();
-  });
-</script>
 </body>
 </html>

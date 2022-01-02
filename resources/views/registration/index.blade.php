@@ -572,7 +572,12 @@
     </div>
   </div>
 </form>
-<script type="text/javascript">
+<script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>
+<script >
+  $(function () {
+    $('[data-mask]').inputmask();
+  });
   function general_clickable() {
     if($('#general_view').css('display') == 'block') {
       $('#general_view').css('display', 'none');

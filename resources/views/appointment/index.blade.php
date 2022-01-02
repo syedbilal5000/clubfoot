@@ -6,12 +6,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Appointment</h1>
+          <h1 class="m-0">Registration</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="home">Home</a></li>
-            <li class="breadcrumb-item active">Appointment Page</li>
+            <li class="breadcrumb-item active">Registration Page</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -20,27 +20,31 @@
   <!-- /.content-header -->
 
 {{-- Main Content --}}
-
-<form method="POST" action="appointment/add">
-  @csrf
-  <div class="row">
-    <!-- /.col -->
-    <div class="col-md-9">
-      <div class="box box-primary">
-        <div class="box-body no-padding">
-          <!-- THE CALENDAR -->
-          <div id="calendar"></div>
+<section class="content">
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="box box-primary">
+            <div class="box-body no-padding">
+              <!-- THE CALENDAR -->
+              <div id="calendar"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /. box -->
         </div>
-        <!-- /.box-body -->
+        <!-- /.col -->
       </div>
-      <!-- /. box -->
-    </div>
-    <!-- /.col -->
-  </div>
-</form>
+      <!-- /.row -->
+    </section>
+
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/moment/moment.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+<!-- Page specific script -->
 <script>
   $(function () {
 
