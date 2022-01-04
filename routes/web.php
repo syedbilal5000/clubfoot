@@ -30,3 +30,4 @@ Route::get('registration', [App\Http\Controllers\HomeController::class, 'registe
 Route::post('registration/add', [App\Http\Controllers\HomeController::class, 'register_store'])->name('register_store');
 Route::get('appointment', [App\Http\Controllers\HomeController::class, 'appointment_index'])->name('appointment_index');
 Route::get('visit', [App\Http\Controllers\HomeController::class, 'visit_index'])->name('visit_index');
+Route::get('patients', [App\Http\Controllers\HomeController::class, 'patients_index'])->name('patients_index');

@@ -48,6 +48,11 @@ class HomeController extends Controller
         return view('visit.index');
     }
 
+    public function patients_index()
+    {
+        return view('patients.index');
+    }
+
     // registration add
     public function register_store(Request $request)
     {

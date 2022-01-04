@@ -69,7 +69,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="registration" class="nav-link active">
+              <a href="patients" class="nav-link patient_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Patients</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="registration" class="nav-link patient_nav_add">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Add Patient</p>
               </a>
