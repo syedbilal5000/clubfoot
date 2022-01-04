@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\PatientFamily;
 use App\PatientDiagnosis;
+use App\PatientExamination;
 
 class HomeController extends Controller
 {
@@ -50,6 +51,16 @@ class HomeController extends Controller
     // registration add
     public function register_store(Request $request)
     {
+        // if(isset($request->examinations))
+        // {
+        //     print(in_array("heart", $request->examinations));
+        //     // $patient_examination->head = in_array("head", $request->examinations);
+        //     // $patient_examination->heart = in_array("heart", $request->examinations);
+        //     // $patient_examination->urinary = in_array("urinary", $request->examinations);
+        //     // $patient_examination->skin = in_array("skin", $request->examinations);
+        //     // $patient_examination->spine = in_array("spine", $request->examinations);
+        //     // $patient_examination->hips = in_array("hips", $request->examinations);
+        // }
         // dd($request);
         // Add patient general info
         $patient = new Patient;
@@ -69,9 +80,10 @@ class HomeController extends Controller
         $patient->guardian_number_2 = $request->guardian_number_2;
         $patient->guardian_cnic = $request->guardian_cnic;
         $patient->save();
+        $patient_id = $patient->id;
         // Add patient family info
         $patient_family = new PatientFamily;
-        $patient_family->patient_id = $patient->id;
+        $patient_family->patient_id = $patient_id;
         $patient_family->is_relatable = isset($request->is_relatable) ? $request->is_relatable : 0;
         $patient_family->preg_len = isset($request->preg_len) ? $request->preg_len : 0;
         $patient_family->has_complicated_preg = isset($request->has_complicated_preg) ? $request->has_complicated_preg : 0;
@@ -86,9 +98,9 @@ class HomeController extends Controller
         $patient_family->referral_hospital = $request->referral_hospital;
         $patient_family->other_referral = $request->other_referral;
         $patient_family->save();
+        // Add patient diagnosis info
         $patient_diagnosis = new PatientDiagnosis;
-        $patient_diagnosis->patient_id = $patient->id;
-        $patient_diagnosis->patient_id = $patient->id;
+        $patient_diagnosis->patient_id = $patient_id;
         $patient_diagnosis->evaluator_name = $request->evaluator_name;
         $patient_diagnosis->evaluation_date = $request->evaluation_date;
         $patient_diagnosis->evaluator_title = isset($request->evaluator_title) ? $request->evaluator_title : 0;
@@ -103,8 +115,33 @@ class HomeController extends Controller
         $patient_diagnosis->has_birth_confirmed = isset($request->has_birth_confirmed) ? $request->has_birth_confirmed : 0;
         $patient_diagnosis->diagnosis_comments = $request->diagnosis_comments;
         $patient_diagnosis->save();
+        // Add patient examination info
+        $patient_examination = new PatientExamination;
+        $patient_examination->patient_id = $patient_id;
+        if(isset($request->examinations))
+        {
+            $patient_examination->head = in_array("head", $request->examinations);
+            $patient_examination->heart = in_array("heart", $request->examinations);
+            $patient_examination->urinary = in_array("urinary", $request->examinations);
+            $patient_examination->skin = in_array("skin", $request->examinations);
+            $patient_examination->spine = in_array("spine", $request->examinations);
+            $patient_examination->hips = in_array("hips", $request->examinations);
+        }
+        if(isset($request->abnormalities))
+        {
+            $patient_examination->upper = in_array("upper", $request->abnormalities);
+            $patient_examination->lower = in_array("lower", $request->abnormalities);
+            $patient_examination->neuro = in_array("neuro", $request->abnormalities);
+        }
+        if(isset($request->weaknesses))
+        {
+            $patient_examination->arms = in_array("arms", $request->weaknesses);
+            $patient_examination->legs = in_array("legs", $request->weaknesses);
+            $patient_examination->other = in_array("other", $request->weaknesses);
+        }
+        $patient_examination->save();
         // print_r($patient);
-        // dd(11);
+        dd(11);
         return redirect('registration');
     }
 }

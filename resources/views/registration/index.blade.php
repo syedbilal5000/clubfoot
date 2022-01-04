@@ -580,22 +580,22 @@
             <div class="form-group">
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_examination" value="0"> Head </label> 
+                <label> <input type="checkbox" name="examinations[]" value="head"> Head </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_examination" value="0"> Heart/Lungs  </label> 
+                <label> <input type="checkbox" name="examinations[]" value="heart"> Heart/Lungs  </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_examination" value="0"> Urinary/Digestive </label> 
+                <label> <input type="checkbox" name="examinations[]" value="urinary"> Urinary/Digestive </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_examination" value="0"> Skin </label> 
+                <label> <input type="checkbox" name="examinations[]" value="skin"> Skin </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_examination" value="0"> Spine </label> 
+                <label> <input type="checkbox" name="examinations[]" value="spine"> Spine </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_examination" value="0"> Hips </label> 
+                <label> <input type="checkbox" name="examinations[]" value="hips"> Hips </label> 
               </div>
             </div>
           </div>
@@ -606,13 +606,13 @@
               <label>Any Abnormalities: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_abnormalities" value="0"> Upper Extremities </label> 
+                <label> <input type="checkbox" name="abnormalities[]" value="upper"> Upper Extremities </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_abnormalities" value="0"> Lower Extremities  </label> 
+                <label> <input type="checkbox" name="abnormalities[]" value="lower"> Lower Extremities  </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_abnormalities" value="0"> Neurological </label> 
+                <label> <input type="checkbox" name="abnormalities[]" value="neuro"> Neurological </label> 
               </div>
             </div>
           </div>
@@ -623,13 +623,13 @@
               <label>Any Weakness: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_weakness" value="0"> Arms </label> 
+                <label> <input type="checkbox" name="weaknesses[]" value="arms"> Arms </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_weakness" value="0"> Legs  </label> 
+                <label> <input type="checkbox" name="weaknesses[]" value="legs"> Legs  </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="phy_weakness" value="0"> Other Parts of Body </label> 
+                <label> <input type="checkbox" name="weaknesses[]" value="other"> Other Parts of Body </label> 
               </div>
             </div>
           </div>
