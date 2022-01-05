@@ -17,6 +17,12 @@
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
+      <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+        <a class="form-control pull-right btn btn-primary" href="registration">Add New Patient</a>    
+        </div>
+    </div>
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
@@ -26,7 +32,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-<table id="example" class="table table-striped table-bordered" style="width:100% !important;">
+      <table id="patient_table" class="table table-striped table-bordered" style="width:100% !important;">
         <thead>
             <tr>
                 <th>Name</th>
@@ -37,7 +43,7 @@
                 <th>Salary</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="patient_table_body">
             <tr>
                 <td>Tiger Nixon</td>
                 <td>System Architect</td>
@@ -158,40 +164,6 @@
 </div>
 </div>
 
-<!-- <form method="POST" action="Visits/add">
-  @csrf
-  <div class="content">
-    <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <table id="patient_table" class="table table-bordered table-striped">
-            <thead>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Phone Number</th>
-              <th>Status</th>
-            </thead>
-            <tbody id="patient_table_body"></tbody>
-          </table>
-        </div>
-      </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Appointment date: </label><label style="color: red;"> &nbsp;*</label>
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-            <input type="date" name="appointment_date" class="form-control">
-          </div>
-        </div>
-      </div>
-  </div>
-  </div>
-</form> -->
-
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <!-- <script src="{{ asset('adminlte/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script> -->
@@ -201,11 +173,6 @@
   $(document).ready(function() {
     $('.patient_nav').addClass('active');
     $('#example').DataTable();
-} );
-  // $(function() {
-  //   $('.patient_nav').addClass('active');
-  //   // $("#customerlst").html(options); 
-  //   $('#patient_table').DataTable();
-  // });
+  } );
 </script>
 @endsection
