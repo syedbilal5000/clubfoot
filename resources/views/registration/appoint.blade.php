@@ -13,12 +13,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Appointments</h1>
+          <h1 class="m-0">Appointment booking</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="home">Home</a></li>
-            <li class="breadcrumb-item active">Appointment Page</li>
+            <li class="breadcrumb-item"><a href="../home">Home</a></li>
+            <li class="breadcrumb-item"><a href="../registration">Registration</a></li>
+            <li class="breadcrumb-item active">Appointment booking</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -56,9 +57,10 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $('.appointment_nav').addClass('active');
+    $('.patient_nav_add').addClass('active');
+    
     /*
-    //bilals display all appointments in calender, change background color according to status of appointment.
+    //bilals show new appointment in the calender.
     $.ajax({
       url: main_url+'meetingS/getAllMeeting.php?empid='+empid,                        
       type: 'GET',
@@ -130,17 +132,16 @@
           start          : new Date(y, m, d, 10, 30),
           end            : new Date(y, m, d, 13, 30),
           backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12', //yellow
-          eventMouseover : 'checked'
-        },
-        {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
+          borderColor    : '#f39c12' //yellow
         }
+        // {
+        //   title          : 'Click for Google',
+        //   start          : new Date(y, m, 28),
+        //   end            : new Date(y, m, 29),
+        //   url            : 'http://google.com/',
+        //   backgroundColor: '#3c8dbc', //Primary (light-blue)
+        //   borderColor    : '#3c8dbc' //Primary (light-blue)
+        // }
       ],
       editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!

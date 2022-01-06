@@ -27,6 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     return view('registration.index');
 // });
 Route::get('registration', [App\Http\Controllers\HomeController::class, 'register_index'])->name('register_index');
+Route::get('registration/appoint', [App\Http\Controllers\HomeController::class, 'register_appoint'])->name('register_appoint');
 Route::post('registration/add', [App\Http\Controllers\HomeController::class, 'register_store'])->name('register_store');
 Route::get('appointment', [App\Http\Controllers\HomeController::class, 'appointment_index'])->name('appointment_index');
 Route::get('visit', [App\Http\Controllers\HomeController::class, 'visit_index'])->name('visit_index');

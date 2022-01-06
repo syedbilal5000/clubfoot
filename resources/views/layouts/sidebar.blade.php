@@ -99,7 +99,8 @@
           </a>
         </li> -->
         <li class="nav-item">
-          <a href="appointment" class="nav-link">
+          <!-- bilals href not working if inside one directory -->
+          <a href="appointment" class="nav-link appointment_nav">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Appointment
@@ -108,7 +109,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="visit" class="nav-link">
+          <a href="visit" class="nav-link visit_nav">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Visit

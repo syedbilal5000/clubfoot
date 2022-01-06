@@ -36,6 +36,11 @@ class HomeController extends Controller
         return view('registration.index');
     }
 
+    public function register_appoint()
+    {
+        return view('registration.appoint');
+    }
+
     // show appointment index
     public function appointment_index()
     {

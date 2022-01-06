@@ -32,6 +32,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
+      <!-- bilals retrive data from patient table -->
       <table id="patient_table" class="table table-striped table-bordered" style="width:100% !important;">
         <thead>
             <tr>
@@ -172,7 +173,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('.patient_nav').addClass('active');
-    $('#example').DataTable();
+    $('#patient_table').DataTable();
   } );
 </script>
 @endsection

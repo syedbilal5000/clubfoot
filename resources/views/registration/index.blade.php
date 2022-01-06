@@ -637,6 +637,7 @@
 
       </div>
       <br>
+      <!-- bilals route next to registration/appoint -->
       <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
     </div>
   </div>
