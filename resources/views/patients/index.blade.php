@@ -36,128 +36,29 @@
       <table id="patient_table" class="table table-striped table-bordered" style="width:100% !important;">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Patient Name</th>
+                <th>Father Name</th>
+                <th>Guardian Name</th>
+                <th>Guardian Number</th>
+                <th>Age (m)</th>
             </tr>
         </thead>
-        <tbody id="patient_table_body">
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011/07/25</td>
-                <td>$170,750</td>
-            </tr>
-            <tr>
-                <td>Ashton Cox</td>
-                <td>Junior Technical Author</td>
-                <td>San Francisco</td>
-                <td>66</td>
-                <td>2009/01/12</td>
-                <td>$86,000</td>
-            </tr>
-            <tr>
+        <tbody id="patients">
+            <!-- <tr>
                 <td>Donna Snider</td>
                 <td>Customer Support</td>
                 <td>New York</td>
                 <td>27</td>
                 <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
-            <tr>
-                <td>Donna Snider</td>
-                <td>Customer Support</td>
-                <td>New York</td>
-                <td>27</td>
-                <td>2011/01/25</td>
-                <td>$112,000</td>
-            </tr>
+            </tr> -->
         </tbody>
         <tfoot>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Patient Name</th>
+                <th>Father Name</th>
+                <th>Guardian Name</th>
+                <th>Guardian Number</th>
+                <th>Age (m)</th>
             </tr>
         </tfoot>
     </table>
@@ -171,6 +72,107 @@
 <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script type="text/javascript">
+  var patients = {!! json_encode($patients) !!};
+  console.log(patients);
+  
+  view_patients(patients);
+
+  function view_patients(patients) {
+    output = '';
+    if (patients.length > 0) {
+        for (i = 0; i < patients.length; i++) {
+            output += `<tr><td>${patients[i]['patient_name']}</td> `;
+            output += '<td>';
+            output += (patients[i]['father_name'] ? patients[i]['father_name'] : '-');
+            output += '</td> <td>';
+            output += (patients[i]['guardian_name'] ? patients[i]['guardian_name'] : '-');
+            output += '</td> <td>';
+            output += (patients[i]['guardian_number'] ? patients[i]['guardian_number'] : '-');
+            output += '</td> <td>';
+            output += (patients[i]['birth_date'] ? getAge(patients[i]['birth_date']) : '-');
+            output += '</td></tr>';
+        }
+    } else {
+        output = '<tr>No Data</tr>';
+    }
+    $('#patients').html(output);
+  }
+
+  function getAge(dateString) {
+    var now = new Date();
+    var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+
+    var yearNow = now.getYear();
+    var monthNow = now.getMonth();
+    var dateNow = now.getDate();
+
+    var dob = new Date(dateString.substring(0,4), // year
+                       dateString.substring(5,7)-1,                   
+                       dateString.substring(8,10)                  
+                       );
+
+    var yearDob = dob.getYear();
+    var monthDob = dob.getMonth();
+    var dateDob = dob.getDate();
+    var age = {};
+    var ageString = "";
+    var yearString = "";
+    var monthString = "";
+    var dayString = "";
+
+    yearAge = yearNow - yearDob;
+
+    if (monthNow >= monthDob)
+      var monthAge = monthNow - monthDob;
+    else {
+      yearAge--;
+      var monthAge = 12 + monthNow -monthDob;
+    }
+
+    if (dateNow >= dateDob)
+      var dateAge = dateNow - dateDob;
+    else {
+      monthAge--;
+      var dateAge = 31 + dateNow - dateDob;
+  
+      if (monthAge < 0) {
+        monthAge = 11;
+        yearAge--;
+      }
+    }
+  
+    age = {
+      years: yearAge,
+      months: monthAge,
+      days: dateAge
+    };
+  
+    if ( age.years > 1 ) yearString = "y"; // years
+    else yearString = "y"; // year
+    if ( age.months> 1 ) monthString = "m";
+    else monthString = "m";
+    if ( age.days > 1 ) dayString = "d";
+    else dayString = "d";
+
+    if ( (age.years > 0) && (age.months > 0) && (age.days > 0) )
+      ageString = age.years + yearString + ", " + age.months + monthString + ", " + age.days + dayString;
+    else if ( (age.years == 0) && (age.months == 0) && (age.days > 0) )
+      ageString = age.days + dayString;
+    else if ( (age.years > 0) && (age.months == 0) && (age.days == 0) )
+      ageString = age.years + yearString;
+    else if ( (age.years > 0) && (age.months > 0) && (age.days == 0) )
+      ageString = age.years + yearString + " " + age.months + monthString;
+    else if ( (age.years == 0) && (age.months > 0) && (age.days > 0) )
+      ageString = age.months + monthString + " " + age.days + dayString;
+    else if ( (age.years > 0) && (age.months == 0) && (age.days > 0) )
+      ageString = age.years + yearString + " " + age.days + dayString;
+    else if ( (age.years == 0) && (age.months > 0) && (age.days == 0) )
+      ageString = age.months + monthString;
+    else ageString = "Oops! Could not calculate age!";
+
+    return ageString;
+  }
+
   $(document).ready(function() {
     $('.patient_nav').addClass('active');
     $('#patient_table').DataTable();

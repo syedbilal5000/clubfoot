@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Patient;
 use App\PatientFamily;
 use App\PatientDiagnosis;
@@ -33,6 +34,7 @@ class HomeController extends Controller
     // show registration index
     public function register_index()
     {
+
         return view('registration.index');
     }
 
@@ -53,24 +55,17 @@ class HomeController extends Controller
         return view('visit.index');
     }
 
+    // Patients report view
     public function patients_index()
     {
-        return view('patients.index');
+        // $patients = DB::select('SELECT * FROM patients WHERE active = ?', [1]);
+        $patients = DB::select("SELECT * FROM patients;");
+        return view('patients.index', ['patients' => $patients]);
     }
 
     // registration add
     public function register_store(Request $request)
     {
-        // if(isset($request->examinations))
-        // {
-        //     print(in_array("heart", $request->examinations));
-        //     // $patient_examination->head = in_array("head", $request->examinations);
-        //     // $patient_examination->heart = in_array("heart", $request->examinations);
-        //     // $patient_examination->urinary = in_array("urinary", $request->examinations);
-        //     // $patient_examination->skin = in_array("skin", $request->examinations);
-        //     // $patient_examination->spine = in_array("spine", $request->examinations);
-        //     // $patient_examination->hips = in_array("hips", $request->examinations);
-        // }
         // dd($request);
         // Add patient general info
         $patient = new Patient;
