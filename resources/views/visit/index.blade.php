@@ -30,11 +30,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Select Patient: </label>
-          <select id="samplePatient_Id" class="form-control select2" style="width: 100%;">
+          <select id="patients" class="form-control select2" style="width: 100%;">
             <!-- bilals get all list from database -->
-            <option value="Bilal hussain">Bilal hussain</option>
-            <option value="Talha hussain">Talha hussain</option>
-            <option value="test hussain">test hussain</option>
+            <!-- Done -->
           </select>
         </div>
       </div>
@@ -121,6 +119,22 @@
 <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script>
+  var patients = {!! json_encode($patients) !!};
+  
+  view_patients(patients);
+
+  function view_patients(patients) {
+    output = '';
+    if (patients.length > 0) {
+        for (i = 0; i < patients.length; i++) {
+            output += `<option value="tst">${patients[i]['patient_name']}</option>`
+        }
+    } else {
+        output = '<option value="-1">No Data</option>';
+    }
+    $('#patients').html(output);
+  }
+
   $(function() {
     $(document).ready(function () {
       $('.visit_nav').addClass('active');

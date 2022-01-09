@@ -52,15 +52,23 @@ class HomeController extends Controller
     // show visit index
     public function visit_index()
     {
-        return view('visit.index');
+        $patients = $this->get_patients();
+        return view('visit.index', ['patients' => $patients]);
     }
 
     // Patients report view
     public function patients_index()
     {
+        $patients = $this->get_patients();
+        return view('patients.index', ['patients' => $patients]);
+    }
+
+    // get patients data
+    public function get_patients()
+    {
         // $patients = DB::select('SELECT * FROM patients WHERE active = ?', [1]);
         $patients = DB::select("SELECT * FROM patients;");
-        return view('patients.index', ['patients' => $patients]);
+        return $patients;
     }
 
     // registration add

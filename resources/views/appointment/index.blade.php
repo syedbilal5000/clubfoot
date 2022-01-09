@@ -25,7 +25,8 @@
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
-
+<!-- BilalS - filter for different status like pending, done -->
+<!-- BilalS - different filters like patients, status, etc - need to think -->
 {{-- Main Content --}}
 <div class="content">
 <div class="container-fluid">
