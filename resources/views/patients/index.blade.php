@@ -3,8 +3,7 @@
 @section('content')
 <!-- <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"> -->
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('adminlte/plugins/bilals/buttons.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/dataTables-buttons/css/buttons.dataTables.min.css') }}">
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
@@ -73,12 +72,11 @@
 <script src="{{ asset('adminlte/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script> -->
 <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-
-<script src="{{ asset('adminlte/plugins/bilals/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/bilals/jszip.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/bilals/pdfmake.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/bilals/vfs_fonts.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/bilals/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/dataTables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/dataTables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/ajax/libs/jszip.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/ajax/libs/pdfmake.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/ajax/libs/vfs_fonts.js') }}"></script>
 
 <script type="text/javascript">
   var patients = {!! json_encode($patients) !!};
@@ -184,6 +182,7 @@
 
   $(document).ready(function() {
     $('.patient_nav').addClass('active');
+    $('.patients_nav').addClass('active');
     // $('#patient_table').DataTable();
     $('#patient_table').DataTable( {
         dom: 'Bfrtip',

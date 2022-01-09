@@ -57,6 +57,7 @@
 <script>
   $(function () {
     $('.appointment_nav').addClass('active');
+    $('.appointments_nav').addClass('active');
     /*
     //bilals display all appointments in calender, change background color according to status of appointment.
     $.ajax({

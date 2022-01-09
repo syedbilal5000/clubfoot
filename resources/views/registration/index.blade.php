@@ -637,7 +637,7 @@
 
       </div>
       <br>
-      <!-- bilals route next to registration/appoint -->
+      <!-- bilals route next to appointment/add -->
       <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
     </div>
   </div>
@@ -646,7 +646,8 @@
 <script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>
 <script >
   $(function () {
-    $('.patient_nav_add').addClass('active');
+    $('.patient_nav').addClass('active');
+    $('.patients_nav_add').addClass('active');
     $('[data-mask]').inputmask();
   });
   function general_clickable() {

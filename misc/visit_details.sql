@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 01, 2022 at 07:44 PM
+-- Generation Time: Jan 09, 2022 at 11:52 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.5
 
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `visit_details` (
   `patient_id` int(11) NOT NULL,
   `visit_date` varchar(14) DEFAULT NULL,
   `next_visit_date` varchar(14) DEFAULT NULL,
+  `appointment_id` int(11) DEFAULT NULL,
   `side` varchar(1) DEFAULT NULL COMMENT 'L/R',
   `CLB` float DEFAULT NULL,
   `MB` float DEFAULT NULL,
@@ -46,6 +47,8 @@ CREATE TABLE IF NOT EXISTS `visit_details` (
   `total_score` float DEFAULT NULL,
   `treatment` varchar(4) DEFAULT NULL,
   `complic` varchar(50) DEFAULT NULL,
+  `next_app` varchar(50) DEFAULT NULL,
+  `no_of_cast` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11102 DEFAULT CHARSET=latin1;
 
@@ -53,8 +56,8 @@ CREATE TABLE IF NOT EXISTS `visit_details` (
 -- Dumping data for table `visit_details`
 --
 
-INSERT INTO `visit_details` (`id`, `patient_id`, `visit_date`, `next_visit_date`, `side`, `CLB`, `MB`, `LHT`, `PC`, `RE`, `EH`, `mid_foot_score`, `hind_foot_score`, `total_score`, `treatment`, `complic`) VALUES
-(11101, 2, '20220223134134', '20220229144234', 'L', 1, 0, 1, 0, 1, 0, 2, 1, 3, 'C', NULL);
+INSERT INTO `visit_details` (`id`, `patient_id`, `visit_date`, `next_visit_date`, `appointment_id`, `side`, `CLB`, `MB`, `LHT`, `PC`, `RE`, `EH`, `mid_foot_score`, `hind_foot_score`, `total_score`, `treatment`, `complic`, `next_app`, `no_of_cast`) VALUES
+(11101, 2, '20220223134134', '20220229144234', 1, 'L', 1, 0, 1, 0, 1, 0, 2, 1, 3, 'C', NULL, NULL, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

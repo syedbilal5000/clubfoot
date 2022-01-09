@@ -60,7 +60,7 @@
         </li> -->
 
         <li class="nav-item menu-open">
-          <a href="#" class="nav-link active">
+          <a href="#" class="nav-link patient_nav ">
             <i class="nav-icon fas fa-users"></i>
             <p>
               Patient
@@ -69,13 +69,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="patients" class="nav-link patient_nav">
+              <a href="patients" class="nav-link patients_nav">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Patients</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="registration" class="nav-link patient_nav_add">
+              <a href="registration" class="nav-link patients_nav_add">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Add Patient</p>
               </a>
@@ -89,25 +89,39 @@
           </ul>
         </li>
 
-        <!-- <li class="nav-item">
-          <a href="registration" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link appointment_nav">
+            <i class="nav-icon fas fa-users"></i>
             <p>
-              Registration
-              <span class="right badge badge-danger">New</span>
+              Appointment
+              <i class="right fas fa-angle-left"></i>
             </p>
           </a>
-        </li> -->
-        <li class="nav-item">
-          <!-- bilals href not working if inside one directory -->
-          <a href="appointment" class="nav-link appointment_nav">
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="appointment" class="nav-link appointments_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Appointments</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="appointment/add" class="nav-link appointments_nav_add">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Appointment</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- <li class="nav-item">
+          <!- - bilals href not working if inside one directory - ->
+          <a href="" class="nav-link appointment_nav">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Appointment
               <span class="right badge badge-danger">New</span>
             </p>
           </a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a href="visit" class="nav-link visit_nav">
             <i class="nav-icon fas fa-th"></i>

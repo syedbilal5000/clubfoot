@@ -40,7 +40,7 @@ class HomeController extends Controller
 
     public function register_appoint()
     {
-        return view('registration.appoint');
+        return view('appointment.add');
     }
 
     // show appointment index
