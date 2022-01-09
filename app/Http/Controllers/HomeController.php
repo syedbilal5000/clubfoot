@@ -40,13 +40,15 @@ class HomeController extends Controller
 
     public function register_appoint()
     {
-        return view('appointment.add');
+        $patients = $this->get_patients();
+        return view('appointment.add', ['patients' => $patients]);
     }
 
     // show appointment index
     public function appointment_index()
     {
-        return view('appointment.index');
+        $patients_appoint = $this->get_patients_with_appointment();
+        return view('appointment.index', ['patients_appoint' => $patients_appoint]);
     }
 
     // show visit index
@@ -66,9 +68,14 @@ class HomeController extends Controller
     // get patients data
     public function get_patients()
     {
-        // $patients = DB::select('SELECT * FROM patients WHERE active = ?', [1]);
         $patients = DB::select("SELECT * FROM patients;");
         return $patients;
+    }
+
+    public function get_patients_with_appointment()
+    {
+        $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id;");
+        return $patients_appoint;
     }
 
     // registration add

@@ -6,6 +6,7 @@
     background-color: white;
   }
 </style>
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/fullcalendar/dist/fullcalendar.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/fullcalendar/dist/fullcalendar.print.min.css') }}" media="print">
   <!-- Content Header (Page header) -->
@@ -30,6 +31,26 @@
 {{-- Main Content --}}
 <div class="content">
 <div class="container-fluid">
+  <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Select Patient: </label>
+          <select id="patients" class="form-control select2" style="width: 100%;">
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Select Status: </label>
+          <select id="status_drop" class="form-control select2" style="width: 100%;">
+            <option value="Done">Done</option>
+            <option value="Pending">Pending</option>
+            <option value="Reject">Reject</option>
+            <option value="Extend">Extend</option>
+          </select>
+        </div>
+      </div>
+    </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-md-12">
@@ -52,10 +73,12 @@
 
 <!-- jQuery 3 -->
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/moment/moment.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/fullcalendar/dist/fullcalendar.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
+
   $(function () {
     $('.appointment_nav').addClass('active');
     $('.appointments_nav').addClass('active');
@@ -125,25 +148,6 @@
         week : 'week',
         day  : 'day'
       },
-      //Random default events
-      events    : [
-        {
-          title          : 'Long Event',
-          start          : new Date(y, m, d, 10, 30),
-          end            : new Date(y, m, d, 13, 30),
-          backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12', //yellow
-          eventMouseover : 'checked'
-        },
-        {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
-        }
-      ],
       editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!
       drop      : function (date, allDay) { // this function is called when something is dropped
@@ -162,7 +166,7 @@
 
         // render the event on the calendar
         // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
+        // $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
 
         // is the "remove after drop" checkbox checked?
         if ($('#drop-remove').is(':checked')) {
@@ -257,6 +261,49 @@
       });
       */
     }
+    var patients_appoint = {!! json_encode($patients_appoint) !!};
+  
+    fill_data(patients_appoint);
+
+    function fill_data(patients_appoint) {
+    output = '';
+    var jsonArr = [];
+    if (patients_appoint.length > 0) {
+        for (i = 0; i < patients_appoint.length; i++) {
+            output += `<option value="${patients_appoint[i]['patient_id']}">${patients_appoint[i]['patient_name']}</option>`;
+
+            backgroundColor = "#4846c7";
+            if(patients_appoint[i]['appointment_status'] == "Pending")
+            {
+              backgroundColor = "#f7bd1b";
+            }
+            else if(patients_appoint[i]['appointment_status'] == "Extend")
+            {
+              backgroundColor = "#851608";
+            }
+            else if(patients_appoint[i]['appointment_status'] == "Done")
+            {
+              backgroundColor = "#298200";
+            }
+
+
+            jsonArr.push({
+              title          : patients_appoint[i]['patient_name'],
+              start          : patients_appoint[i]['appointment_date'],
+              end          : patients_appoint[i]['appointment_date'],
+              backgroundColor: backgroundColor, //yellow
+              borderColor    : backgroundColor, //yellow
+            });
+            
+            
+        }
+    } else {
+        output = '<option value="-1">No Data</option>';
+    }
+    $('#calendar').fullCalendar('renderEvents', jsonArr, true);
+    $('#patients').html(output);
+    $('.select2').select2();
+  }
   })
 </script>
 @endsection

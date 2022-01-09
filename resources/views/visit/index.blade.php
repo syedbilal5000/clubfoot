@@ -61,7 +61,7 @@
               </tr>
             </thead> 
             <tbody class="table_body">
-              <!-- bilals get all visits from database -->
+              <!-- bilals get all visits from database when drop down data change-->
               <tr>
               <td>Side</td>
               <td>CLB</td>
@@ -101,17 +101,6 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Appointment date: </label><label style="color: red;"> &nbsp;*</label>
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-            <input type="date" name="appointment_date" class="form-control">
-          </div>
-        </div>
-      </div>
-    </div>  <!-- row end -->
   </div>
 </form>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
@@ -127,7 +116,7 @@
     output = '';
     if (patients.length > 0) {
         for (i = 0; i < patients.length; i++) {
-            output += `<option value="tst">${patients[i]['patient_name']}</option>`
+            output += `<option value="${patients[i]['patient_id']}">${patients[i]['patient_name']}</option>`
         }
     } else {
         output = '<option value="-1">No Data</option>';
