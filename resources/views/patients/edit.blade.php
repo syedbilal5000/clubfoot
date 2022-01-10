@@ -6,12 +6,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Registration</h1>
+          <h1 class="m-0">Add Patient</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="home">Home</a></li>
-            <li class="breadcrumb-item active">Registration Page</li>
+            <li class="breadcrumb-item"><a href="./">Patients</a></li>
+            <li class="breadcrumb-item active">Add New Patient</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -21,8 +21,10 @@
 
 {{-- Main Content --}}
 
-<form method="POST" action="registration/add">
+<form method="POST" action="edit">
   @csrf
+  <!-- <input name="_method" type="hidden" value="PUT"> -->
+  @method('PUT')
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -37,7 +39,7 @@
               <label>Patient Name: </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
-                <input type="text" name="patient_name" class="form-control" placeholder="Enter Patient Name">
+                <input type="text" name="patient_name" value="{{ $patient->patient_name }}" class="form-control" placeholder="Enter Patient Name" required>
               </div>
               <span id="custlErrormsg" style="color: red;"></span>
             </div>
@@ -53,7 +55,7 @@
               <label>Father's Name: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
-                <input type="text" name="father_name" class="form-control" placeholder="Enter Father Name">
+                <input type="text" name="father_name" value="{{ $patient->father_name }}" class="form-control" placeholder="Enter Father Name">
               </div>
             </div>
           </div>
@@ -70,10 +72,10 @@
               </div> -->
               <br>
               <div class="form-check form-check-inline">
-                <label> <input class="form-check-input" type="radio" name="gender" value="1"> Male </label>
+                <label> <input class="form-check-input" type="radio" name="gender" value="{{ $patient->gender }}" {{ $patient->gender == 1  ? 'checked' : ''}}> Male </label>
               </div>
               <div class="form-check form-check-inline">
-                <label> <input class="form-check-input" type="radio" name="gender" value="2"> Female </label>
+                <label> <input class="form-check-input" type="radio" name="gender" value="{{ $patient->gender }}" {{ $patient->gender == 2  ? 'checked' : ''}}> Female </label>
               </div>
             </div>
           </div>
@@ -81,9 +83,9 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Date of birth(DD/MM/YYYY): </label><label style="color: red;"> &nbsp;*</label>
+              <label>Date of birth(DD/MM/YYYY): </label>
               <div class="input-group">
-                <input type="date" name="birth_date" class="form-control">
+                <input type="date" name="birth_date" value="{{ $patient->birth_date }}" class="form-control">
               </div>
             </div>
           </div>
@@ -91,7 +93,7 @@
             <div class="form-group">
               <label>Age: </label>
               <div class="input-group">
-                <input type="text" name="age" placeholder="Enter Tribe" class="form-control">
+                <input type="text" name="age" placeholder="This should be auto fill" class="form-control" readonly>
               </div>
             </div>
           </div>
@@ -102,7 +104,7 @@
               <label>Address 1: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-home"></i></span>
-                <input type="text" name="address" placeholder="Enter Address 1" class="form-control">
+                <input type="text" name="address" value="{{ $patient->address }}" placeholder="Enter Address 1" class="form-control">
               </div>
             </div>
           </div>
@@ -113,7 +115,7 @@
               <label>Address 2: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-home"></i></span>
-                <input type="text" name="address2" placeholder="Enter Address 2" class="form-control">
+                <input type="text" name="address2" value="{{ $patient->address2 }}" placeholder="Enter Address 2" class="form-control">
               </div>
             </div>
           </div>
@@ -124,10 +126,10 @@
               <label>Does the parent or guardian consent to photographs of the patient being used for evaluation and marketing purposes: </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" class="form-check-input" name="has_photo_consent" value="0"> No </label> 
+                <label> <input type="radio" class="form-check-input" name="has_photo_consent" value="{{ $patient->has_photo_consent }}" {{ $patient->has_photo_consent == 0  ? 'checked' : ''}}> No </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" class="form-check-input" name="has_photo_consent" value="1"> Yes </label> 
+                <label> <input type="radio" class="form-check-input" name="has_photo_consent" value="{{ $patient->has_photo_consent }}" {{ $patient->has_photo_consent == 1  ? 'checked' : ''}}> Yes </label> 
               </div>
             </div>
           </div>
@@ -150,16 +152,16 @@
               <label>Relationship to patient: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="1"> Mother </label> 
+                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="{{ $patient->relation_to_patient }}" {{ $patient->relation_to_patient == 1  ? 'checked' : ''}}> Mother </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="2"> Father </label> 
+                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="{{ $patient->relation_to_patient }}" {{ $patient->relation_to_patient == 2  ? 'checked' : ''}}> Father </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="3"> Sibling </label>             
+                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="{{ $patient->relation_to_patient }}" {{ $patient->relation_to_patient == 3  ? 'checked' : ''}}> Sibling </label>             
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="0"> Other </label> 
+                <label> <input type="radio" class="form-check-input" name="relation_to_patient" value="{{ $patient->relation_to_patient }}" {{ $patient->relation_to_patient == 0  ? 'checked' : ''}}> Other </label> 
               </div>
             </div>
           </div>
@@ -168,7 +170,7 @@
               <label>Name: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
-                <input type="text" name="guardian_name" class="form-control" placeholder="Enter Parents Name">
+                <input type="text" name="guardian_name" value="{{ $patient->guardian_name }}" class="form-control" placeholder="Enter Parents Name">
               </div>
             </div>
           </div>
@@ -179,7 +181,7 @@
               <label>Phone number 1: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                <input type="text" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
+                <input type="text" name="guardian_number" value="{{ $patient->guardian_number }}" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
               </div>
             </div>
           </div>
@@ -188,7 +190,7 @@
               <label>Phone number 2: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                <input type="text" name="guardian_number_2" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
+                <input type="text" name="guardian_number_2" value="{{ $patient->guardian_number_2 }}" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
               </div>
             </div>
           </div>
@@ -197,7 +199,7 @@
               <label>CNIC No: </label>
               <div class="input-group">
                 <span class="input-group-text">&nbsp; <i class="fas fa-info"></i>&nbsp; </span>
-                <input type="text" name="guardian_cnic" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask>
+                <input type="text" name="guardian_cnic" value="{{ $patient->guardian_cnic }}" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask>
               </div>
             </div>
           </div>
@@ -216,10 +218,10 @@
               <label>Any Relatives with the clubfoot deformity: </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="is_relatable" value="1"> Yes </label> 
+                <label> <input type="radio" name="is_relatable" value="{{ $patient->is_relatable }}" {{ $patient->is_relatable == 1  ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="is_relatable" value="0"> No </label> 
+                <label> <input type="radio" name="is_relatable" value="{{ $patient->is_relatable }}" {{ $patient->is_relatable == 0  ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -228,7 +230,7 @@
               <label>Length of Pregnancy(in weeks): </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-edit"></i></span>
-                <input type="text" id="weekDetail" name="preg_len" class="form-control">
+                <input type="text" id="weekDetail" name="preg_len" value="{{ $patient->preg_len }}" class="form-control">
               </div>
             </div>
           </div>
@@ -239,10 +241,10 @@
               <label>Did the mother have any complications during pregnancy: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_complicated_preg" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_complicated_preg" value="{{ $patient->has_complicated_preg }}" {{ $patient->has_complicated_preg == 1  ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_complicated_preg" value="0"> No </label> 
+                <label> <input type="radio" name="has_complicated_preg" value="{{ $patient->has_complicated_preg }}" {{ $patient->has_complicated_preg == 0  ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -264,10 +266,10 @@
               <label>Did the mother consume alcohol during pregnancy: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="is_alcoholic" value="1"> Yes </label> 
+                <label> <input type="radio" name="is_alcoholic" value="{{ $patient->is_alcoholic }}" {{ $patient->is_alcoholic == 1  ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="is_alcoholic" value="0"> No </label> 
+                <label> <input type="radio" name="is_alcoholic" value="{{ $patient->is_alcoholic }}" {{ $patient->is_alcoholic == 0  ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -278,10 +280,10 @@
               <label>Did the mother smoke during pregnancy: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="is_smoked" value="1"> Yes </label> 
+                <label> <input type="radio" name="is_smoked" value="{{ $patient->is_smoked }}" {{ $patient->is_smoked == 1  ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="is_smoked" value="0"> No </label> 
+                <label> <input type="radio" name="is_smoked" value="{{ $patient->is_smoked }}" {{ $patient->is_smoked == 0  ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -292,10 +294,10 @@
               <label>Any complications during birth: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_complicated_birth" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_complicated_birth" value="{{ $patient->has_complicated_birth }}" {{ $patient->has_complicated_birth == 1  ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_complicated_birth" value="0"> No </label> 
+                <label> <input type="radio" name="has_complicated_birth" value="{{ $patient->has_complicated_birth }}" {{ $patient->has_complicated_birth == 0  ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -306,13 +308,13 @@
               <label>Place of birth: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="birth_place" value="1"> Hospital </label> 
+                <label> <input type="radio" name="birth_place" value="{{ $patient->birth_place }}" {{ $patient->birth_place == 1  ? 'checked' : ''}}> Hospital </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="birth_place" value="2"> Clinic </label> 
+                <label> <input type="radio" name="birth_place" value="{{ $patient->birth_place }}" {{ $patient->birth_place == 2  ? 'checked' : ''}}> Clinic </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="birth_place" value="3"> Home </label> 
+                <label> <input type="radio" name="birth_place" value="{{ $patient->birth_place }}" {{ $patient->birth_place == 3  ? 'checked' : ''}}> Home </label> 
               </div>
             </div>
           </div>
@@ -329,16 +331,16 @@
               <label>Referral source: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="referral_source" value="1"> Hospital/Clinic </label> 
+                <label> <input type="radio" name="referral_source" value="{{ $patient->referral_source }}" {{ $patient->referral_source == 1  ? 'checked' : ''}}> Hospital/Clinic </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="referral_source" value="2"> Midwife </label> 
+                <label> <input type="radio" name="referral_source" value="{{ $patient->referral_source }}" {{ $patient->referral_source == 2  ? 'checked' : ''}}> Midwife </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="referral_source" value="3"> Word of mouth </label> 
+                <label> <input type="radio" name="referral_source" value="{{ $patient->referral_source }}" {{ $patient->referral_source == 3  ? 'checked' : ''}}> Word of mouth </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="referral_source" value="0"> Other </label> 
+                <label> <input type="radio" name="referral_source" value="{{ $patient->referral_source }}" {{ $patient->referral_source == 0  ? 'checked' : ''}}> Other </label> 
               </div>
             </div>
           </div>
@@ -349,7 +351,7 @@
               <label>Doctor name: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user-md"></i></span>
-                <input type="text" name="doctor_name" class="form-control" placeholder="Enter Doctor Name">
+                <input type="text" name="doctor_name" value="{{ $patient->doctor_name }}" class="form-control" placeholder="Enter Doctor Name">
               </div>
             </div>
           </div>
@@ -358,7 +360,7 @@
               <label>Hospital/Clinic name: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-hospital"></i></span>
-                <input type="text" name="referral_hospital" class="form-control" placeholder="Enter Hospital/Clinic Name">
+                <input type="text" name="referral_hospital" value="{{ $patient->referral_hospital }}" class="form-control" placeholder="Enter Hospital/Clinic Name">
               </div>
             </div>
           </div>
@@ -367,7 +369,7 @@
               <label>If Other, please specify: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
-                <input type="text" name="other_referral" class="form-control" placeholder="Enter Name">
+                <input type="text" name="other_referral" value="{{ $patient->other_referral }}" class="form-control" placeholder="Enter Name">
               </div>
             </div>
           </div>
@@ -386,7 +388,7 @@
               <label>Name of evaluator: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user-md"></i></span>
-                <input type="text" name="evaluator_name" class="form-control" placeholder="Enter Evaluator Name">
+                <input type="text" name="evaluator_name" value="{{ $patient->evaluator_name }}" class="form-control" placeholder="Enter Evaluator Name">
               </div>
             </div>
           </div>
@@ -395,7 +397,7 @@
               <label>Evaluation Date: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                <input type="date" name="evaluation_date" class="form-control" >
+                <input type="date" name="evaluation_date" value="{{ $patient->evaluation_date }}" class="form-control" >
               </div>
             </div>
           </div>
@@ -406,19 +408,19 @@
               <label>Title of evaluator: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="evaluator_title" value="1"> Doctor </label> 
+                <label> <input type="radio" name="evaluator_title" value="{{ $patient->evaluator_title }}" {{ $patient->evaluator_title == 1  ? 'checked' : ''}}> Doctor </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="evaluator_title" value="2"> Nurse </label> 
+                <label> <input type="radio" name="evaluator_title" value="{{ $patient->evaluator_title }}" {{ $patient->evaluator_title == 2  ? 'checked' : ''}}> Nurse </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="evaluator_title" value="3"> Midwife </label> 
+                <label> <input type="radio" name="evaluator_title" value="{{ $patient->evaluator_title }}" {{ $patient->evaluator_title == 3  ? 'checked' : ''}}> Midwife </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="evaluator_title" value="4"> Physical therapist </label> 
+                <label> <input type="radio" name="evaluator_title" value="{{ $patient->evaluator_title }}" {{ $patient->evaluator_title == 4  ? 'checked' : ''}}> Physical therapist </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="evaluator_title" value="0"> Other </label> 
+                <label> <input type="radio" name="evaluator_title" value="{{ $patient->evaluator_title }}" {{ $patient->evaluator_title == 0  ? 'checked' : ''}}> Other </label> 
               </div>
             </div>
           </div>
@@ -429,13 +431,13 @@
               <label>Feet Affected: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="feet_affected" value="1"> Right </label> 
+                <label> <input type="radio" name="feet_affected" value="{{ $patient->feet_affected }}" {{ $patient->feet_affected == 1 ? 'checked' : ''}}> Right </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="feet_affected" value="2"> Left </label> 
+                <label> <input type="radio" name="feet_affected" value="{{ $patient->feet_affected }}" {{ $patient->feet_affected == 2 ? 'checked' : ''}}> Left </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="feet_affected" value="3"> Both </label> 
+                <label> <input type="radio" name="feet_affected" value="{{ $patient->feet_affected }}" {{ $patient->feet_affected == 3 ? 'checked' : ''}}> Both </label> 
               </div>
             </div>
           </div>
@@ -446,16 +448,16 @@
               <label>Diagnosis: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="diagnosis" value="1"> Idiopathic Clubfoot </label> 
+                <label> <input type="radio" name="diagnosis" value="{{ $patient->diagnosis }}" {{ $patient->diagnosis == 1 ? 'checked' : ''}}> Idiopathic Clubfoot </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="diagnosis" value="2"> Syndromic Clubfoot </label> 
+                <label> <input type="radio" name="diagnosis" value="{{ $patient->diagnosis }}" {{ $patient->diagnosis == 2 ? 'checked' : ''}}> Syndromic Clubfoot </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="diagnosis" value="3"> Neuropathic Clubfoot </label> 
+                <label> <input type="radio" name="diagnosis" value="{{ $patient->diagnosis }}" {{ $patient->diagnosis == 3 ? 'checked' : ''}}> Neuropathic Clubfoot </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="diagnosis" value="0"> Other </label> 
+                <label> <input type="radio" name="diagnosis" value="{{ $patient->diagnosis }}" {{ $patient->diagnosis == 0 ? 'checked' : ''}}> Other </label> 
               </div>
             </div>
           </div>
@@ -466,10 +468,10 @@
               <label>Deformity present at birth: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_deformity" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_birth_deformity" value="{{ $patient->has_birth_deformity }}" {{ $patient->has_birth_deformity == 1 ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_deformity" value="0"> No </label> 
+                <label> <input type="radio" name="has_birth_deformity" value="{{ $patient->has_birth_deformity }}" {{ $patient->has_birth_deformity == 0 ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -480,10 +482,10 @@
               <label>Any Pervious treatments: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_treated" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_treated" value="{{ $patient->has_treated }}" {{ $patient->has_treated == 1 ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_treated" value="0"> No </label> 
+                <label> <input type="radio" name="has_treated" value="{{ $patient->has_treated }}" {{ $patient->has_treated == 0 ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -492,7 +494,7 @@
               <label>How many previous treatment sessions: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-check"></i></span>
-                <input type="text" name="treatments" class="form-control" placeholder="Enter Sessions">
+                <input type="text" name="treatments" value="{{ $patient->treatments }}" class="form-control" placeholder="Enter Sessions">
               </div>
             </div>
           </div>
@@ -503,16 +505,16 @@
               <label>Type of previous treatment(S): </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="1"> Casting above knee </label> 
+                <label> <input type="radio" name="treatment_type" value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 1 ? 'checked' : ''}}> Casting above knee </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="2"> Casting below knee </label> 
+                <label> <input type="radio" name="treatment_type" value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 2 ? 'checked' : ''}}> Casting below knee </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="3"> Physiotherapy </label> 
+                <label> <input type="radio" name="treatment_type" value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 3 ? 'checked' : ''}}> Physiotherapy </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="0"> Other </label> 
+                <label> <input type="radio" name="treatment_type" value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 0 ? 'checked' : ''}}> Other </label> 
               </div>
             </div>
           </div>
@@ -523,10 +525,10 @@
               <label>Diagnosed prenatally: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_diagnosed" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_diagnosed" value="{{ $patient->has_diagnosed }}" {{ $patient->has_diagnosed == 1 ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_diagnosed" value="0"> No </label> 
+                <label> <input type="radio" name="has_diagnosed" value="{{ $patient->has_diagnosed }}" {{ $patient->has_diagnosed == 0 ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -537,7 +539,7 @@
               <label>At pregnancy Week: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                <input type="text" name="preg_week" class="form-control" placeholder="Enter Value">
+                <input type="text" name="preg_week" value="{{ $patient->preg_week }}" class="form-control" placeholder="Enter Value">
               </div>
             </div>
           </div>
@@ -548,10 +550,10 @@
               <label>Confirmed at birth: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_confirmed" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="{{ $patient->has_birth_confirmed }}" {{ $patient->has_birth_confirmed == 1 ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_confirmed" value="0"> No </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="{{ $patient->has_birth_confirmed }}" {{ $patient->has_birth_confirmed == 0 ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -562,7 +564,7 @@
               <label>Diagnosis comments: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-edit"></i></span>
-                <input type="text" name="diagnosis_comments" class="form-control" placeholder="Enter Diagnosis Comments">
+                <input type="text" name="diagnosis_comments" value="{{ $patient->diagnosis_comments }}" class="form-control" placeholder="Enter Diagnosis Comments">
               </div>
             </div>
           </div>
@@ -580,22 +582,22 @@
             <div class="form-group">
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="examinations[]" value="head"> Head </label> 
+                <label> <input type="checkbox" name="is_head" value="{{ $patient->is_head }}" {{ $patient->is_head == 1 ? 'checked' : ''}}> Head </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="examinations[]" value="heart"> Heart/Lungs  </label> 
+                <label> <input type="checkbox" name="is_heart" value="{{ $patient->is_heart }}" {{ $patient->is_heart == 1 ? 'checked' : ''}}> Heart/Lungs  </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="examinations[]" value="urinary"> Urinary/Digestive </label> 
+                <label> <input type="checkbox" name="is_urinary" value="{{ $patient->is_urinary }}" {{ $patient->is_urinary == 1 ? 'checked' : ''}}> Urinary/Digestive </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="examinations[]" value="skin"> Skin </label> 
+                <label> <input type="checkbox" name="is_skin" value="{{ $patient->is_skin }}" {{ $patient->is_skin == 1 ? 'checked' : ''}}> Skin </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="examinations[]" value="spine"> Spine </label> 
+                <label> <input type="checkbox" name="is_spine" value="{{ $patient->is_spine }}" {{ $patient->is_spine == 1 ? 'checked' : ''}}> Spine </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="examinations[]" value="hips"> Hips </label> 
+                <label> <input type="checkbox" name="is_hips" value="{{ $patient->is_hips }}" {{ $patient->is_hips == 1 ? 'checked' : ''}}> Hips </label> 
               </div>
             </div>
           </div>
@@ -606,13 +608,13 @@
               <label>Any Abnormalities: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="abnormalities[]" value="upper"> Upper Extremities </label> 
+                <label> <input type="checkbox" name="is_upper" value="{{ $patient->is_upper }}" {{ $patient->is_upper == 1 ? 'checked' : ''}}> Upper Extremities </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="abnormalities[]" value="lower"> Lower Extremities  </label> 
+                <label> <input type="checkbox" name="is_lower" value="{{ $patient->is_lower }}" {{ $patient->is_lower == 1 ? 'checked' : ''}}> Lower Extremities  </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="abnormalities[]" value="neuro"> Neurological </label> 
+                <label> <input type="checkbox" name="is_neuro" value="{{ $patient->is_neuro }}" {{ $patient->is_neuro == 1 ? 'checked' : ''}}> Neurological </label> 
               </div>
             </div>
           </div>
@@ -623,13 +625,13 @@
               <label>Any Weakness: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="weaknesses[]" value="arms"> Arms </label> 
+                <label> <input type="checkbox" name="is_arms" value="{{ $patient->is_arms }}" {{ $patient->is_arms == 1 ? 'checked' : ''}}> Arms </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="weaknesses[]" value="legs"> Legs  </label> 
+                <label> <input type="checkbox" name="is_legs" value="{{ $patient->is_legs }}" {{ $patient->is_legs == 1 ? 'checked' : ''}}> Legs  </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="checkbox" name="weaknesses[]" value="other"> Other Parts of Body </label> 
+                <label> <input type="checkbox" name="is_other" value="{{ $patient->is_other }}" {{ $patient->is_other == 1 ? 'checked' : ''}}> Other Parts of Body </label> 
               </div>
             </div>
           </div>
@@ -644,7 +646,7 @@
 </form>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>
-<script >
+<script>
   $(function () {
     $('.patient_nav').addClass('active');
     $('.patients_nav_add').addClass('active');

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
+    protected  $primaryKey = 'patient_id';
+
     // created_at and updated_at will not make
     public $timestamps = false;
 

@@ -21,7 +21,7 @@
       <div class="row">
         <div class="col-md-9"></div>
         <div class="col-md-3">
-        <a class="form-control pull-right btn btn-primary" href="registration">Add New Patient</a>    
+        <a class="form-control pull-right btn btn-primary" href="patients/create">Add New Patient</a>    
         </div>
     </div>
     </div><!-- /.container-fluid -->
@@ -42,6 +42,7 @@
                 <th>Guardian Name</th>
                 <th>Guardian Number</th>
                 <th>Age (m)</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="patients">
@@ -80,6 +81,7 @@
 
 <script type="text/javascript">
   var patients = {!! json_encode($patients) !!};
+  var output = '', patient_id = 0;
   console.log(patients);
   
   view_patients(patients);
@@ -88,6 +90,7 @@
     output = '';
     if (patients.length > 0) {
         for (i = 0; i < patients.length; i++) {
+            patient_id = patients[i]['patient_id'];
             output += `<tr><td>${patients[i]['patient_name']}</td> `;
             output += '<td>';
             output += (patients[i]['father_name'] ? patients[i]['father_name'] : '-');
@@ -97,7 +100,7 @@
             output += (patients[i]['guardian_number'] ? patients[i]['guardian_number'] : '-');
             output += '</td> <td>';
             output += (patients[i]['birth_date'] ? getAge(patients[i]['birth_date']) : '-');
-            output += '</td></tr>';
+            output += `</td> <td class="text-right"> <a href="patients/${patient_id}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a> <a href="patients/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger "><i class="fa fa-times"></i></a> </td></tr>`;
         }
     } else {
         output = '<tr>No Data</tr>';

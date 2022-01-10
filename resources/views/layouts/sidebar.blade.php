@@ -69,13 +69,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="patients" class="nav-link patients_nav">
+              <a href="{{ route('patients') }}" class="nav-link patients_nav">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Patients</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="registration" class="nav-link patients_nav_add">
+              <a href="{{ route('patients.create') }}" class="nav-link patients_nav_add">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Add Patient</p>
               </a>
@@ -99,13 +99,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="appointment" class="nav-link appointments_nav">
+              <a href="{{ route('appointment') }}" class="nav-link appointments_nav">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Appointments</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="appointment/add" class="nav-link appointments_nav_add">
+              <a href="{{ route('appoint.create') }}" class="nav-link appointments_nav_add">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Add Appointment</p>
               </a>
