@@ -2,6 +2,14 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
+<style type="text/css">
+  .select2-selection {
+    height: unset !important;
+    border: 1px solid #ced4da !important;
+    border-radius: unset !important;
+    padding: 0.375rem .75rem !important;
+  }
+</style>
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
