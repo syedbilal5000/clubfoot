@@ -30,6 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {{-- 3. Main Content - Content --}}
 
   <div class="content-wrapper">
+    @include('layouts.messages')
     <!-- Main content -->
     <section class="content">
       @yield('content')
@@ -59,5 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+<!--  jQueryValidate  -->
+<script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}" type="text/javascript"></script>
 </body>
 </html>

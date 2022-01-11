@@ -5,6 +5,12 @@
   .fc-view>table {
     background-color: white;
   }
+  .select2-selection {
+    height: unset !important;
+    border: 1px solid #ced4da !important;
+    border-radius: unset !important;
+    padding: 0.375rem .75rem !important;
+  }
 </style>
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/fullcalendar/dist/fullcalendar.min.css') }}">
@@ -36,6 +42,7 @@
         <div class="form-group">
           <label>Select Patient: </label>
           <select id="patients" class="form-control select2" style="width: 100%;">
+            <option selected disabled>Select Patient</option>
           </select>
         </div>
       </div>
@@ -301,7 +308,7 @@
         output = '<option value="-1">No Data</option>';
     }
     $('#calendar').fullCalendar('renderEvents', jsonArr, true);
-    $('#patients').html(output);
+    $('#patients').append(output);
     $('.select2').select2();
   }
   })

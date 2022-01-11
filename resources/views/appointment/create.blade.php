@@ -30,42 +30,57 @@
   <!-- /.content-header -->
 
 {{-- Main Content --}}
-<div class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <!-- bilals if coming from registration then patient and date will be select auto and id will maintain -->
-          <label>Select Patient: </label>
-          <select id="patients" class="form-control select2" style="width: 100%;">
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Appointment date: </label><label style="color: red;"> &nbsp;*</label>
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-date"></i></span>
-            <input type="date" name="appointment_date" class="form-control">
+<form id="appoint_form" method="POST" action="add">
+  @csrf
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <!-- bilals if coming from registration then patient and date will be select auto and id will maintain -->
+            <label>Select Patient: </label><label style="color: red;"> &nbsp;*</label>
+            <select id="patients" name="patient_id" class="form-control select2 @error('patient_id') is-invalid @enderror" style="width: 100%;" required>
+              <option selected disabled>Select Patient</option>
+            </select>
+            @error('patient_id')
+              <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+              </span>
+            @enderror
           </div>
         </div>
-      </div>
-    </div>  <!-- row end -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <label>Description: </label><label style="color: red;"> &nbsp;*</label>
-          <div class="input-group">
-            <input type="text" name="appointment_description" class="form-control">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Appointment date: </label><label style="color: red;"> &nbsp;*</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-date"></i></span>
+              <input type="date" name="appointment_date" class="form-control @error('appointment_date') is-invalid @enderror" required>
+              @error('appointment_date')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+            </div>
           </div>
         </div>
-      </div>
-    </div>  <!-- row end -->
-    <br>
-    <!-- bilals save appointment in the table -->
-    <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
+      </div>  <!-- row end -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Description: </label>
+            <div class="input-group">
+              <!-- <input type="text" name="appointment_description" class="form-control"> -->
+              <textarea class="form-control" name="description" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>  <!-- row end -->
+      <br>
+      <!-- bilals save appointment in the table -->
+      <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
+    </div>
   </div>
-</div>
+</form>
 
 <!-- ./wrapper -->
 
@@ -87,13 +102,14 @@
     } else {
         output = '<option value="-1">No Data</option>';
     }
-    $('#patients').html(output);
+    $('#patients').append(output);
   }
 
   $(function () {
     $('.select2').select2();
     $('.appointment_nav').addClass('active');
     $('.appointments_nav_add').addClass('active');
+    $("#appoint_form").validate();
     /*
     //bilals display all appointments in calender, change background color according to status of appointment.
     $.ajax({

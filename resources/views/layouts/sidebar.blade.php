@@ -113,7 +113,6 @@
           </ul>
         </li>
         <!-- <li class="nav-item">
-          <!- - bilals href not working if inside one directory - ->
           <a href="" class="nav-link appointment_nav">
             <i class="nav-icon fas fa-th"></i>
             <p>

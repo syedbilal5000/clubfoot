@@ -33,7 +33,6 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <!-- bilals retrive data from patient table -->
       <table id="patient_table" class="table table-striped table-bordered" style="width:100% !important;">
         <thead>
             <tr>
@@ -100,7 +99,7 @@
             output += (patients[i]['guardian_number'] ? patients[i]['guardian_number'] : '-');
             output += '</td> <td>';
             output += (patients[i]['birth_date'] ? getAge(patients[i]['birth_date']) : '-');
-            output += `</td> <td class="text-right"> <a href="patients/${patient_id}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a> <a href="patients/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger "><i class="fa fa-times"></i></a> </td></tr>`;
+            output += `</td> <td class="text-center"> <a href="patients/${patient_id}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a> <a href="patients/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger "><i class="fa fa-times"></i></a> </td></tr>`;
         }
     } else {
         output = '<tr>No Data</tr>';

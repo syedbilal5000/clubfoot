@@ -3,6 +3,14 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
+<style type="text/css">
+  .select2-selection {
+    height: unset !important;
+    border: 1px solid #ced4da !important;
+    border-radius: unset !important;
+    padding: 0.375rem .75rem !important;
+  }
+</style>
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
@@ -31,8 +39,7 @@
         <div class="form-group">
           <label>Select Patient: </label>
           <select id="patients" class="form-control select2" style="width: 100%;">
-            <!-- bilals get all list from database -->
-            <!-- Done -->
+            <option selected disabled>Select Patient</option>
           </select>
         </div>
       </div>

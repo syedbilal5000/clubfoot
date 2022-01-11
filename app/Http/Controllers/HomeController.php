@@ -8,6 +8,7 @@ use App\Patient;
 use App\PatientFamily;
 use App\PatientDiagnosis;
 use App\PatientExamination;
+use App\Appointment;
 
 class HomeController extends Controller
 {
@@ -167,6 +168,20 @@ class HomeController extends Controller
         // print_r($patient);
         dd(11);
         return redirect('registration');
+    }
+
+    // appointment create
+    public function appoint_store(Request $request)
+    {
+        // Add patient general info
+        $appointment = new Appointment;
+        $appointment->appointment_date = $request->appointment_date;
+        $appointment->patient_id = $request->patient_id;
+        $appointment->appointment_status = 2; // Pending - status
+        $appointment->previous_appointment_id = 0; // for new appointment
+        $appointment->save();
+        return redirect('/appointment')->with('success', 'Created Successfully.');
+        dd($request);
     }
 
     // patient update

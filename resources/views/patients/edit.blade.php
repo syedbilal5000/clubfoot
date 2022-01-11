@@ -639,7 +639,6 @@
 
       </div>
       <br>
-      <!-- bilals route next to appointment/add -->
       <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
     </div>
   </div>

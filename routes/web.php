@@ -33,4 +33,5 @@ Route::get('patients/{id}/edit', [App\Http\Controllers\HomeController::class, 'p
 Route::put('patients/{id}/edit', [App\Http\Controllers\HomeController::class, 'patient_update'])->name('patients_update');
 Route::get('appointment', [App\Http\Controllers\HomeController::class, 'appointment_index'])->name('appointment');
 Route::get('appointment/create', [App\Http\Controllers\HomeController::class, 'appoint_create'])->name('appoint.create');
+Route::post('appointment/add', [App\Http\Controllers\HomeController::class, 'appoint_store'])->name('appoint_store');
 Route::get('visit', [App\Http\Controllers\HomeController::class, 'visit_index'])->name('visit_index');
