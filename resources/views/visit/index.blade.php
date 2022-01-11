@@ -107,7 +107,112 @@
           </table>
         </div>
       </div>
-    </div>
+    </div>  <!-- row end -->
+    <br><hr><h2 style="text-align:center;">Add New Visit</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date: </label>
+          <input type="date" name="visit_date" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Side: </label>
+          <select id="side_drop" class="form-control select2" style="width: 100%;">
+            <option value="L">Left</option>
+            <option value="R">Right</option>
+          </select>
+        </div>
+      </div>
+    </div><!-- row end -->
+    <h5>MidFoot Score</h5>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>CLB: </label>
+          <select id="clb_drop" class="form-control select2" style="width: 100%;">
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>MC: </label>
+          <select id="mc_drop" class="form-control select2" style="width: 100%;">
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>LHT: </label>
+          <select id="lht_drop" class="form-control select2" style="width: 100%;">
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+          </select>
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <h5>HindFoot Score</h5>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>PC: </label>
+          <select id="pc_drop" class="form-control select2" style="width: 100%;">
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>RE: </label>
+          <select id="re_drop" class="form-control select2" style="width: 100%;">
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>EH: </label>
+          <select id="eh_drop" class="form-control select2" style="width: 100%;">
+            <option value="0.0">0.0</option>
+            <option value="0.5">0.5</option>
+            <option value="1.0">1.0</option>
+          </select>
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <h5>Total Score</h5>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Midfoot Score: </label>
+          <input type="text" disabled name="midfoot_score" id="midfoot_score" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Hindfoot Score: </label>
+          <input type="text" disabled name="hindfoot_score" id="hindfoot_score" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Total Score: </label>
+          <input type="text" disabled name="total_score" id="total_score" class="form-control">
+        </div>
+      </div>
+    </div> <!-- row end -->
   </div>
 </form>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
@@ -120,10 +225,18 @@
   view_patients(patients);
 
   function view_patients(patients) {
-    output = '';
+    output = '<option value="">Select Patient</option>';
     if (patients.length > 0) {
+        var patientCheck = {};
         for (i = 0; i < patients.length; i++) {
-            output += `<option value="${patients[i]['patient_id']}">${patients[i]['patient_name']}</option>`
+            if(patientCheck[patients[i]['patient_id']] == true)
+          {
+
+          }
+          else {
+            patientCheck[patients[i]['patient_id']] = true;
+            output += `<option value="${patients[i]['patient_id']}">${patients[i]['patient_name']},${patients[i]['guardian_number']},${patients[i]['guardian_cnic']}</option>`;
+          }
         }
     } else {
         output = '<option value="-1">No Data</option>';

@@ -41,8 +41,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Select Patient: </label>
-          <select id="patients" class="form-control select2" style="width: 100%;">
-            <option selected disabled>Select Patient</option>
+          <select id="patients" class="form-control select2" style="width: 100%;">            
           </select>
         </div>
       </div>
@@ -50,8 +49,8 @@
         <div class="form-group">
           <label>Select Status: </label>
           <select id="status_drop" class="form-control select2" style="width: 100%;">
-            <option value="Done">Done</option>
             <option value="Pending">Pending</option>
+            <option value="Done">Done</option>
             <option value="Reject">Reject</option>
             <option value="Extend">Extend</option>
           </select>
@@ -85,31 +84,14 @@
 <script src="{{ asset('adminlte/plugins/fullcalendar/dist/fullcalendar.min.js') }}"></script>
 <!-- Page specific script -->
 <script>
-
+  var jsonArrPending = [];
+  var jsonArrDone = [];
+  var jsonArrExtend = [];
+  var jsonArrReject = [];
   $(function () {
     $('.appointment_nav').addClass('active');
     $('.appointments_nav').addClass('active');
-    /*
-    //bilals display all appointments in calender, change background color according to status of appointment.
-    $.ajax({
-      url: main_url+'meetingS/getAllMeeting.php?empid='+empid,                        
-      type: 'GET',
-      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-      dataType: "json",
-      complete : function(response){
-        var data = response.responseText; 
-        // console.log(data);       
-        var jsonR = JSON.parse(data);                
-        // console.log(calendar)
-        $('#calendar').fullCalendar('renderEvents', jsonR, true);
-      },
-      error: function (exception)
-      {
-        console.log(exception);
-        //alert(exception.responseText);
-      }
-    });
-    */
+    renderNewCalender();
     /* initialize the external events
      -----------------------------------------------------------------*/
     function init_events(ele) {
@@ -139,177 +121,262 @@
     /* initialize the calendar
      -----------------------------------------------------------------*/
     //Date for the calendar events (dummy data)
-    var date = new Date()
-    var d    = date.getDate(),
-        m    = date.getMonth(),
-        y    = date.getFullYear();
-    $('#calendar').fullCalendar({
-      header    : {
-        left  : 'prev,next today',
-        center: 'title',
-        right : 'month,agendaWeek,agendaDay'
-      },
-      buttonText: {
-        today: 'today',
-        month: 'month',
-        week : 'week',
-        day  : 'day'
-      },
-      editable  : true,
-      droppable : true, // this allows things to be dropped onto the calendar !!!
-      drop      : function (date, allDay) { // this function is called when something is dropped
+    function renderNewCalender()
+    {
+      var date = new Date()
+      var d    = date.getDate(),
+          m    = date.getMonth(),
+          y    = date.getFullYear();
+      $('#calendar').fullCalendar('destroy');
+      $('#calendar').fullCalendar({
+        header    : {
+          left  : 'prev,next today',
+          center: 'title',
+          right : 'month,agendaWeek,agendaDay'
+        },
+        buttonText: {
+          today: 'today',
+          month: 'month',
+          week : 'week',
+          day  : 'day'
+        },
+        editable  : true,
+        droppable : true, // this allows things to be dropped onto the calendar !!!
+        drop      : function (date, allDay) { // this function is called when something is dropped
 
-        // retrieve the dropped element's stored Event Object
-        var originalEventObject = $(this).data('eventObject')
+          // retrieve the dropped element's stored Event Object
+          var originalEventObject = $(this).data('eventObject')
 
-        // we need to copy it, so that multiple events don't have a reference to the same object
-        var copiedEventObject = $.extend({}, originalEventObject)
+          // we need to copy it, so that multiple events don't have a reference to the same object
+          var copiedEventObject = $.extend({}, originalEventObject)
 
-        // assign it the date that was reported
-        copiedEventObject.start           = date
-        copiedEventObject.allDay          = allDay
-        copiedEventObject.backgroundColor = $(this).css('background-color')
-        copiedEventObject.borderColor     = $(this).css('border-color')
+          // assign it the date that was reported
+          copiedEventObject.start           = date
+          copiedEventObject.allDay          = allDay
+          copiedEventObject.backgroundColor = $(this).css('background-color')
+          copiedEventObject.borderColor     = $(this).css('border-color')
 
-        // render the event on the calendar
-        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        // $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
+          // render the event on the calendar
+          // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+          // $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
 
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove()
-        }
-
-      },
-      eventDrop: function(event, delta, revertFunc) {
-
-          if (!confirm("Are you sure about this change?")) {
-            revertFunc();
+          // is the "remove after drop" checkbox checked?
+          if ($('#drop-remove').is(':checked')) {
+            // if so, remove the element from the "Draggable Events" list
+            $(this).remove()
           }
-          else
-          {
-            edit_func(event);
-          }
-      },
-      eventRender: function (event, element) {
-        element.bind('mousedown', function (e) {
-            if (e.which == 3) {
-                if (!confirm("Are you sure you want to delete?")) {
-                }
-                else
-                {
-                  delete_func(event.id);
-                }
+
+        },
+        eventDrop: function(event, delta, revertFunc) {
+
+            if (!confirm("Are you sure about this change?")) {
+              revertFunc();
             }
-        });
-      }
-    })
+            else
+            {
+              edit_func(event);
+            }
+        },
+        eventRender: function (event, element) {
+          element.bind('mousedown', function (e) {
+              if (e.which == 3) {
+                  if (!confirm("Are you sure you want to delete?")) {
+                  }
+                  else
+                  {
+                    delete_func(event.id);
+                  }
+              }
+          });
+        }
+      })
+    }
 
-    /* ADDING EVENTS */
-    var currColor = '#3c8dbc' //Red by default
-    //Color chooser button
-    var colorChooser = $('#color-chooser-btn')
-    $('#color-chooser > li > a').click(function (e) {
-      e.preventDefault()
-      //Save color
-      currColor = $(this).css('color')
-      //Add color effect to button
-      $('#add-new-event').css({ 'background-color': currColor, 'border-color': currColor })
-    })
-    $('#add-new-event').click(function (e) {
-      e.preventDefault()
-      //Get value and make sure it is not null
-      var val = $('#new-event').val()
-      if (val.length == 0) {
-        return
-      }
-
-      //Create events
-      var event = $('<div />')
-      event.css({
-        'background-color': currColor,
-        'border-color'    : currColor,
-        'color'           : '#fff'
-      }).addClass('external-event')
-      event.html(val)
-      $('#external-events').prepend(event)
-
-      //Add draggable funtionality
-      init_events(event)
-
-      //Remove event from text input
-      $('#new-event').val('')
-    })
     function delete_func(id)
     {
       // bilals delete this appointment, but appointment should not be delete. :)
     }
     function edit_func(event) {
       // bilals change date for this appointment.
-      /*
-      var d = new Date(event.start.format());
-      start_date = $.datepicker.formatDate('yy/mm/dd', d);
-      // //alert(start_date);
-      var post_data = "id=" + event.id + "&start_date=" + start_date;
-      // //alert(post_data);
-      $.ajax({
-        url: main_url+'meetingS/EditMeetingDate.php?'+post_data, 
-        type: 'GET',
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        dataType: "json",
-        success: function(response){
-        },
-        error: function (exception)
-        {
-          console.log(exception);
-          //alert(exception.responseText);
-        }
-      });
-      */
     }
     var patients_appoint = {!! json_encode($patients_appoint) !!};
   
     fill_data(patients_appoint);
 
     function fill_data(patients_appoint) {
-    output = '';
-    var jsonArr = [];
+    output = '<option value="">Select Patient</option>';
+    
     if (patients_appoint.length > 0) {
+      var patientCheck = {};
         for (i = 0; i < patients_appoint.length; i++) {
-            output += `<option value="${patients_appoint[i]['patient_id']}">${patients_appoint[i]['patient_name']}</option>`;
+          // console.log(patients_appoint[i])
+          if(patientCheck[patients_appoint[i]['patient_id']] == true)
+          {
 
-            backgroundColor = "#4846c7";
-            if(patients_appoint[i]['appointment_status'] == "Pending")
+          }
+          else {
+            patientCheck[patients_appoint[i]['patient_id']] = true;
+            output += `<option value="${patients_appoint[i]['patient_id']}">${patients_appoint[i]['patient_name']},${patients_appoint[i]['guardian_number']},${patients_appoint[i]['guardian_cnic']}</option>`;
+          }
+            
+            if(patients_appoint[i]['status'] == "Pending")
             {
               backgroundColor = "#f7bd1b";
+              jsonArrPending.push({
+                title          : patients_appoint[i]['patient_name'],
+                start          : patients_appoint[i]['appointment_date'],
+                end          : patients_appoint[i]['appointment_date'],
+                backgroundColor: backgroundColor, //yellow
+                borderColor    : backgroundColor, //yellow
+              });
             }
-            else if(patients_appoint[i]['appointment_status'] == "Extend")
+            else if(patients_appoint[i]['status'] == "Extend")
             {
               backgroundColor = "#851608";
+              jsonArrExtend.push({
+                title          : patients_appoint[i]['patient_name'],
+                start          : patients_appoint[i]['appointment_date'],
+                end          : patients_appoint[i]['appointment_date'],
+                backgroundColor: backgroundColor, //yellow
+                borderColor    : backgroundColor, //yellow
+              });
             }
-            else if(patients_appoint[i]['appointment_status'] == "Done")
+            else if(patients_appoint[i]['status'] == "Done")
             {
               backgroundColor = "#298200";
+              jsonArrDone.push({
+                title          : patients_appoint[i]['patient_name'],
+                start          : patients_appoint[i]['appointment_date'],
+                end          : patients_appoint[i]['appointment_date'],
+                backgroundColor: backgroundColor, //yellow
+                borderColor    : backgroundColor, //yellow
+              });
             }
-
-
-            jsonArr.push({
-              title          : patients_appoint[i]['patient_name'],
-              start          : patients_appoint[i]['appointment_date'],
-              end          : patients_appoint[i]['appointment_date'],
-              backgroundColor: backgroundColor, //yellow
-              borderColor    : backgroundColor, //yellow
-            });
-            
+            else if(patients_appoint[i]['status'] != null)
+            {
+              backgroundColor = "#4846c7";
+              jsonArrReject.push({
+                title          : patients_appoint[i]['patient_name'],
+                start          : patients_appoint[i]['appointment_date'],
+                end          : patients_appoint[i]['appointment_date'],
+                backgroundColor: backgroundColor, //yellow
+                borderColor    : backgroundColor, //yellow
+              });
+            }
             
         }
+        $("#status_drop").on("change", function() {
+          filterDataCalender(patients_appoint);
+        });
+        $('#patients').on("change", function() {
+          filterDataCalender(patients_appoint);
+        });
     } else {
         output = '<option value="-1">No Data</option>';
     }
-    $('#calendar').fullCalendar('renderEvents', jsonArr, true);
+    $('#calendar').fullCalendar('renderEvents', jsonArrPending, true);    
     $('#patients').append(output);
     $('.select2').select2();
+  }
+  function filterDataCalender(patients_appoint)
+  {
+    var jsonArr = [];
+    if($("#status_drop").val() != "" && $("#patients").val() != "")
+    {
+      var tupleFound = false;
+      for (i = 0; i < patients_appoint.length; i++) {
+        if(patients_appoint[i]['patient_id'] == $("#patients").val()
+           && patients_appoint[i]['status'] == $("#status_drop").val())
+        {
+          jsonArr = [];
+          backgroundColor = "#4846c7";
+          if(patients_appoint[i]['status'] == "Pending")
+          {
+            backgroundColor = "#f7bd1b";
+          }
+          else if(patients_appoint[i]['status'] == "Extend")
+          {
+            backgroundColor = "#851608";
+          }
+          else if(patients_appoint[i]['status'] == "Done")
+          {
+            backgroundColor = "#298200";
+          }
+          jsonArr.push({
+            title          : patients_appoint[i]['patient_name'],
+            start          : patients_appoint[i]['appointment_date'],
+            end          : patients_appoint[i]['appointment_date'],
+            backgroundColor: backgroundColor, //yellow
+            borderColor    : backgroundColor, //yellow
+          });
+          renderNewCalender();
+          $('#calendar').fullCalendar('renderEvents', jsonArr, true);
+          tupleFound = true;
+          break;
+        }
+      }
+      if(!tupleFound)
+      {
+        renderNewCalender();
+        $('#calendar').fullCalendar('renderEvents', jsonArr, true);
+      }
+    }
+    else if($("#status_drop").val() != "" )
+    {
+      if($("#status_drop").val() == "Pending")
+      {
+        renderNewCalender();
+        $('#calendar').fullCalendar('renderEvents', jsonArrPending, true);
+      }
+      else if($("#status_drop").val() == "Done")
+      {
+        renderNewCalender();
+        $('#calendar').fullCalendar('renderEvents', jsonArrDone, true);
+      }
+      else if($("#status_drop").val() == "Extend")
+      {
+        renderNewCalender();
+        $('#calendar').fullCalendar('renderEvents', jsonArrExtend, true);
+      }
+      else if($("#status_drop").val() == "Reject")
+      {
+        renderNewCalender();
+        $('#calendar').fullCalendar('renderEvents', jsonArrReject, true);
+      }
+    }
+    else if($("#patients").val() != "" )
+    {
+      for (i = 0; i < patients_appoint.length; i++) {
+        if(patients_appoint[i]['patient_id'] == $("#patients").val())
+        {
+          jsonArr = [];
+          backgroundColor = "#4846c7";
+          if(patients_appoint[i]['status'] == "Pending")
+          {
+            backgroundColor = "#f7bd1b";
+          }
+          else if(patients_appoint[i]['status'] == "Extend")
+          {
+            backgroundColor = "#851608";
+          }
+          else if(patients_appoint[i]['status'] == "Done")
+          {
+            backgroundColor = "#298200";
+          }
+          jsonArr.push({
+            title          : patients_appoint[i]['patient_name'],
+            start          : patients_appoint[i]['appointment_date'],
+            end          : patients_appoint[i]['appointment_date'],
+            backgroundColor: backgroundColor, //yellow
+            borderColor    : backgroundColor, //yellow
+          });
+          renderNewCalender();
+          $('#calendar').fullCalendar('renderEvents', jsonArr, true);
+          break;
+        }
+      }
+    }
+
   }
   })
 </script>

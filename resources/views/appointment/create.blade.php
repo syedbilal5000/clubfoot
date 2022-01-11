@@ -94,15 +94,23 @@
   view_patients(patients);
 
   function view_patients(patients) {
-    output = '';
+    output = '<option value="">Select Patient</option>';
     if (patients.length > 0) {
+        var patientCheck = {};
         for (i = 0; i < patients.length; i++) {
-            output += `<option value="${patients[i]['patient_id']}">${patients[i]['patient_name']}</option>`
+            if(patientCheck[patients[i]['patient_id']] == true)
+          {
+
+          }
+          else {
+            patientCheck[patients[i]['patient_id']] = true;
+            output += `<option value="${patients[i]['patient_id']}">${patients[i]['patient_name']},${patients[i]['guardian_number']},${patients[i]['guardian_cnic']}</option>`;
+          }
         }
     } else {
         output = '<option value="-1">No Data</option>';
     }
-    $('#patients').append(output);
+    $('#patients').html(output);
   }
 
   $(function () {

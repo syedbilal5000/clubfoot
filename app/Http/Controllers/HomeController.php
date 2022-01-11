@@ -88,7 +88,7 @@ class HomeController extends Controller
 
     public function get_patients_with_appointment()
     {
-        $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id;");
+        $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id;");
         return $patients_appoint;
     }
 
