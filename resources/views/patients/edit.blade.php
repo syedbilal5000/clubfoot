@@ -85,7 +85,7 @@
             <div class="form-group">
               <label>Date of birth(DD/MM/YYYY): </label>
               <div class="input-group">
-                <input type="date" name="birth_date" value="{{ $patient->birth_date }}" class="form-control">
+                <input type="date" name="birth_date" value="{{ $patient->birth_date }}" class="form-control" id="date_text">
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@
             <div class="form-group">
               <label>Age: </label>
               <div class="input-group">
-                <input type="text" name="age" placeholder="This should be auto fill" class="form-control" readonly>
+                <input type="text" name="age"  id="age_text" placeholder="This should be auto fill" value="getAge({{ $patient->birth_date }})" class="form-control" readonly>
               </div>
             </div>
           </div>
@@ -650,6 +650,9 @@
     $('.patient_nav').addClass('active');
     $('.patients_nav_add').addClass('active');
     $('[data-mask]').inputmask();
+    $("#date_text").on('change', function() {
+      $("#age_text").val(getAge($("#date_text").val()));
+    })
   });
   function general_clickable() {
     if($('#general_view').css('display') == 'block') {
@@ -682,6 +685,83 @@
     else {
       $('#physical_view').css('display', 'block');
     }
+  }
+  function getAge(dateString) {
+    var now = new Date();
+    var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+
+    var yearNow = now.getYear();
+    var monthNow = now.getMonth();
+    var dateNow = now.getDate();
+
+      // 09/09/1989
+    var dob = new Date(dateString.substring(0, 4),
+                       dateString.substring(5, 7)-1,                   
+                       dateString.substring(8, 10)                  
+                       );
+
+    var yearDob = dob.getYear();
+    var monthDob = dob.getMonth();
+    var dateDob = dob.getDate();
+    var age = {};
+    var ageString = "";
+    var yearString = "";
+    var monthString = "";
+    var dayString = "";
+
+
+    yearAge = yearNow - yearDob;
+
+    if (monthNow >= monthDob)
+      var monthAge = monthNow - monthDob;
+    else {
+      yearAge--;
+      var monthAge = 12 + monthNow -monthDob;
+    }
+
+    if (dateNow >= dateDob)
+      var dateAge = dateNow - dateDob;
+    else {
+      monthAge--;
+      var dateAge = 31 + dateNow - dateDob;
+
+      if (monthAge < 0) {
+        monthAge = 11;
+        yearAge--;
+      }
+    }
+
+    age = {
+        years: yearAge,
+        months: monthAge,
+        days: dateAge
+        };
+
+    if ( age.years > 1 ) yearString = " years";
+    else yearString = " year";
+    if ( age.months> 1 ) monthString = " months";
+    else monthString = " month";
+    if ( age.days > 1 ) dayString = " days";
+    else dayString = " day";
+
+
+    if ( (age.years > 0) && (age.months > 0) && (age.days > 0) )
+      ageString = age.years + yearString + ", " + age.months + monthString + ", and " + age.days + dayString + " old.";
+    else if ( (age.years == 0) && (age.months == 0) && (age.days > 0) )
+      ageString = "Only " + age.days + dayString + " old!";
+    else if ( (age.years > 0) && (age.months == 0) && (age.days == 0) )
+      ageString = age.years + yearString + " old. Happy Birthday!!";
+    else if ( (age.years > 0) && (age.months > 0) && (age.days == 0) )
+      ageString = age.years + yearString + " and " + age.months + monthString + " old.";
+    else if ( (age.years == 0) && (age.months > 0) && (age.days > 0) )
+      ageString = age.months + monthString + " and " + age.days + dayString + " old.";
+    else if ( (age.years > 0) && (age.months == 0) && (age.days > 0) )
+      ageString = age.years + yearString + " and " + age.days + dayString + " old.";
+    else if ( (age.years == 0) && (age.months > 0) && (age.days == 0) )
+      ageString = age.months + monthString + " old.";
+    else ageString = "Oops! Could not calculate age!";
+
+    return ageString;
   }
 </script>
 @endsection
