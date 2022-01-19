@@ -50,10 +50,10 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label>Father's Name: </label>
+              <label>Father's Name: </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
-                <input type="text" name="father_name" class="form-control" placeholder="Enter Father Name">
+                <input type="text" name="father_name" class="form-control" placeholder="Enter Father Name" required>
               </div>
             </div>
           </div>
@@ -81,9 +81,9 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Date of birth(DD/MM/YYYY): </label>
+              <label>Date of birth(DD/MM/YYYY): </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
-                <input type="date" name="birth_date" class="form-control" id="date_text">
+                <input type="date" name="birth_date" class="form-control" id="date_text" required>
               </div>
             </div>
           </div>
@@ -176,10 +176,10 @@
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
-              <label>Phone number 1: </label>
+              <label>Phone number 1: </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                <input type="text" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask>
+                <input type="text" name="guardian_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask required>
               </div>
             </div>
           </div>
@@ -194,10 +194,10 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label>CNIC No: </label>
+              <label>CNIC No: </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
                 <span class="input-group-text">&nbsp; <i class="fas fa-info"></i>&nbsp; </span>
-                <input type="text" name="guardian_cnic" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask>
+                <input type="text" name="guardian_cnic" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask required>
               </div>
             </div>
           </div>
@@ -213,7 +213,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Any Relatives with the clubfoot deformity: </label><label style="color: red;"> &nbsp;*</label>
+              <label>Any Relatives with the clubfoot deformity: </label>
               <br>
               <div class="form-check form-check-inline">
                 <label> <input type="radio" name="is_relatable" value="1"> Yes </label> 
@@ -225,10 +225,10 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label>Length of Pregnancy(in weeks): </label>
+              <label>Length of Pregnancy(in weeks): </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-edit"></i></span>
-                <input type="text" id="weekDetail" name="preg_len" class="form-control">
+                <input type="text" id="weekDetail" name="preg_len" class="form-control" required>
               </div>
             </div>
           </div>
@@ -253,7 +253,7 @@
               <label>What were the complications: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-edit"></i></span>
-                <input type="text" id="complicationsDetail" class="form-control">
+                <input type="text" name="complications" class="form-control">
               </div>
             </div>
           </div>
@@ -426,16 +426,16 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Feet Affected: </label>
+              <label>Feet Affected: </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="feet_affected" value="1"> Right </label> 
+                <label> <input type="radio" name="feet_affected" value="1" required> Right </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="feet_affected" value="2"> Left </label> 
+                <label> <input type="radio" name="feet_affected" value="2" required> Left </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="feet_affected" value="3"> Both </label> 
+                <label> <input type="radio" name="feet_affected" value="3" required> Both </label> 
               </div>
             </div>
           </div>
@@ -443,19 +443,19 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Diagnosis: </label>
+              <label>Diagnosis: </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="diagnosis" value="1"> Idiopathic Clubfoot </label> 
+                <label> <input type="radio" name="diagnosis" value="1" required> Idiopathic Clubfoot </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="diagnosis" value="2"> Syndromic Clubfoot </label> 
+                <label> <input type="radio" name="diagnosis" value="2" required> Syndromic Clubfoot </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="diagnosis" value="3"> Neuropathic Clubfoot </label> 
+                <label> <input type="radio" name="diagnosis" value="3" required> Neuropathic Clubfoot </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="diagnosis" value="0"> Other </label> 
+                <label> <input type="radio" name="diagnosis" value="0" required> Other </label> 
               </div>
             </div>
           </div>
@@ -463,13 +463,13 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Deformity present at birth: </label>
+              <label>Deformity present at birth: </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_deformity" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_birth_deformity" value="1" required> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_deformity" value="0"> No </label> 
+                <label> <input type="radio" name="has_birth_deformity" value="0" required> No </label> 
               </div>
             </div>
           </div>
@@ -477,22 +477,22 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Any Pervious treatments: </label>
+              <label>Any Pervious treatments: </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_treated" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_treated" value="1" required> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_treated" value="0"> No </label> 
+                <label> <input type="radio" name="has_treated" value="0" required> No </label> 
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label>How many previous treatment sessions: </label>
+              <label>How many previous treatment sessions: </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-check"></i></span>
-                <input type="text" name="treatments" class="form-control" placeholder="Enter Sessions">
+                <input type="text" name="treatments" class="form-control" placeholder="Enter Sessions" required>
               </div>
             </div>
           </div>
@@ -500,19 +500,19 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Type of previous treatment(S): </label>
+              <label>Type of previous treatment(S): </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="1"> Casting above knee </label> 
+                <label> <input type="radio" name="treatment_type" value="1" required> Casting above knee </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="2"> Casting below knee </label> 
+                <label> <input type="radio" name="treatment_type" value="2" required> Casting below knee </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="3"> Physiotherapy </label> 
+                <label> <input type="radio" name="treatment_type" value="3" required> Physiotherapy </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="0"> Other </label> 
+                <label> <input type="radio" name="treatment_type" value="0" required> Other </label> 
               </div>
             </div>
           </div>
@@ -520,13 +520,13 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Diagnosed prenatally: </label>
+              <label>Diagnosed prenatally: </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_diagnosed" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_diagnosed" value="1" required> Yes </label>
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_diagnosed" value="0"> No </label> 
+                <label> <input type="radio" name="has_diagnosed" value="0" required> No </label> 
               </div>
             </div>
           </div>
@@ -534,10 +534,10 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>At pregnancy Week: </label>
+              <label>At pregnancy Week: </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                <input type="text" name="preg_week" class="form-control" placeholder="Enter Value">
+                <input type="text" name="preg_week" class="form-control" placeholder="Enter Value" required>
               </div>
             </div>
           </div>
@@ -545,13 +545,13 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Confirmed at birth: </label>
+              <label>Confirmed at birth: </label><label style="color: red;"> &nbsp;*</label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_confirmed" value="1"> Yes </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="1" required> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_confirmed" value="0"> No </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="0" required> No </label> 
               </div>
             </div>
           </div>

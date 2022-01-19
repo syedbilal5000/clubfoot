@@ -113,8 +113,9 @@ class HomeController extends Controller
         $patient->guardian_number = $request->guardian_number;
         $patient->guardian_number_2 = $request->guardian_number_2;
         $patient->guardian_cnic = $request->guardian_cnic;
+        $patient->inserted_at = date("Y-m-d");
         $patient->save();
-        $patient_id = $patient->id;
+        $patient_id = $patient->patient_id;
         // Add patient family info
         $patient_family = new PatientFamily;
         $patient_family->patient_id = $patient_id;
@@ -165,7 +166,7 @@ class HomeController extends Controller
         $patient_examination->is_legs = isset($request->is_legs) ? $request->is_legs : 0;
         $patient_examination->is_other = isset($request->is_other) ? $request->is_other : 0;
         $patient_examination->save();
-        // print_r($patient);
+        return redirect('/appointment/create')->with('success', 'Patient Added Successfully.');
         dd(11);
         return redirect('registration');
     }
@@ -180,7 +181,7 @@ class HomeController extends Controller
         $appointment->appointment_status = 2; // Pending - status
         $appointment->previous_appointment_id = 0; // for new appointment
         $appointment->save();
-        return redirect('/appointment')->with('success', 'Created Successfully.');
+        return redirect('/appointment')->with('success', 'Appointment Added Successfully.');
         dd($request);
     }
 
@@ -205,6 +206,7 @@ class HomeController extends Controller
         $patient->guardian_number = $request->guardian_number;
         $patient->guardian_number_2 = $request->guardian_number_2;
         $patient->guardian_cnic = $request->guardian_cnic;
+        $patient->icr_number = $request->icr_number;
         $patient->save();
         $patient_id = $patient->id;
         // Add patient family info

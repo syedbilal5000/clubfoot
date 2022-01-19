@@ -207,7 +207,7 @@
     output = '<option value="">Select Patient</option>';
     
     if (patients_appoint.length > 0) {
-      var patientCheck = {};
+      var patientCheck = {}, guardian_number, guardian_cnic;
         for (i = 0; i < patients_appoint.length; i++) {
           // console.log(patients_appoint[i])
           if(patientCheck[patients_appoint[i]['patient_id']] == true)
@@ -216,7 +216,9 @@
           }
           else {
             patientCheck[patients_appoint[i]['patient_id']] = true;
-            output += `<option value="${patients_appoint[i]['patient_id']}">${patients_appoint[i]['patient_name']},${patients_appoint[i]['guardian_number']},${patients_appoint[i]['guardian_cnic']}</option>`;
+            guardian_number = patients_appoint[i]['guardian_number'] ? patients_appoint[i]['guardian_number'] : '| ';
+            guardian_cnic = patients_appoint[i]['guardian_cnic'] ? patients_appoint[i]['guardian_cnic'] : '|';
+            output += `<option value="${patients_appoint[i]['patient_id']}">${patients_appoint[i]['patient_name']}, ${guardian_number}, ${guardian_cnic}</option>`;
           }
             
             if(patients_appoint[i]['status'] == "Pending")
