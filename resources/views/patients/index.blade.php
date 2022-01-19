@@ -62,9 +62,9 @@
                 <th>Age (m)</th>
             </tr>
         </tfoot>
-    </table>
-  </div>
-</div>
+      </table>
+    </div>
+  </div> <!-- row end -->
 </div>
 
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
