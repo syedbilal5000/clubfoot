@@ -50,6 +50,9 @@ CREATE TABLE `patients` (
 
 ALTER TABLE `patient_families` ADD `complications` VARCHAR(50) NULL AFTER `has_complicated_preg`;
 
+
+ALTER TABLE `appointment` ADD `inserted_at` DATE NULL AFTER `previous_appointment_id`;
+
 --
 -- Dumping data for table `patients`
 --

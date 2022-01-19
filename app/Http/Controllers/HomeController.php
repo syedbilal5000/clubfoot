@@ -180,6 +180,7 @@ class HomeController extends Controller
         $appointment->patient_id = $request->patient_id;
         $appointment->appointment_status = 2; // Pending - status
         $appointment->previous_appointment_id = 0; // for new appointment
+        $appointment->inserted_at = date("Y-m-d");
         $appointment->save();
         return redirect('/appointment')->with('success', 'Appointment Added Successfully.');
         dd($request);

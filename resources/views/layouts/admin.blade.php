@@ -55,6 +55,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   {
     document.write(unescape("%3Cscript type='text/javascript' src='{{ asset('adminlte/plugins/jquery/jquery.min.js') }}'%3E%3C/script%3E"));
   }
+  // this will ignore "enter" keypress
+  $(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+    }
+  });
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
