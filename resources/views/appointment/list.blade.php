@@ -37,9 +37,10 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <label>Date (DD/MM/YYYY): </label>
+        <label>Date (MM/DD/YYYY): </label>
         <div class="input-group">
-          <input type="date" name="change_date" class="form-control" id="date_text" required>
+          <input type="date" name="change_date" class="form-control" id="date_text" required
+          value="@php echo date('Y-m-d');@endphp">
         </div>
       </div>
     </div>
@@ -47,6 +48,7 @@
       <div class="form-group">
         <label>Status: </label>
         <select id="status_text" class="form-control select2" style="width: 100%;">
+          <option value="">Select </option>
           <option value="Pending">Pending</option>
           <option value="Done">Done</option>
           <option value="Reject">Reject</option>
@@ -57,7 +59,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label>&nbsp;</label>
-        <a class="form-control pull-right btn btn-primary" href="#" onclick="update_bulk_record()">Add New Patient</a>
+        <a class="form-control pull-right btn btn-primary" href="#" onclick="update_bulk_record()">Update All</a>
       </div>
     </div>
   </div> <!-- div row end -->
@@ -106,6 +108,7 @@
         </tbody>
         <tfoot>
             <tr>
+                <th></th>
                 <th>Registration Number</th>
                 <th>Patient Name</th>
                 <th>Guardian CNIC</th>
@@ -134,11 +137,15 @@
 
 <!-- Page specific script -->
 <script type="text/javascript">
+  var date_changed = false;
   $(function () {
     $('.appointment_nav').addClass('active');
     $('.appointments_nav').addClass('active');
     $('.select2').select2();
 
+    $("#date_text").on('change', function() {
+      date_changed = true;
+    })
     $("#select_all").on('change', function() {
       var items = document.getElementsByName('all_appointment_check');
       for (var i = 0; i < items.length; i++) {
@@ -147,7 +154,19 @@
       }
     });
     $("#status_drop").on('change', function() {
-      alert("get latest records of status "+ $("#status_drop").val())
+      let status = $("#status_drop").val();
+      @inject('service', 'App\\Http\\Controllers\\HomeController')
+
+      var data = "";
+      if(status == "Pending")
+        data = {!! json_encode($service->get_data_appoint("Pending")) !!};
+      else if(status == "Done")
+        data = {!! json_encode($service->get_data_appoint("Done")) !!};
+      else if(status == "Reject")
+        data = {!! json_encode($service->get_data_appoint("Reject")) !!};
+      else if(status == "Extend")
+        data = {!! json_encode($service->get_data_appoint("Extend")) !!};
+      fill_data(data) //bilals
     })
     function delete_func(id)
     {
@@ -167,21 +186,40 @@
           for (i = 0; i < patients_appoint.length; i++) {
               const newdate = new Date(patients_appoint[i]['appointment_date']);
               patient_id = patients_appoint[i]['patient_id'];
-              output += `<tr><td><input type="checkbox" name="all_appointment_check">Apple</td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
+              output += `<tr><td><input type="checkbox" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
           }
-          $("#appoint_table_body").html(output);
       }
-    }
-    
+      $("#appoint_table_body").html(output);
+    }    
   })
   $(document).ready(function() {
     $('#appoint_table').DataTable( {
       dom: 'Bfrtip',
       buttons: [
-        'copyHtml5',
-        'excelHtml5',
-        'csvHtml5',
-        'pdfHtml5'
+        {
+          extend: 'copyHtml5',
+          exportOptions: {
+            columns: ':gt(0)'  // indexes of the columns that should be printed,
+          }
+        },
+        {
+          extend: 'excelHtml5',
+          exportOptions: {
+            columns: ':gt(0)'  // indexes of the columns that should be printed,
+          }
+        },
+        {
+          extend: 'csvHtml5',
+          exportOptions: {
+            columns: ':gt(0)'  // indexes of the columns that should be printed,
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          exportOptions: {
+            columns: ':gt(0)'  // indexes of the columns that should be printed,
+          }
+        }
       ]
     });
 
@@ -193,6 +231,21 @@
     //   //       items[i].checked = true;
     //   // }
     // }
-  })
+  });
+  function update_bulk_record()
+  {
+    //bilals data update on appointment db
+    $("input[name='all_appointment_check']").each(function (index, obj) {
+      if ($(this).is(":checked"))
+        // console.log($(this).val());      //id of 
+        if(date_changed && $("#status_drop").val() != "") {
+          // both data changed
+        } else if($("#status_drop").val() != "") {
+          //only status changed
+        } else if(date_changed ) {
+          //only date changed
+        }
+    })
+  }
 </script>
 @endsection

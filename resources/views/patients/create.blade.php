@@ -81,7 +81,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Date of birth(DD/MM/YYYY): </label><label style="color: red;"> &nbsp;*</label>
+              <label>Date of birth(MM/DD/YYYY): </label><label style="color: red;"> &nbsp;*</label>
               <div class="input-group">
                 <input type="date" name="birth_date" class="form-control" id="date_text" required>
               </div>
