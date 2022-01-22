@@ -113,7 +113,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Date: </label>
-          <input type="date" name="visit_date" class="form-control">
+          <input type="date" name="visit_date" id="visit_date" class="form-control">
         </div>
       </div>
       <div class="col-md-6">
@@ -131,7 +131,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>CLB: </label>
-          <select id="clb_drop" class="form-control select2" style="width: 100%;">
+          <select id="clb_drop" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -141,7 +141,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>MC: </label>
-          <select id="mc_drop" class="form-control select2" style="width: 100%;">
+          <select id="mc_drop" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -151,7 +151,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>LHT: </label>
-          <select id="lht_drop" class="form-control select2" style="width: 100%;">
+          <select id="lht_drop" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -164,7 +164,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>PC: </label>
-          <select id="pc_drop" class="form-control select2" style="width: 100%;">
+          <select id="pc_drop" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -174,7 +174,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>RE: </label>
-          <select id="re_drop" class="form-control select2" style="width: 100%;">
+          <select id="re_drop" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -184,7 +184,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>EH: </label>
-          <select id="eh_drop" class="form-control select2" style="width: 100%;">
+          <select id="eh_drop" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -210,6 +210,29 @@
         <div class="form-group">
           <label>Total Score: </label>
           <input type="text" disabled name="total_score" id="total_score" class="form-control">
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Treatment: </label>
+          <select id="treatment_drop" class="form-control select2" style="width: 100%;">
+            <option value="Casted">Casted</option>
+            <option value="Tenotomy">Tenotomy</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Complications: </label>
+          <input type="text" name="complications" id="complications" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Next Appointment: </label>
+          <input type="date" name="next_appointment" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
         </div>
       </div>
     </div> <!-- row end -->
@@ -243,12 +266,32 @@
     }
     $('#patients').html(output);
   }
+  function calculateScore() {
+    var clb_drop = $("#clb_drop").val();
+    var mc_drop = $("#mc_drop").val();
+    var lht_drop = $("#lht_drop").val();
+    var pc_drop = $("#pc_drop").val();
+    var re_drop = $("#re_drop").val();
+    var eh_drop = $("#eh_drop").val();
+
+    var midfoot_score = parseFloat(clb_drop) + parseFloat(mc_drop) + parseFloat(lht_drop);
+    var hindfoot_score = parseFloat(pc_drop) + parseFloat(re_drop) + parseFloat(eh_drop);
+
+    $("#midfoot_score").val(midfoot_score);
+    $("#hindfoot_score").val(hindfoot_score);
+    $("#total_score").val(midfoot_score + hindfoot_score);
+
+  } 
 
   $(function() {
     $(document).ready(function () {
       $('.visit_nav').addClass('active');
       $('.select2').select2();
       $('#visit_table').DataTable();
+
+      $(".score_dropd").on('change', function() {
+        calculateScore();
+      })
     })
   })
 </script>
