@@ -32,6 +32,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function dev(Request $request)
+    {
+        dd(124);
+    }
+
     // Patients report view
     public function patients_index()
     {
@@ -68,7 +73,8 @@ class HomeController extends Controller
     // show appointment index
     public function appointment_index()
     {
-        $patients_appoint = $this->get_patients_with_appointment();
+        // $patients_appoint = $this->get_patients_with_appointment();
+        $patients_appoint = $this->get_data_appoint();
         return view('appointment.list', ['patients_appoint' => $patients_appoint]);
     }
 
@@ -86,13 +92,13 @@ class HomeController extends Controller
         return $patients;
     }
 
-    public function get_patients_with_appointment()
-    {
-        $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending');");
-        return $patients_appoint;
-    }
+    // public function get_patients_with_appointment()
+    // {
+    //     $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending');");
+    //     return $patients_appoint;
+    // }
 
-    public function get_data_appoint($status)
+    public function get_data_appoint($status="Pending")
     {
         $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = '$status');");
         return $patients_appoint;
@@ -269,5 +275,28 @@ class HomeController extends Controller
         // print_r($patient);
         // dd(11);
         return redirect('appointment/create');
+    }
+
+    // appointment bulk update
+    public function appoint_update(Request $request)
+    {
+        print_r($request->appoint_ids);
+        $query = "UPDATE appointment SET ";
+        if ($request->is_date == 1 && $request->is_status == 1) {
+            print("Yes");
+            $query .= "appointment_date = '$request->change_date', appointment_status = '$request->change_status' ";
+        } else if ($request->is_status == 1) {
+            $query .= "appointment_status = $request->change_status ";
+        } else if ($request->is_date == 1) {
+            $query .= "appointment_date = '$request->change_date' ";
+        }
+        if (isset($request->appoint_ids)) {
+            $appoint_ids = implode(',', $request->appoint_ids);
+            $query .= "WHERE appointment_id IN ($appoint_ids)";
+            $out = DB::select($query);
+        }
+        print($query);
+        return redirect('/appointment')->with('success', 'Appointment Updated Successfully.');
+        dd($request);
     }
 }

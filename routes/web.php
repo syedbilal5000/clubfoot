@@ -26,6 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route::get('/home/registration', function () {
 //     return view('registration.index');
 // });
+Route::post('dev', [App\Http\Controllers\HomeController::class, 'dev'])->name('dev_post');
 Route::get('patients', [App\Http\Controllers\HomeController::class, 'patients_index'])->name('patients');
 Route::get('patients/create', [App\Http\Controllers\HomeController::class, 'patients_create'])->name('patients.create');
 Route::post('patients/add', [App\Http\Controllers\HomeController::class, 'patient_store'])->name('patient_store');
@@ -34,4 +35,5 @@ Route::put('patients/{id}/edit', [App\Http\Controllers\HomeController::class, 'p
 Route::get('appointment', [App\Http\Controllers\HomeController::class, 'appointment_index'])->name('appointment');
 Route::get('appointment/create', [App\Http\Controllers\HomeController::class, 'appoint_create'])->name('appoint.create');
 Route::post('appointment/add', [App\Http\Controllers\HomeController::class, 'appoint_store'])->name('appoint_store');
+Route::post('appointment/update', [App\Http\Controllers\HomeController::class, 'appoint_update'])->name('appoint_update');
 Route::get('visit', [App\Http\Controllers\HomeController::class, 'visit_index'])->name('visit_index');

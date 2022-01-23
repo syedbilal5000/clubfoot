@@ -32,6 +32,8 @@
     </div><!-- /.container-fluid -->
   </div>
 {{-- Main Content --}}
+<form action="appointment/update" method="POST" id="appoint_form">
+  @csrf
 <div class="content">
 <div class="container-fluid">
   <div class="row">
@@ -47,19 +49,19 @@
     <div class="col-md-4">
       <div class="form-group">
         <label>Status: </label>
-        <select id="status_text" class="form-control select2" style="width: 100%;">
+        <select id="status_text" name="change_status" class="form-control select2" style="width: 100%;">
           <option value="">Select </option>
-          <option value="Pending">Pending</option>
-          <option value="Done">Done</option>
-          <option value="Reject">Reject</option>
-          <option value="Extend">Extend</option>
+          <option value="2">Pending</option>
+          <option value="1">Done</option>
+          <option value="3">Reject</option>
+          <option value="4">Extend</option>
         </select>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label>&nbsp;</label>
-        <a class="form-control pull-right btn btn-primary" href="#" onclick="update_bulk_record()">Update All</a>
+        <a class="form-control pull-right btn btn-primary" onclick="update_bulk_record()">Update All</a>
       </div>
     </div>
   </div> <!-- div row end -->
@@ -118,6 +120,10 @@
             </tr>
         </tfoot>
       </table>
+      <input type="hidden" name="appoint_ids[]" id="appoint_ids">
+      <input type="hidden" name="is_date" value="0" id="is_date">
+      <input type="hidden" name="is_status" value="0" id="is_status">
+    </form>
     </div>
   </div> <!-- row end -->
 </div>
@@ -149,8 +155,12 @@
     $("#select_all").on('change', function() {
       var items = document.getElementsByName('all_appointment_check');
       for (var i = 0; i < items.length; i++) {
-        if (items[i].type == 'checkbox')
-            items[i].checked = $("#select_all").is(":checked");
+        // console.log(items[i]);
+        if (items[i].type == 'checkbox') {
+          console.log(items[i]);
+          items[i].checked = $("#select_all").is(":checked");
+          console.log(items[i]);
+        }
       }
     });
     $("#status_drop").on('change', function() {
@@ -168,13 +178,7 @@
         data = {!! json_encode($service->get_data_appoint("Extend")) !!};
       fill_data(data) //bilals
     })
-    function delete_func(id)
-    {
-      // bilals delete this appointment, but appointment should not be delete. :)
-    }
-    function edit_func(event) {
-      // bilals change date for this appointment.
-    }
+    
     var patients_appoint = {!! json_encode($patients_appoint) !!};
   
     fill_data(patients_appoint);
@@ -186,7 +190,7 @@
           for (i = 0; i < patients_appoint.length; i++) {
               const newdate = new Date(patients_appoint[i]['appointment_date']);
               patient_id = patients_appoint[i]['patient_id'];
-              output += `<tr><td><input type="checkbox" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
+              output += `<tr><td><input type="checkbox" class="appoint_chk" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
           }
       }
       $("#appoint_table_body").html(output);
@@ -234,18 +238,47 @@
   });
   function update_bulk_record()
   {
+    var ids = [];
     //bilals data update on appointment db
+    // $("#appoint_ids").val(appoint_ids);
+    // alert($("input[name='all_appointment_check']").val());
     $("input[name='all_appointment_check']").each(function (index, obj) {
-      if ($(this).is(":checked"))
-        // console.log($(this).val());      //id of 
-        if(date_changed && $("#status_drop").val() != "") {
+      if ($(this).is(":checked")) {
+        ids.push($(this).val());
+      }
+      //   // console.log($(this).val());      //id of 
+      //   if(date_changed && $("#status_drop").val() != "") {
+      //     // both data changed
+      //   } else if($("#status_drop").val() != "") {
+      //     //only status changed
+      //   } else if(date_changed ) {
+      //     //only date changed
+      //   }
+    });
+    if(ids.length > 0) {
+      if(date_changed || $("#status_text").val() != "") {
+        if(date_changed && $("#status_text").val() != "") {
           // both data changed
-        } else if($("#status_drop").val() != "") {
+          $("#is_date").val(1);
+          $("#is_status").val(1);
+          // alert(1);
+        } else if($("#status_text").val() != "") {
           //only status changed
+          $("#is_status").val(1);
+          // alert($("#status_text").val());
         } else if(date_changed ) {
           //only date changed
+          $("#is_date").val(1);
+          // alert(3);
         }
-    })
+        $("#appoint_ids").val(ids);
+        $('#appoint_form').submit();
+      } else {
+        alert("Please select field to change.");
+      }
+    } else {
+      alert("Please select row(s) to change.");
+    }
   }
 </script>
 @endsection
