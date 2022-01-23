@@ -61,7 +61,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label>&nbsp;</label>
-        <a class="form-control pull-right btn btn-primary" onclick="update_bulk_record()">Update All</a>
+        <a class="form-control pull-right btn btn-primary" id="update_btn" onclick="update_bulk_record()">Update All</a>
       </div>
     </div>
   </div> <!-- div row end -->
@@ -158,9 +158,7 @@
     $("#select_all").on('change', function() {
       var items = document.getElementsByClassName('appoint_chk');
       for (var i = 0; i < items.length; i++) {
-        // console.log(items[i]);
         if (items[i].type == 'checkbox') {
-          console.log(items[i]);
           items[i].checked = $("#select_all").is(":checked");
         }
       }
@@ -171,14 +169,23 @@
 
       var data = "";
       if(status == "Pending")
+      {
         data = {!! json_encode($service->get_data_appoint("Pending")) !!};
+      }
       else if(status == "Done")
+      {
         data = {!! json_encode($service->get_data_appoint("Done")) !!};
+      }
       else if(status == "Reject")
+      {
         data = {!! json_encode($service->get_data_appoint("Reject")) !!};
+      }
       else if(status == "Extend")
+      {
         data = {!! json_encode($service->get_data_appoint("Extend")) !!};
-      fill_data(data) //bilals
+      }
+      fill_data(data)
+      $("#select_all").prop("checked", false);
     });
 
     $('#appoint_table').DataTable( {
@@ -208,6 +215,12 @@
             columns: ':gt(0)'  // indexes of the columns that should be printed,
           }
         }
+      ],
+      "columnDefs": [
+        { 
+            "targets": [0,1,2,3,4], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
       ]
     });
   });
@@ -222,6 +235,10 @@
         }
     }
     $("#appoint_table_body").html(output);
+    $(".appoint_chk").on('change', function() {
+      $("#select_all").prop("checked", false);
+    });
+    
   }
   function update_bulk_record()
   {
@@ -242,7 +259,11 @@
       //     //only date changed
       //   }
     });
-    if(ids.length > 0) {
+    if($("#status_drop").val() != "Pending")
+    {
+      alert("You can only update Pending Appointments.");
+    }
+    else if(ids.length > 0) {
       if(date_changed && $("#status_text").val() != "0") {
         // reset both field for wrong case - both data changed
         $("#is_date").val(0);
