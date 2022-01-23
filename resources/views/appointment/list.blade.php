@@ -144,22 +144,24 @@
 <!-- Page specific script -->
 <script type="text/javascript">
   var date_changed = false;
-  $(function () {
+  $(document).ready(function() {
     $('.appointment_nav').addClass('active');
     $('.appointments_nav').addClass('active');
     $('.select2').select2();
+    var patients_appoint = {!! json_encode($patients_appoint) !!};
+  
+    fill_data(patients_appoint);
 
     $("#date_text").on('change', function() {
       date_changed = true;
     })
     $("#select_all").on('change', function() {
-      var items = document.getElementsByName('all_appointment_check');
+      var items = document.getElementsByClassName('appoint_chk');
       for (var i = 0; i < items.length; i++) {
         // console.log(items[i]);
         if (items[i].type == 'checkbox') {
           console.log(items[i]);
           items[i].checked = $("#select_all").is(":checked");
-          console.log(items[i]);
         }
       }
     });
@@ -177,26 +179,8 @@
       else if(status == "Extend")
         data = {!! json_encode($service->get_data_appoint("Extend")) !!};
       fill_data(data) //bilals
-    })
-    
-    var patients_appoint = {!! json_encode($patients_appoint) !!};
-  
-    fill_data(patients_appoint);
+    });
 
-    function fill_data(patients_appoint) {
-      output = '';
-      const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-      if (patients_appoint.length > 0) {
-          for (i = 0; i < patients_appoint.length; i++) {
-              const newdate = new Date(patients_appoint[i]['appointment_date']);
-              patient_id = patients_appoint[i]['patient_id'];
-              output += `<tr><td><input type="checkbox" class="appoint_chk" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
-          }
-      }
-      $("#appoint_table_body").html(output);
-    }    
-  })
-  $(document).ready(function() {
     $('#appoint_table').DataTable( {
       dom: 'Bfrtip',
       buttons: [
@@ -226,16 +210,19 @@
         }
       ]
     });
-
-    // function checkAll(){
-    //   console.log($("#select_all").val());
-    //   // var items = document.getElementsByName('brand');
-    //   // for (var i = 0; i < items.length; i++) {
-    //   //   if (items[i].type == 'checkbox')
-    //   //       items[i].checked = true;
-    //   // }
-    // }
   });
+  function fill_data(patients_appoint) {
+    output = '';
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+    if (patients_appoint.length > 0) {
+        for (i = 0; i < patients_appoint.length; i++) {
+            const newdate = new Date(patients_appoint[i]['appointment_date']);
+            patient_id = patients_appoint[i]['patient_id'];
+            output += `<tr><td><input type="checkbox" class="appoint_chk" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
+        }
+    }
+    $("#appoint_table_body").html(output);
+  }
   function update_bulk_record()
   {
     var ids = [];
@@ -261,7 +248,8 @@
           // both data changed
           $("#is_date").val(1);
           $("#is_status").val(1);
-          // alert(1);
+          date_changed = false;
+          $("#status_text").val("0");
         } else if($("#status_text").val() != "") {
           //only status changed
           $("#is_status").val(1);
