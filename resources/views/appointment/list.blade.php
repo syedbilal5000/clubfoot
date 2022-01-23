@@ -50,7 +50,7 @@
       <div class="form-group">
         <label>Status: </label>
         <select id="status_text" name="change_status" class="form-control select2" style="width: 100%;">
-          <option value="">Select </option>
+          <option value="0">Select </option>
           <option value="2">Pending</option>
           <option value="1">Done</option>
           <option value="3">Reject</option>
@@ -243,14 +243,16 @@
       //   }
     });
     if(ids.length > 0) {
-      if(date_changed || $("#status_text").val() != "") {
-        if(date_changed && $("#status_text").val() != "") {
-          // both data changed
-          $("#is_date").val(1);
-          $("#is_status").val(1);
-          date_changed = false;
-          $("#status_text").val("0");
-        } else if($("#status_text").val() != "") {
+      if(date_changed && $("#status_text").val() != "0") {
+        // reset both field for wrong case - both data changed
+        $("#is_date").val(0);
+        $("#is_status").val(0);
+        date_changed = false;
+        $("#date_text").val("@php echo date('Y-m-d');@endphp");
+        $("#status_text").val(0);
+        alert("Please select any one field not both.")
+      } else if (date_changed || $("#status_text").val() != "0") {
+        if($("#status_text").val() != "0") {
           //only status changed
           $("#is_status").val(1);
           // alert($("#status_text").val());
@@ -262,7 +264,7 @@
         $("#appoint_ids").val(ids);
         $('#appoint_form').submit();
       } else {
-        alert("Please select field to change.");
+        alert("Please select any field to change.");
       }
     } else {
       alert("Please select row(s) to change.");
