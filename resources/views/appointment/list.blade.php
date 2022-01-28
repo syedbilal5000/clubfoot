@@ -143,6 +143,7 @@
 
 <!-- Page specific script -->
 <script type="text/javascript">
+  var table;
   var date_changed = false;
   $(document).ready(function() {
     $('.appointment_nav').addClass('active');
@@ -188,6 +189,21 @@
       $("#select_all").prop("checked", false);
     });
 
+  });
+  function fill_data(patients_appoint) {
+    output = '';
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+    if (patients_appoint.length > 0) {
+        for (i = 0; i < patients_appoint.length; i++) {
+            const newdate = new Date(patients_appoint[i]['appointment_date']);
+            patient_id = patients_appoint[i]['patient_id'];
+            output += `<tr><td><input type="checkbox" class="appoint_chk" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
+        }
+    }
+    if ( $.fn.DataTable.isDataTable('#appoint_table') ) {
+      $('#appoint_table').DataTable().destroy();
+    }
+    $("#appoint_table_body").html(output);
     $('#appoint_table').DataTable( {
       dom: 'Bfrtip',
       buttons: [
@@ -218,23 +234,11 @@
       ],
       "columnDefs": [
         { 
-            "targets": [0,1,2,3,4], //first column / numbering column
+            "targets": [0], //first column / numbering column
             "orderable": false, //set not orderable
         },
       ]
     });
-  });
-  function fill_data(patients_appoint) {
-    output = '';
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-    if (patients_appoint.length > 0) {
-        for (i = 0; i < patients_appoint.length; i++) {
-            const newdate = new Date(patients_appoint[i]['appointment_date']);
-            patient_id = patients_appoint[i]['patient_id'];
-            output += `<tr><td><input type="checkbox" class="appoint_chk" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
-        }
-    }
-    $("#appoint_table_body").html(output);
     $(".appoint_chk").on('change', function() {
       $("#select_all").prop("checked", false);
     });
