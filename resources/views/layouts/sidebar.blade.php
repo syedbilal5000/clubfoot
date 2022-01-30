@@ -112,6 +112,30 @@
             </li>
           </ul>
         </li>
+
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link visit_nav">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Visit
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('visit') }}" class="nav-link visits_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Visits</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('visit.create') }}" class="nav-link visits_nav_add">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Visit</p>
+              </a>
+            </li>
+          </ul>
+        </li>
         <!-- <li class="nav-item">
           <a href="" class="nav-link appointment_nav">
             <i class="nav-icon fas fa-th"></i>
@@ -121,14 +145,14 @@
             </p>
           </a>
         </li> -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="visit" class="nav-link visit_nav">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Visit
             </p>
           </a>
-        </li>
+        </li> -->
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

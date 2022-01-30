@@ -36,4 +36,5 @@ Route::get('appointment', [App\Http\Controllers\HomeController::class, 'appointm
 Route::get('appointment/create', [App\Http\Controllers\HomeController::class, 'appoint_create'])->name('appoint.create');
 Route::post('appointment/add', [App\Http\Controllers\HomeController::class, 'appoint_store'])->name('appoint_store');
 Route::post('appointment/update', [App\Http\Controllers\HomeController::class, 'appoint_update'])->name('appoint_update');
-Route::get('visit', [App\Http\Controllers\HomeController::class, 'visit_index'])->name('visit_index');
+Route::get('visit', [App\Http\Controllers\HomeController::class, 'visit_index'])->name('visit');
+Route::get('visit/create', [App\Http\Controllers\HomeController::class, 'visit_create'])->name('visit.create');
