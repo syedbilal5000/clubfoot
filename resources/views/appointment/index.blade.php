@@ -50,9 +50,9 @@
           <label>Select Status: </label>
           <select id="status_drop" class="form-control select2" style="width: 100%;">
             <option value="Pending">Pending</option>
-            <option value="Done">Done</option>
             <option value="Reject">Reject</option>
             <option value="Extend">Extend</option>
+            <option value="Done">Done</option>
           </select>
         </div>
       </div>

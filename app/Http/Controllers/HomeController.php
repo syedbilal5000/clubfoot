@@ -280,14 +280,11 @@ class HomeController extends Controller
     // appointment bulk update
     public function appoint_update(Request $request)
     {
-        print_r($request->appoint_ids);
+        // print_r($request->appoint_ids);
         $query = "UPDATE appointment SET ";
-        if ($request->is_date == 1 && $request->is_status == 1) {
-            print("Yes");
-            $query .= "appointment_date = '$request->change_date', appointment_status = '$request->change_status' ";
-        } else if ($request->is_status == 1) {
+        if ($request->selected_option == 2) {
             $query .= "appointment_status = $request->change_status ";
-        } else if ($request->is_date == 1) {
+        } else if ($request->selected_option == 1) {
             $query .= "appointment_date = '$request->change_date' ";
         }
         if (isset($request->appoint_ids)) {
@@ -295,7 +292,7 @@ class HomeController extends Controller
             $query .= "WHERE appointment_id IN ($appoint_ids)";
             $out = DB::select($query);
         }
-        print($query);
+        // print($query);
         return redirect('/appointment')->with('success', 'Appointment Updated Successfully.');
         dd($request);
     }

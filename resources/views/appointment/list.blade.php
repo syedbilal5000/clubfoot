@@ -50,11 +50,11 @@
       <div class="form-group">
         <label>Status: </label>
         <select id="status_text" name="change_status" class="form-control select2" style="width: 100%;">
-          <option value="0">Select </option>
+          <option value="0" selected>Select </option>
           <option value="2">Pending</option>
-          <option value="1">Done</option>
           <option value="3">Reject</option>
-          <option value="4">Extend</option>
+          <option disabled title="Not Allowed" value="4">Extend</option>
+          <option disabled title="Not Allowed"  value="1">Done</option>
         </select>
       </div>
     </div>
@@ -73,9 +73,9 @@
         <label>Select Status: </label>
         <select id="status_drop" class="form-control select2" style="width: 100%;">
           <option value="Pending">Pending</option>
-          <option value="Done">Done</option>
           <option value="Reject">Reject</option>
           <option value="Extend">Extend</option>
+          <option value="Done">Done</option>
         </select>
       </div>
     </div>
@@ -121,8 +121,7 @@
         </tfoot>
       </table>
       <input type="hidden" name="appoint_ids[]" id="appoint_ids">
-      <input type="hidden" name="is_date" value="0" id="is_date">
-      <input type="hidden" name="is_status" value="0" id="is_status">
+      <input type="hidden" name="selected_option" value="0" id="selected_option">
     </form>
     </div>
   </div> <!-- row end -->
@@ -263,9 +262,10 @@
       //     //only date changed
       //   }
     });
-    if($("#status_drop").val() != "Pending")
+    // 1: "Done", 4: "Extend"
+    if($("#status_text").val() == "1" || $("#status_text").val() == "4")
     {
-      alert("You can only update Pending Appointments.");
+      alert("You can only update Pending / Reject Appointments.");
     }
     else if(ids.length > 0) {
       if(date_changed && $("#status_text").val() != "0") {
@@ -274,16 +274,16 @@
         $("#is_status").val(0);
         date_changed = false;
         $("#date_text").val("@php echo date('Y-m-d');@endphp");
-        $("#status_text").val(0);
+        $("#status_text").val(0).change();;
         alert("Please select any one field not both.")
       } else if (date_changed || $("#status_text").val() != "0") {
         if($("#status_text").val() != "0") {
           //only status changed
-          $("#is_status").val(1);
+          $("#selected_option").val(2);
           // alert($("#status_text").val());
         } else if(date_changed ) {
           //only date changed
-          $("#is_date").val(1);
+          $("#selected_option").val(1);
           // alert(3);
         }
         $("#appoint_ids").val(ids);
