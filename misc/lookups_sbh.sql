@@ -44,6 +44,7 @@ INSERT INTO `lookups` (`lookup_id`, `day`, `name`, `count`, `description`) VALUE
 (1, 1, 'tuesday', 20, NULL),
 (2, 2, 'wednesday', 25, NULL);
 
+
 --
 -- Indexes for dumped tables
 --
