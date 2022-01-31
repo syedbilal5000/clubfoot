@@ -91,9 +91,13 @@
 <script>
   var patients = {!! json_encode($patients) !!};
   var date = {!! json_encode($date) !!};
+  var patient_id = {!! json_encode($patient_id) !!};
   $('#appointment_date').val(date);
   
   view_patients(patients);
+  if (patient_id) {
+    $('#patients').val(patient_id).change();
+  }
 
   function view_patients(patients) {
     output = '<option value="">Select Patient</option>';

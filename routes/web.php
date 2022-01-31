@@ -33,7 +33,7 @@ Route::post('patients/add', [App\Http\Controllers\HomeController::class, 'patien
 Route::get('patients/{id}/edit', [App\Http\Controllers\HomeController::class, 'patients_edit'])->name('patients.edit');
 Route::put('patients/{id}/edit', [App\Http\Controllers\HomeController::class, 'patient_update'])->name('patients_update');
 Route::get('appointment', [App\Http\Controllers\HomeController::class, 'appointment_index'])->name('appointment');
-Route::get('appointment/create', [App\Http\Controllers\HomeController::class, 'appoint_create'])->name('appoint.create');
+Route::get('appointment/create/{patient_id?}/', [App\Http\Controllers\HomeController::class, 'appoint_create'])->name('appoint.create');
 Route::post('appointment/add', [App\Http\Controllers\HomeController::class, 'appoint_store'])->name('appoint_store');
 Route::post('appointment/update', [App\Http\Controllers\HomeController::class, 'appoint_update'])->name('appoint_update');
 Route::get('visit', [App\Http\Controllers\HomeController::class, 'visit_index'])->name('visit');

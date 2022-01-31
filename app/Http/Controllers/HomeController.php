@@ -34,23 +34,11 @@ class HomeController extends Controller
 
     public function dev(Request $request)
     {
-        $pending = 90;
-        $pending = DB::select("SELECT COALESCE(COUNT(*), 0) pendings FROM appointment WHERE appointment_status = 2")[0]->pendings;
-        print($pending);
-        $lookups = DB::select("SELECT * FROM lookups");
-        $day_cnt1 = $lookups[0]->count;
-        $day_cnt2 = $lookups[1]->count;
-        $total_count = $day_cnt1 + $day_cnt2;
-        print_r($lookups);
-        print("<br>");
-        $nextWeek = ceil ($pending / $total_count); // number of weeks: 1, 2, ...
-        $criteria = (($nextWeek - 1) * $total_count) + $day_cnt1;
-        $day = ($criteria >= $pending) ? 1 : 2; // 1 for 1st day of the week
-        // $next = strtotime('tuesday');
-        $next = strtotime($lookups[$day - 1]->name);
-        $day = date('Y-m-d', strtotime('+' . $nextWeek - 1 . ' weeks', $next));
-        print($day);
-        dd(124);
+        $patient_id = 10;
+        $msg = 'Patient Added Successfully.';
+        $data = ['success' => $msg, 'patient_id' => $patient_id];
+        return redirect('/appointment/create/' . $patient_id);
+        // dd(123);
     }
 
     // Patients report view
@@ -104,13 +92,12 @@ class HomeController extends Controller
     }    
 
     // show appointment create
-    public function appoint_create()
+    public function appoint_create($patient_id=0)
     {
         $patients = $this->get_patients();
         $date = $this->generate_date();
-        // print($date);
-        // dd(2);
-        return view('appointment.create', ['patients' => $patients, 'date' => $date]);
+        $data = ['patients' => $patients, 'date' => $date, 'patient_id' => $patient_id, 'success' => 'Patient Added Successfully.'];
+        return view('appointment.create')->with($data);
     }
 
     // show appointment index
