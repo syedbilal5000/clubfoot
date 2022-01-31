@@ -214,9 +214,7 @@ class HomeController extends Controller
         $patient_examination->is_legs = isset($request->is_legs) ? $request->is_legs : 0;
         $patient_examination->is_other = isset($request->is_other) ? $request->is_other : 0;
         $patient_examination->save();
-        return redirect('/appointment/create')->with('success', 'Patient Added Successfully.');
-        dd(11);
-        return redirect('registration');
+        return redirect('/appointment/create/' . $patient_id)->with('success', 'Patient Added Successfully.');
     }
 
     // appointment create
