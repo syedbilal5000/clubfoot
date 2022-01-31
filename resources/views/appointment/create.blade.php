@@ -54,7 +54,7 @@
             <label>Appointment date: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-date"></i></span>
-              <input type="date" name="appointment_date" class="form-control @error('appointment_date') is-invalid @enderror" required>
+              <input type="date" name="appointment_date" id="appointment_date" class="form-control @error('appointment_date') is-invalid @enderror" required>
               @error('appointment_date')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -90,6 +90,8 @@
 <!-- Page specific script -->
 <script>
   var patients = {!! json_encode($patients) !!};
+  var date = {!! json_encode($date) !!};
+  $('#appointment_date').val(date);
   
   view_patients(patients);
 

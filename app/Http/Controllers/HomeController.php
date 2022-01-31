@@ -34,6 +34,22 @@ class HomeController extends Controller
 
     public function dev(Request $request)
     {
+        $pending = 90;
+        $pending = DB::select("SELECT COALESCE(COUNT(*), 0) pendings FROM appointment WHERE appointment_status = 2")[0]->pendings;
+        print($pending);
+        $lookups = DB::select("SELECT * FROM lookups");
+        $day_cnt1 = $lookups[0]->count;
+        $day_cnt2 = $lookups[1]->count;
+        $total_count = $day_cnt1 + $day_cnt2;
+        print_r($lookups);
+        print("<br>");
+        $nextWeek = ceil ($pending / $total_count); // number of weeks: 1, 2, ...
+        $criteria = (($nextWeek - 1) * $total_count) + $day_cnt1;
+        $day = ($criteria >= $pending) ? 1 : 2; // 1 for 1st day of the week
+        // $next = strtotime('tuesday');
+        $next = strtotime($lookups[$day - 1]->name);
+        $day = date('Y-m-d', strtotime('+' . $nextWeek - 1 . ' weeks', $next));
+        print($day);
         dd(124);
     }
 
@@ -42,6 +58,24 @@ class HomeController extends Controller
     {
         $patients = $this->get_patients();
         return view('patients.index', ['patients' => $patients]);
+    }
+
+    // this method will generate appointment date base on availability
+    public function generate_date()
+    {
+        $pending = 120;
+        $pending = DB::select("SELECT COALESCE(COUNT(*), 0) pendings FROM appointment WHERE appointment_status = 2")[0]->pendings;
+        $lookups = DB::select("SELECT * FROM lookups");
+        $day_cnt1 = $lookups[0]->count;
+        $day_cnt2 = $lookups[1]->count;
+        $total_count = $day_cnt1 + $day_cnt2;
+        $nextWeek = ceil ($pending / $total_count); // number of weeks: 1, 2, ...
+        $criteria = (($nextWeek - 1) * $total_count) + $day_cnt1;
+        $day = ($criteria >= $pending) ? 1 : 2; // 1 for 1st day of the week
+        // $next = strtotime('tuesday');
+        $next = strtotime($lookups[$day - 1]->name);
+        $date = date('Y-m-d', strtotime('+' . $nextWeek - 1 . ' weeks', $next));
+        return $date;
     }
 
     // show patients create
@@ -67,7 +101,10 @@ class HomeController extends Controller
     public function appoint_create()
     {
         $patients = $this->get_patients();
-        return view('appointment.create', ['patients' => $patients]);
+        $date = $this->generate_date();
+        // print($date);
+        // dd(2);
+        return view('appointment.create', ['patients' => $patients, 'date' => $date]);
     }
 
     // show appointment index
@@ -186,10 +223,12 @@ class HomeController extends Controller
     // appointment create
     public function appoint_store(Request $request)
     {
+        $patient_id = $request->patient_id;
+        $appoint = DB::select("UPDATE appointment SET appointment_status = 4 WHERE appointment_id IN (SELECT appointment_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2)");
         // Add patient general info
         $appointment = new Appointment;
         $appointment->appointment_date = $request->appointment_date;
-        $appointment->patient_id = $request->patient_id;
+        $appointment->patient_id = $patient_id;
         $appointment->appointment_status = 2; // Pending - status
         $appointment->previous_appointment_id = 0; // for new appointment
         $appointment->inserted_at = date("Y-m-d");
@@ -286,11 +325,14 @@ class HomeController extends Controller
             $query .= "appointment_status = $request->change_status ";
         } else if ($request->selected_option == 1) {
             $query .= "appointment_date = '$request->change_date' ";
+        } else {
+            return redirect('/appointment')->with('error', 'Incorrect');
         }
         if (isset($request->appoint_ids)) {
             $appoint_ids = implode(',', $request->appoint_ids);
             $query .= "WHERE appointment_id IN ($appoint_ids)";
             $out = DB::select($query);
+            $msg = 'Appointment Updated Successfully.';
         }
         // print($query);
         return redirect('/appointment')->with('success', 'Appointment Updated Successfully.');
