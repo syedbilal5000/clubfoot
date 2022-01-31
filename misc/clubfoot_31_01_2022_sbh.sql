@@ -41,10 +41,6 @@ CREATE TABLE `appointment` (
 -- Dumping data for table `appointment`
 --
 
-INSERT INTO `appointment` (`appointment_id`, `appointment_date`, `patient_id`, `appointment_status`, `previous_appointment_id`, `inserted_at`) VALUES
-(10010, '2022-03-01', 10001, 2, 0, '2022-01-31'),
-(10008, '2022-02-04', 10001, 3, 0, '2022-01-22'),
-(10009, '2022-02-04', 10001, 4, 0, '2022-01-22');
 
 -- --------------------------------------------------------
 
@@ -146,8 +142,6 @@ CREATE TABLE `patients` (
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`patient_id`, `patient_name`, `father_name`, `gender`, `birth_date`, `address`, `address2`, `has_photo_consent`, `relation_to_patient`, `guardian_name`, `guardian_number`, `guardian_number_2`, `guardian_cnic`, `icr_number`, `inserted_at`) VALUES
-(10001, 'Patient 2', 'Father', 0, '2021-01-01', NULL, NULL, 0, 0, NULL, '0312-3456789', NULL, '12345-6789012-3', '12345', '2022-01-19');
 
 -- --------------------------------------------------------
 
@@ -177,18 +171,6 @@ CREATE TABLE `patient_diagnoses` (
 -- Dumping data for table `patient_diagnoses`
 --
 
-INSERT INTO `patient_diagnoses` (`pateint_diagnosis_id`, `patient_id`, `evaluator_name`, `evaluation_date`, `evaluator_title`, `feet_affected`, `diagnosis`, `has_birth_deformity`, `has_treated`, `treatments`, `treatment_type`, `has_diagnosed`, `preg_week`, `has_birth_confirmed`, `diagnosis_comments`) VALUES
-(1, 12, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(2, 13, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(3, 14, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(4, 15, 'evaluator123', NULL, 1, 1, 1, 1, 1, 3, 1, 1, 5, 1, 'diagnosis123'),
-(5, 21, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(6, 22, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(7, 23, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(8, 24, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(9, 25, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(10, 1, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL),
-(11, 10001, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -217,16 +199,6 @@ CREATE TABLE `patient_examinations` (
 -- Dumping data for table `patient_examinations`
 --
 
-INSERT INTO `patient_examinations` (`id`, `patient_id`, `is_head`, `is_heart`, `is_urinary`, `is_skin`, `is_spine`, `is_hips`, `is_upper`, `is_lower`, `is_neuro`, `is_arms`, `is_legs`, `is_other`) VALUES
-(124, 15, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(125, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(126, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(127, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(128, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(129, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(130, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(131, 10001, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -254,20 +226,6 @@ CREATE TABLE `patient_families` (
 -- Dumping data for table `patient_families`
 --
 
-INSERT INTO `patient_families` (`patient_family_id`, `patient_id`, `is_relatable`, `preg_len`, `has_complicated_preg`, `complications`, `is_alcoholic`, `is_smoked`, `has_complicated_birth`, `birth_place`, `referral_source`, `doctor_name`, `referral_hospital`, `other_referral`) VALUES
-(1, 9, 0, 0, 0, NULL, 0, 0, 0, 2, 1, NULL, NULL, 'test'),
-(2, 11, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(3, 12, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(4, 13, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(5, 14, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(6, 15, 1, 2, 1, NULL, 1, 1, 1, 1, 1, 'doctor123', NULL, NULL),
-(7, 21, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(8, 22, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(9, 23, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(10, 24, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(11, 25, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(12, 1, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL),
-(13, 10001, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -329,9 +287,6 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Syed Bilal Hussain', 'syedbilalhussain168@gmail.com', NULL, '$2y$10$roHidmLGvHAl4xlFfGM6W./9eMHJ8Dq.3iX/iJeJaa2cL5oJPsT6C', 'hwQ7P98DUH3i53DxXERZTAh3oY03yLXBFy4oHKWSnw0UWO5SBt4Wqaorosmk', '2021-12-17 00:36:17', '2021-12-17 00:36:17'),
-(2, 'Luqman Ahmed', 'luqman@clubfoot.com', NULL, '$2y$10$dmOFxlVM.QAar.7oFpIY8OUMWTO/6FqAsl8Q9PoduU1Kplo8JEY1S', NULL, '2022-01-12 03:20:01', '2022-01-12 03:20:01');
 
 --
 -- Indexes for dumped tables
@@ -421,7 +376,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10011;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10001;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -433,7 +388,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `lookups`
 --
 ALTER TABLE `lookups`
-  MODIFY `lookup_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `lookup_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -445,25 +400,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10002;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10001;
 
 --
 -- AUTO_INCREMENT for table `patient_diagnoses`
 --
 ALTER TABLE `patient_diagnoses`
-  MODIFY `pateint_diagnosis_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `pateint_diagnosis_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `patient_examinations`
 --
 ALTER TABLE `patient_examinations`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `patient_families`
 --
 ALTER TABLE `patient_families`
-  MODIFY `patient_family_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `patient_family_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -481,7 +436,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
