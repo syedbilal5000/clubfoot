@@ -144,8 +144,8 @@
         <div class="form-group">
           <label>Treatment: </label>
           <select id="treatment_drop" class="form-control select2" style="width: 100%;">
-            <option value="Casted">Casted</option>
-            <option value="Tenotomy">Tenotomy</option>
+            <option value="1">Casted</option>
+            <option value="2">Tenotomy</option>
           </select>
         </div>
       </div>
@@ -162,9 +162,11 @@
         </div>
       </div>
     </div> <!-- row end -->
+    <div class="row">
+    <div class="col-md-12" onclick="more_clickable(0);" style="cursor: pointer; text-decoration: underline; color: blue; text-align: right; margin-bottom: 10px;"><i class="fas fa-plus"></i> Add more</div></div>
   </div>
-  <h1>Second</h1>
-  <div>
+  <div id="add_another" style="display: none;">
+    <h3 onclick="more_clickable(1);" style="cursor: pointer; text-decoration: underline;">Second</h3>
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -308,7 +310,17 @@
       calculateScore2();
     })
     // $("#appoint_form").validate();
-  })
+  });
+
+  function more_clickable(is_hide=0) {
+    if(is_hide == 0) {
+      $('#add_another').css('display', 'block');
+    }
+    else {
+      $('#add_another').css('display', 'none');
+    }
+  }
+
   function calculateScore() {
     var clb_drop = $("#clb_drop").val();
     var mc_drop = $("#mc_drop").val();
