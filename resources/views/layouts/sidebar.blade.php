@@ -69,13 +69,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('patients') }}" class="nav-link patients_nav">
+              <a href="{{ route('patient') }}" class="nav-link patients_nav">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Patients</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('patients.create') }}" class="nav-link patients_nav_add">
+              <a href="{{ route('patient.create') }}" class="nav-link patients_nav_add">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Add Patient</p>
               </a>

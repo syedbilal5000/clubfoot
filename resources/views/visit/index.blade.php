@@ -31,7 +31,7 @@
 
 {{-- Main Content --}}
 
-<form method="POST" action="Visits/add">
+<form method="POST" action="visit/data">
   @csrf
   <div>
     <div class="row">
@@ -148,9 +148,7 @@
       $('#visit_table').DataTable();
 
       $('#patients').on('change', function() {
-        let id = $("#patients").val();
-        @inject('service', 'App\\Http\\Controllers\\HomeController')
-        var data = {!! json_encode($service->get_data_visits(!!}id{!!)) !!};
+        
       })
     })
   })

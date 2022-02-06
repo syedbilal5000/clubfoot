@@ -42,10 +42,10 @@ class HomeController extends Controller
     }
 
     // Patients report view
-    public function patients_index()
+    public function patient_index()
     {
         $patients = $this->get_patients();
-        return view('patients.index', ['patients' => $patients]);
+        return view('patient.index', ['patients' => $patients]);
     }
 
     // this method will generate appointment date base on availability
@@ -67,10 +67,10 @@ class HomeController extends Controller
     }
 
     // show patients create
-    public function patients_create()
+    public function patient_create()
     {
 
-        return view('patients.create');
+        return view('patient.create');
     }
 
     public function visit_create()
@@ -80,15 +80,15 @@ class HomeController extends Controller
     }
 
     // show patients edit
-    public function patients_edit($id)
+    public function patient_edit($id)
     {
         $patient = DB::select("SELECT * FROM patients p LEFT JOIN patient_families pf ON pf.patient_id = p.patient_id LEFT JOIN patient_diagnoses pd ON pd.patient_id = p.patient_id LEFT JOIN patient_examinations pe ON pe.patient_id = p.patient_id WHERE p.patient_id = " . $id . ";");
         if (!$patient) {
-            return redirect('patients')->with('error', 'Incorrect Patient.');
+            return redirect('patient')->with('error', 'Incorrect Patient.');
         }
         // dd($patient);
         $patient = (object) $patient[0];
-        return view('patients.edit', ['patient' => $patient]);
+        return view('patient.edit', ['patient' => $patient]);
     }    
 
     // show appointment create
@@ -231,6 +231,24 @@ class HomeController extends Controller
         $appointment->inserted_at = date("Y-m-d");
         $appointment->save();
         return redirect('/appointment')->with('success', 'Appointment Added Successfully.');
+        dd($request);
+    }
+
+    // visit create
+    public function visit_store(Request $request)
+    {
+        dd($request);
+        $patient_id = $request->patient_id;
+        $appoint = DB::select("UPDATE appointment SET appointment_status = 4 WHERE appointment_id IN (SELECT appointment_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2)");
+        // Add patient general info
+        $appointment = new Appointment;
+        $appointment->appointment_date = $request->appointment_date;
+        $appointment->patient_id = $patient_id;
+        $appointment->appointment_status = 2; // Pending - status
+        $appointment->previous_appointment_id = 0; // for new appointment
+        $appointment->inserted_at = date("Y-m-d");
+        $appointment->save();
+        return redirect('/visit')->with('success', 'Visit Added Successfully.');
         dd($request);
     }
 

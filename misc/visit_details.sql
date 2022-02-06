@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `visit_details` (
   `appointment_id` int(11) DEFAULT NULL,
   `side` varchar(1) DEFAULT NULL COMMENT 'L/R',
   `CLB` float DEFAULT NULL,
-  `MB` float DEFAULT NULL,
+  `MC` float DEFAULT NULL,
   `LHT` float DEFAULT NULL,
   `PC` float DEFAULT NULL,
   `RE` float DEFAULT NULL,
@@ -45,10 +45,9 @@ CREATE TABLE IF NOT EXISTS `visit_details` (
   `mid_foot_score` float DEFAULT NULL,
   `hind_foot_score` float DEFAULT NULL,
   `total_score` float DEFAULT NULL,
-  `treatment` int(1) DEFAULT NULL,
-  `complic` varchar(50) DEFAULT NULL,
-  `next_app` varchar(50) DEFAULT NULL,
-  `no_of_cast` varchar(50) DEFAULT NULL,
+  `treatment` int(1) DEFAULT NULL COMMENT 'Like Casted, Tenotomy',
+  `complication` varchar(50) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11102 DEFAULT CHARSET=latin1;
 

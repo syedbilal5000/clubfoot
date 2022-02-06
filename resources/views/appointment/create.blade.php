@@ -76,7 +76,6 @@
         </div>
       </div>  <!-- row end -->
       <br>
-      <!-- bilals save appointment in the table -->
       <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
     </div>
   </div>

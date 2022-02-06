@@ -31,7 +31,7 @@
 
 {{-- Main Content --}}
 
-<form method="POST" action="Visits/add">
+<form id="visit_form" method="POST" action="add">
   @csrf
   <div>
     <h2 style="text-align:center;">Add New Visit</h2>
@@ -39,16 +39,18 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Date: </label>
-          <input type="date" name="visit_date" id="visit_date" class="form-control">
+          <input type="date" name="visit_date" id="visit_date" value="@php echo date('Y-m-d');@endphp" class="form-control">
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label>Side: </label>
-          <select id="side_drop" class="form-control select2" style="width: 100%;">
+          <select id="side_drop" name="side" class="form-control select2" style="width: 100%;" required>
+            <option selected disabled hidden value="0">Select Side</option>
             <option value="L">Left</option>
             <option value="R">Right</option>
           </select>
+          <span id="custlErrormsg" style="color: red;"></span>
         </div>
       </div>
     </div><!-- row end -->
@@ -57,7 +59,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>CLB: </label>
-          <select id="clb_drop" class="form-control select2 score_dropd" style="width: 100%;">
+          <select id="clb_drop" name="CLB" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -67,7 +69,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>MC: </label>
-          <select id="mc_drop" class="form-control select2 score_dropd" style="width: 100%;">
+          <select id="mc_drop" name="MC" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -77,7 +79,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>LHT: </label>
-          <select id="lht_drop" class="form-control select2 score_dropd" style="width: 100%;">
+          <select id="lht_drop" name="LHT" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -90,7 +92,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>PC: </label>
-          <select id="pc_drop" class="form-control select2 score_dropd" style="width: 100%;">
+          <select id="pc_drop" name="PC" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -100,7 +102,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>RE: </label>
-          <select id="re_drop" class="form-control select2 score_dropd" style="width: 100%;">
+          <select id="re_drop" name="RE" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -110,7 +112,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>EH: </label>
-          <select id="eh_drop" class="form-control select2 score_dropd" style="width: 100%;">
+          <select id="eh_drop" name="EH" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -123,19 +125,19 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Midfoot Score: </label>
-          <input type="text" disabled name="midfoot_score" id="midfoot_score" class="form-control">
+          <input type="text" name="mid_foot_score" id="midfoot_score" class="form-control" disabled>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Hindfoot Score: </label>
-          <input type="text" disabled name="hindfoot_score" id="hindfoot_score" class="form-control">
+          <input type="text" name="hind_foot_score" id="hindfoot_score" class="form-control" disabled>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Total Score: </label>
-          <input type="text" disabled name="total_score" id="total_score" class="form-control">
+          <input type="text" name="total_score" id="total_score" class="form-control" disabled>
         </div>
       </div>
     </div> <!-- row end -->
@@ -143,7 +145,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Treatment: </label>
-          <select id="treatment_drop" class="form-control select2" style="width: 100%;">
+          <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;" required>
             <option value="1">Casted</option>
             <option value="2">Tenotomy</option>
           </select>
@@ -151,17 +153,28 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>Complications: </label>
-          <input type="text" name="complications" id="complications" class="form-control">
+          <label>Complication: </label>
+          <input type="text" name="complication" class="form-control">
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Next Appointment: </label>
-          <input type="date" name="next_appointment" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
+          <input type="date" name="next_visit_date" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
         </div>
       </div>
     </div> <!-- row end -->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Description: </label>
+            <div class="input-group">
+              <!-- <input type="text" name="appointment_description" class="form-control"> -->
+              <textarea class="form-control" name="description" rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>  <!-- row end -->
     <div class="row">
     <div class="col-md-12" onclick="more_clickable(0);" style="cursor: pointer; text-decoration: underline; color: blue; text-align: right; margin-bottom: 10px;"><i class="fas fa-plus"></i> Add more</div></div>
   </div>
@@ -171,13 +184,14 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Date: </label>
-          <input type="date" name="visit_date2" id="visit_date2" class="form-control">
+          <input type="date" name="visit_date2" id="visit_date2" value="@php echo date('Y-m-d');@endphp" class="form-control">
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label>Side: </label>
-          <select id="side_drop2" class="form-control select2" style="width: 100%;">
+          <select id="side_drop2" name="side2" class="form-control select2" style="width: 100%;">
+            <option selected disabled hidden value="0">Select Side</option>
             <option value="L">Left</option>
             <option value="R">Right</option>
           </select>
@@ -189,7 +203,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>CLB: </label>
-          <select id="clb_drop2" class="form-control select2 score_dropd2" style="width: 100%;">
+          <select id="clb_drop2" name="CLB2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -199,7 +213,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>MC: </label>
-          <select id="mc_drop2" class="form-control select2 score_dropd2" style="width: 100%;">
+          <select id="mc_drop2" name="MC2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -209,7 +223,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>LHT: </label>
-          <select id="lht_drop2" class="form-control select2 score_dropd2" style="width: 100%;">
+          <select id="lht_drop2" name="LHT2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -222,7 +236,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>PC: </label>
-          <select id="pc_drop2" class="form-control select2 score_dropd2" style="width: 100%;">
+          <select id="pc_drop2" name="PC2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -232,7 +246,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>RE: </label>
-          <select id="re_drop2" class="form-control select2 score_dropd2" style="width: 100%;">
+          <select id="re_drop2" name="RE2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -242,7 +256,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>EH: </label>
-          <select id="eh_drop2" class="form-control select2 score_dropd2" style="width: 100%;">
+          <select id="eh_drop2" name="EH2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
             <option value="1.0">1.0</option>
@@ -255,19 +269,19 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Midfoot Score: </label>
-          <input type="text" disabled name="midfoot_score2" id="midfoot_score2" class="form-control">
+          <input type="text" name="mid_foot_score2" id="midfoot_score2" class="form-control" disabled>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Hindfoot Score: </label>
-          <input type="text" disabled name="hindfoot_score2" id="hindfoot_score2" class="form-control">
+          <input type="text" name="hind_foot_score2" id="hindfoot_score2" class="form-control" disabled>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Total Score: </label>
-          <input type="text" disabled name="total_score2" id="total_score2" class="form-control">
+          <input type="text" name="total_score2" id="total_score2" class="form-control" disabled>
         </div>
       </div>
     </div> <!-- row end -->
@@ -275,7 +289,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Treatment: </label>
-          <select id="treatment_drop2" class="form-control select2" style="width: 100%;">
+          <select id="treatment_drop2" name="treatment2" class="form-control select2" style="width: 100%;">
             <option value="Casted">Casted</option>
             <option value="Tenotomy">Tenotomy</option>
           </select>
@@ -284,19 +298,22 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Complications: </label>
-          <input type="text" name="complications2" id="complications2" class="form-control">
+          <input type="text" name="complication2" id="complications2" class="form-control">
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Next Appointment: </label>
-          <input type="date" name="next_appointment2" id="next_appointment2" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
+          <input type="date" name="next_visit_date2" id="next_appointment2" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
         </div>
       </div>
     </div> <!-- row end -->
   </div>
+  <br>
+      <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
 </form>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <script>
   $(function () {
@@ -305,11 +322,11 @@
     $('.visits_nav_add').addClass('active');
     $(".score_dropd").on('change', function() {
       calculateScore();
-    })
+    });
     $(".score_dropd2").on('change', function() {
       calculateScore2();
-    })
-    // $("#appoint_form").validate();
+    });
+    $("#visit_form").validate();
   });
 
   function more_clickable(is_hide=0) {
