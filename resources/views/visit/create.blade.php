@@ -303,8 +303,8 @@
         <div class="form-group">
           <label>Treatment: </label>
           <select id="treatment_drop2" name="treatment2" class="form-control select2" style="width: 100%;">
-            <option value="Casted">Casted</option>
-            <option value="Tenotomy">Tenotomy</option>
+            <option value="1">Casted</option>
+            <option value="2">Tenotomy</option>
           </select>
         </div>
       </div>

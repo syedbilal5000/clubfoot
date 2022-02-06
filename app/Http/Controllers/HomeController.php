@@ -9,6 +9,7 @@ use App\PatientFamily;
 use App\PatientDiagnosis;
 use App\PatientExamination;
 use App\Appointment;
+use App\Visit;
 
 class HomeController extends Controller
 {
@@ -237,15 +238,16 @@ class HomeController extends Controller
     // visit create
     public function visit_store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $patient_id = $request->patient_id;
-        // $appoint = DB::select("UPDATE appointment SET appointment_status = 4 WHERE appointment_id IN (SELECT appointment_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2)");
+        $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 5 LIMIT 1");
+        $appoint_id = ($query != array()) ? $query[0]->appoint_id : 0;
         // Add visit
         $visit = new Visit;
         $visit->patient_id = $patient_id;
         $visit->visit_date = $request->visit_date;
         $visit->next_visit_date = $request->next_visit_date;
-        $visit->appointment_id = $request->appointment_id;
+        $visit->appointment_id = $appoint_id;
         $visit->side = $request->side;
         $visit->CLB = $request->CLB;
         $visit->MC = $request->MC;
@@ -261,7 +263,30 @@ class HomeController extends Controller
         $visit->description = $request->description;
         $visit->inserted_at = date("Y-m-d");
         $visit->save();
-        dd($request);
+        if(isset($request->side2)) {
+            $visit2 = new Visit;
+            $visit2->patient_id = $patient_id;
+            $visit2->visit_date = $request->visit_date2;
+            $visit2->next_visit_date = $request->next_visit_date2;
+            $visit2->appointment_id = $appoint_id;
+            $visit2->side = $request->side2;
+            $visit2->CLB = $request->CLB2;
+            $visit2->MC = $request->MC2;
+            $visit2->LHT = $request->LHT2;
+            $visit2->PC = $request->PC2;
+            $visit2->RE = $request->RE2;
+            $visit2->EH = $request->EH2;
+            $visit2->mid_foot_score = $request->mid_foot_score2;
+            $visit2->hind_foot_score = $request->hind_foot_score2;
+            $visit2->total_score = $request->total_score2;
+            $visit2->treatment = $request->treatment2;
+            $visit2->complication = $request->complication2;
+            $visit2->description = $request->description;
+            $visit2->inserted_at = date("Y-m-d");
+            $visit2->save();
+        }
+        $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
+        // dd($request);
         return redirect('/visit')->with('success', 'Visit Added Successfully.');
         dd($request);
     }
