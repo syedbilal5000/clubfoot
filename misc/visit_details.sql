@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `visit_details` (
   `treatment` int(1) DEFAULT NULL COMMENT 'Like Casted, Tenotomy',
   `complication` varchar(50) DEFAULT NULL,
   `description` varchar(50) DEFAULT NULL,
+  `inserted_at` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11102 DEFAULT CHARSET=latin1;
 

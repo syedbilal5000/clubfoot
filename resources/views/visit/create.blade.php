@@ -36,15 +36,28 @@
   <div>
     <h2 style="text-align:center;">Add New Visit</h2>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Select Patient: </label><label style="color: red;"> &nbsp;*</label>
+          <select id="patients" name="patient_id" class="form-control select2 @error('patient_id') is-invalid @enderror" style="width: 100%;" required>
+            <option selected disabled>Select Patient</option>
+          </select>
+          @error('patient_id')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+      </div>
+      <div class="col-md-4">
         <div class="form-group">
           <label>Date: </label>
           <input type="date" name="visit_date" id="visit_date" value="@php echo date('Y-m-d');@endphp" class="form-control">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
-          <label>Side: </label>
+          <label>Side: </label><label style="color: red;"> &nbsp;*</label>
           <select id="side_drop" name="side" class="form-control select2" style="width: 100%;" required>
             <option selected disabled hidden value="0">Select Side</option>
             <option value="L">Left</option>
@@ -145,7 +158,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Treatment: </label>
-          <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;" required>
+          <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;">
             <option value="1">Casted</option>
             <option value="2">Tenotomy</option>
           </select>
@@ -189,7 +202,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label>Side: </label>
+          <label>Side: </label><label style="color: red;"> &nbsp;*</label>
           <select id="side_drop2" name="side2" class="form-control select2" style="width: 100%;">
             <option selected disabled hidden value="0">Select Side</option>
             <option value="L">Left</option>
@@ -316,6 +329,30 @@
 <script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <script>
+  var patients = {!! json_encode($patients) !!};
+  
+  view_patients(patients);
+  
+  function view_patients(patients) {
+    output = '<option value="">Select Patient</option>';
+    if (patients.length > 0) {
+        var patientCheck = {};
+        for (i = 0; i < patients.length; i++) {
+            if(patientCheck[patients[i]['patient_id']] == true)
+          {
+
+          }
+          else {
+            patientCheck[patients[i]['patient_id']] = true;
+            output += `<option value="${patients[i]['patient_id']}">${patients[i]['patient_name']},${patients[i]['guardian_number']},${patients[i]['guardian_cnic']}</option>`;
+          }
+        }
+    } else {
+        output = '<option value="-1">No Data</option>';
+    }
+    $('#patients').html(output);
+  }
+
   $(function () {
     $('.select2').select2();
     $('.visit_nav').addClass('active');
@@ -332,9 +369,11 @@
   function more_clickable(is_hide=0) {
     if(is_hide == 0) {
       $('#add_another').css('display', 'block');
+      $('#side_drop2').prop('required', true);
     }
     else {
       $('#add_another').css('display', 'none');
+      $('#side_drop2').prop('required', false);
     }
   }
 

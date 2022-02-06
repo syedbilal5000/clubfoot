@@ -75,8 +75,8 @@ class HomeController extends Controller
 
     public function visit_create()
     {
-
-        return view('visit.create');
+        $patients = $this->get_patients();
+        return view('visit.create', ['patients' => $patients]);
     }
 
     // show patients edit
@@ -239,15 +239,29 @@ class HomeController extends Controller
     {
         dd($request);
         $patient_id = $request->patient_id;
-        $appoint = DB::select("UPDATE appointment SET appointment_status = 4 WHERE appointment_id IN (SELECT appointment_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2)");
-        // Add patient general info
-        $appointment = new Appointment;
-        $appointment->appointment_date = $request->appointment_date;
-        $appointment->patient_id = $patient_id;
-        $appointment->appointment_status = 2; // Pending - status
-        $appointment->previous_appointment_id = 0; // for new appointment
-        $appointment->inserted_at = date("Y-m-d");
-        $appointment->save();
+        // $appoint = DB::select("UPDATE appointment SET appointment_status = 4 WHERE appointment_id IN (SELECT appointment_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2)");
+        // Add visit
+        $visit = new Visit;
+        $visit->patient_id = $patient_id;
+        $visit->visit_date = $request->visit_date;
+        $visit->next_visit_date = $request->next_visit_date;
+        $visit->appointment_id = $request->appointment_id;
+        $visit->side = $request->side;
+        $visit->CLB = $request->CLB;
+        $visit->MC = $request->MC;
+        $visit->LHT = $request->LHT;
+        $visit->PC = $request->PC;
+        $visit->RE = $request->RE;
+        $visit->EH = $request->EH;
+        $visit->mid_foot_score = $request->mid_foot_score;
+        $visit->hind_foot_score = $request->hind_foot_score;
+        $visit->total_score = $request->total_score;
+        $visit->treatment = $request->treatment;
+        $visit->complication = $request->complication;
+        $visit->description = $request->description;
+        $visit->inserted_at = date("Y-m-d");
+        $visit->save();
+        dd($request);
         return redirect('/visit')->with('success', 'Visit Added Successfully.');
         dd($request);
     }
