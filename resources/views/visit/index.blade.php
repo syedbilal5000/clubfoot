@@ -108,6 +108,98 @@
         </div>
       </div>
     </div>  <!-- row end -->
+    <hr><br>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Total no of Cast: </label>
+          <input type="text" name="no_cast" id="no_cast" class="form-control" disabled>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Total no of Recast: </label>
+          <input type="text" name="no_recast" id="no_recast" class="form-control" disabled>
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date of Tenotomy: </label>
+          <input type="text" name="date_tenotomy" id="date_tenotomy" class="form-control" disabled>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date of Tenotomy: </label>
+          <input type="text" name="date_retenotomy" id="date_retenotomy" class="form-control" disabled>
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Time Duration: </label>
+          <input type="text" name="time_tenotomy" id="time_tenotomy" class="form-control" disabled>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Time Duration: </label>
+          <input type="text" name="time_retenotomy" id="time_retenotomy" class="form-control" disabled>
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date of Brace Application: </label>
+          <input type="text" name="brace_app_tenotomy" id="brace_app_tenotomy" class="form-control" disabled>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date of Brace Application: </label>
+          <input type="text" name="brace_app_retenotomy" id="brace_app_retenotomy" class="form-control" disabled>
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <hr><br>
+    <div class="row">
+      <div class="col-md-12 table-responsive">
+        <div class="form-group">
+          <table id="followup_table" class="table table-striped table-bordered" style="width:100% !important;">
+            <thead class="table_followup_header">
+              <tr style="text-align:center;">
+                <th colspan="2">Follow up</th>
+                <th rowspan="2" style="vertical-align: inherit;">RELAPSE</th>
+                <th colspan="2">Abduction Brace use</th>
+                <th rowspan="2" style="vertical-align: inherit;">TREATMENT</th>
+                <th rowspan="2" style="vertical-align: inherit;">Next App</th>
+              </tr>
+              <tr style="text-align:center;">
+                <th>Date</th>
+                <th>Age</th>
+                <th>Size</th>
+                <th>Hours</th>
+              </tr>
+            </thead> 
+            <tbody class="table_followup_body">
+              <tr>
+                <td>check1</td>
+                <td>check1</td>
+                <td>check1</td>
+                <td>check1</td>
+                <td>check1</td>
+                <td>check1</td>
+                <td>check1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div> <!-- row end -->
   </div>
 </form>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
@@ -124,7 +216,7 @@
     if (patients.length > 0) {
         var patientCheck = {};
         for (i = 0; i < patients.length; i++) {
-            if(patientCheck[patients[i]['patient_id']] == true)
+          if(patientCheck[patients[i]['patient_id']] == true)
           {
 
           }
