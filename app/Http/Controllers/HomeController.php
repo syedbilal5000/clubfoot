@@ -135,9 +135,9 @@ class HomeController extends Controller
         return $patients_appoint;
     }
 
-    public function get_data_visits($status)
+    public function get_visits($patient_id)
     {
-        $patients_appoint = DB::select("SELECT * FROM visit_details WHERE patient_id = '$status';");
+        $patients_appoint = DB::select("SELECT * FROM visit_details WHERE patient_id = '$patient_id';");
         return $patients_appoint;
     }
 

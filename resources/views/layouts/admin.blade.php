@@ -17,6 +17,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 
+  <style type="text/css">
+    input[type="text"]:disabled {
+      cursor: not-allowed;
+    }
+  </style>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">

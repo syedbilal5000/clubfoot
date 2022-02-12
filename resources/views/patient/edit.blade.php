@@ -120,7 +120,7 @@
             <div class="form-group">
               <label>Age: </label>
               <div class="input-group">
-                <input type="text" name="age"  id="age_text" placeholder="This should be auto fill" value="getAge({{ $patient->birth_date }})" class="form-control" readonly>
+                <input type="text" name="age"  id="age_text" placeholder="This should be auto fill" value="getAge({{ $patient->birth_date }})" class="form-control" disabled>
               </div>
             </div>
           </div>

@@ -240,9 +240,18 @@
       $('#visit_table').DataTable();
 
       $('#patients').on('change', function() {
-        
-      })
-    })
+        let id = $("#patients").val();
+        $.ajax({
+          type:'GET',
+          url:'get_visits/' + id,
+          // data:{_token: "{{ csrf_token() }}"
+          // },
+          success: function( data ) {
+            console.log(data);
+          }
+        });
+      });
+    });
   })
 </script>
 @endsection

@@ -39,3 +39,4 @@ Route::post('appointment/update', [App\Http\Controllers\HomeController::class, '
 Route::get('visit', [App\Http\Controllers\HomeController::class, 'visit_index'])->name('visit');
 Route::get('visit/create', [App\Http\Controllers\HomeController::class, 'visit_create'])->name('visit.create');
 Route::post('visit/add', [App\Http\Controllers\HomeController::class, 'visit_store'])->name('visit_store');
+Route::get('get_visits/{patient_id}/', [App\Http\Controllers\HomeController::class, 'get_visits']);

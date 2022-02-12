@@ -91,7 +91,7 @@
             <div class="form-group">
               <label>Age: </label>
               <div class="input-group">
-                <input type="text" name="age" placeholder="This should be auto fill" id="age_text" class="form-control" readonly>
+                <input type="text" name="age" placeholder="This should be auto fill" id="age_text" class="form-control" disabled>
               </div>
             </div>
           </div>
