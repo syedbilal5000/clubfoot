@@ -96,6 +96,8 @@
   view_patients(patients);
   if (patient_id) {
     $('#patients').val(patient_id).change();
+    // change route appointment/create/add to appointment/add
+    $('#appoint_form').attr('action', '../add');
   }
 
   function view_patients(patients) {
