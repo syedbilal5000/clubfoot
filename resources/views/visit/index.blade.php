@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/dataTables-buttons/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
 <style type="text/css">
   .select2-selection {
@@ -50,60 +51,36 @@
           <table id="visit_table" class="table table-striped table-bordered" style="width:100% !important;">
             <thead class="table_header">
               <tr>
+              <th>Visit Date</th>
               <th>Side</th>
-              <th>CLB</th>
-              <th>MC</th>
-              <th>LHC</th>
-              <th>PC</th>
-              <th>RE</th>
-              <th>EH</th>
-              <th>EH</th>
+              <th>CLB,<br>MC,<br>LHT</th>
+              <th>PC,<br>RE,<br>EH</th>
               <th>Midfoot Score</th>
               <th>Hindfoot Score</th>
               <th>Total Score</th>
               <th>Treatment</th>
-              <th>Complic</th>
+              <th>Complications</th>
               <th>Next App</th>
-              <th>No. of Cast</th>
               </tr>
             </thead> 
-            <tbody class="table_body">
-              <!-- bilals get all visits from database when drop down data change-->
-              <tr>
-              <td>Side</td>
-              <td>CLB</td>
-              <td>MC</td>
-              <td>LHC</td>
-              <td>PC</td>
-              <td>RE</td>
-              <td>EH</td>
-              <td>EH</td>
-              <td>Midfoot Score</td>
-              <td>Hindfoot Score</td>
-              <td>Total Score</td>
-              <td>Treatment</td>
-              <td>Complic</td>
-              <td>Next App</td>
-              <td>No. of Cast</td>
-              </tr>
-              <tr>
-              <td>Side</td>
-              <td>CLB</td>
-              <td>MC</td>
-              <td>LHC</td>
-              <td>PC</td>
-              <td>RE</td>
-              <td>EH</td>
-              <td>EH</td>
-              <td>Midfoot Score</td>
-              <td>Hindfoot Score</td>
-              <td>Total Score</td>
-              <td>Treatment</td>
-              <td>Complic</td>
-              <td>Next App</td>
-              <td>No. of Cast</td>
-              </tr>
+            <tbody id="table_body">
             </tbody>
+              <!-- bilals get all visits from database when drop down data change-->
+            <tfoot>
+              <tr>
+              <th>Visit Date</th>
+              <th>Side</th>
+              <th>CLB<br>MC<br>LHT</th>
+              <th>PC<br>RE<br>EH</th>
+              <th>Midfoot Score</th>
+              <th>Hindfoot Score</th>
+              <th>Total Score</th>
+              <th>Treatment</th>
+              <th>Complications</th>
+              <th>Next App</th>
+              </tr>
+            </tfoot>
+            
           </table>
         </div>
       </div>
@@ -206,6 +183,11 @@
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/dataTables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/dataTables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/ajax/libs/jszip.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/ajax/libs/pdfmake.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/ajax/libs/vfs_fonts.js') }}"></script>
 <script>
   var patients = {!! json_encode($patients) !!};
   
@@ -241,15 +223,76 @@
 
       $('#patients').on('change', function() {
         let id = $("#patients").val();
-        $.ajax({
-          type:'GET',
-          url:'get_visits/' + id,
-          // data:{_token: "{{ csrf_token() }}"
-          // },
-          success: function( data ) {
-            console.log(data);
-          }
-        });
+        if(id != "")
+        {  
+          $.ajax({
+            type:'GET',
+            url:'get_visits/' + id,
+            // data:{_token: "{{ csrf_token() }}"
+            // },
+            success: function( data ) {
+              console.log(data);
+              // let parsedData = JSON.parse(data);
+              let output = "";
+              for (var i = 0; i < data.length ; i++) {
+                output += "<tr><td>"+
+                    (data[i].inserted_at == null ? "-" : data[i].inserted_at) +"</td> <td>"+
+                    data[i].side+"</td> <td>"+
+                    (data[i].CLB == null ? "0" : data[i].CLB)+"<br>"+
+                    (data[i].MC == null ? "0" : data[i].MC)+"<br>"+
+                    (data[i].LHT == null ? "0" : data[i].LHT)+"</td> <td>"+
+                    (data[i].PC == null ? "0" : data[i].PC)+"<br>"+
+                    (data[i].RE == null ? "0" : data[i].RE)+"<br>"+
+                    (data[i].EH == null ? "0" : data[i].EH)+"</td> <td>"+
+                    (data[i].mid_foot_score == null ? "0" : data[i].mid_foot_score )+"</td> <td>"+
+                    (data[i].hind_foot_score == null ? "0" : data[i].hind_foot_score)+"</td> <td>"+
+                    (data[i].total_score == null ? "0" : data[i].total_score)+"</td> <td>"+
+                    data[i].treatment+"</td> <td>"+
+                    (data[i].complication == null ? "No" : data[i].complication)+"</td> <td>"+
+                    (data[i].next_visit_date == null ? "-" : data[i].next_visit_date)+"</td> </tr>";
+              }
+              if ( $.fn.DataTable.isDataTable('#visit_table') ) {
+                $('#visit_table').DataTable().destroy();
+              }
+              $('#table_body').html(output);
+              $('#visit_table').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                  {
+                    extend: 'copyHtml5',
+                    exportOptions: {
+                      // columns: ':gt(0)'  // indexes of the columns that should be printed,
+                    }
+                  },
+                  {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                      // columns: ':gt(0)'  // indexes of the columns that should be printed,
+                    }
+                  },
+                  {
+                    extend: 'csvHtml5',
+                    exportOptions: {
+                      // columns: ':gt(0)'  // indexes of the columns that should be printed,
+                    }
+                  },
+                  {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                      // columns: ':gt(0)'  // indexes of the columns that should be printed,
+                    }
+                  }
+                ],
+                "columnDefs": [
+                  { 
+                      // "targets": [0], //first column / numbering column
+                      // "orderable": false, //set not orderable
+                  },
+                ]
+              });
+            }
+          });
+        }
       });
     });
   })

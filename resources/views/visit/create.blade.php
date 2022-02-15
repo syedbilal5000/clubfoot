@@ -138,19 +138,19 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Midfoot Score: </label>
-          <input type="text" name="mid_foot_score" id="midfoot_score" class="form-control" disabled>
+          <input type="text" name="mid_foot_score" id="midfoot_score" class="form-control" readonly style="cursor: not-allowed;">
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Hindfoot Score: </label>
-          <input type="text" name="hind_foot_score" id="hindfoot_score" class="form-control" disabled>
+          <input type="text" name="hind_foot_score" id="hindfoot_score" class="form-control" readonly style="cursor: not-allowed;">
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Total Score: </label>
-          <input type="text" name="total_score" id="total_score" class="form-control" disabled>
+          <input type="text" name="total_score" id="total_score" class="form-control" readonly style="cursor: not-allowed;">
         </div>
       </div>
     </div> <!-- row end -->
