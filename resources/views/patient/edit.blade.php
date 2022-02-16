@@ -223,10 +223,10 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label>CNIC No: </label><label style="color: red;"> &nbsp;*</label>
+              <label>CNIC No: </label>
               <div class="input-group">
                 <span class="input-group-text">&nbsp; <i class="fas fa-info"></i>&nbsp; </span>
-                <input type="text" name="guardian_cnic" value="{{ $patient->guardian_cnic }}" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask required>
+                <input type="text" name="guardian_cnic" value="{{ $patient->guardian_cnic }}" class="form-control" data-inputmask='"mask": "99999-9999999-9"' data-mask>
               </div>
             </div>
           </div>
@@ -518,10 +518,10 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label>How many previous treatment sessions: </label><label style="color: red;"> &nbsp;*</label>
+              <label>How many previous treatment sessions: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-check"></i></span>
-                <input type="text" name="treatments" required value="{{ $patient->treatments }}" class="form-control" placeholder="Enter Sessions">
+                <input type="text" name="treatments" value="{{ $patient->treatments }}" class="form-control" placeholder="Enter Sessions">
               </div>
             </div>
           </div>

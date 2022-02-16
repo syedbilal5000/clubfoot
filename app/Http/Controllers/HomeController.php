@@ -161,7 +161,7 @@ class HomeController extends Controller
         $patient->guardian_name = $request->guardian_name;
         $patient->guardian_number = $request->guardian_number;
         $patient->guardian_number_2 = $request->guardian_number_2;
-        $patient->guardian_cnic = $request->guardian_cnic;
+        $patient->guardian_cnic = isset($request->guardian_cnic) ? $request->guardian_cnic : '';
         $patient->inserted_at = date("Y-m-d");
         $patient->save();
         $patient_id = $patient->patient_id;
@@ -311,7 +311,7 @@ class HomeController extends Controller
         $patient->guardian_name = $request->guardian_name;
         $patient->guardian_number = $request->guardian_number;
         $patient->guardian_number_2 = $request->guardian_number_2;
-        $patient->guardian_cnic = $request->guardian_cnic;
+        $patient->guardian_cnic = isset($request->guardian_cnic) ? $request->guardian_cnic : '';
         $patient->icr_number = $request->icr_number;
         $patient->save();
         $patient_id = $patient->id;
