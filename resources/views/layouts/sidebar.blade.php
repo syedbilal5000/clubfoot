@@ -136,6 +136,31 @@
             </li>
           </ul>
         </li>
+
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link donor_nav">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Donor
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('appointment') }}" class="nav-link donors_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Donors</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('donor.create') }}" class="nav-link donors_nav_add">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Donor</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
         <!-- <li class="nav-item">
           <a href="" class="nav-link appointment_nav">
             <i class="nav-icon fas fa-th"></i>

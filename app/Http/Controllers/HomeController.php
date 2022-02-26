@@ -80,6 +80,13 @@ class HomeController extends Controller
         return view('visit.create', ['patients' => $patients]);
     }
 
+    // show donors create
+    public function donor_create()
+    {
+
+        return view('donor.create');
+    }
+
     // show patients edit
     public function patient_edit($id)
     {
