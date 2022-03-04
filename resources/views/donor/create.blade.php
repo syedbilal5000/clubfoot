@@ -92,8 +92,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Select City: </label>
-            <select id="cities" name="city_id" class="form-control select2" style="width: 100%;">
+            <select id="cities" name="city_id" class="form-control select2" onchange="get_state(this.value)" style="width: 100%;">
               <option selected disabled>Select City</option>
+              <option value="0">Other</option>
             </select>
           </div>
         </div>
@@ -132,26 +133,37 @@
 <!-- Page specific script -->
 <script>
   
-  // view_patients(patients);
+  var output = '', output2 = '', states = {};
+  var cities = {!! json_encode($cities) !!};
+  view_cities(cities);
   
-  function view_patients(patients) {
-    output = '<option value="">Select Patient</option>';
-    if (patients.length > 0) {
-        var patientCheck = {};
-        for (i = 0; i < patients.length; i++) {
-            if(patientCheck[patients[i]['patient_id']] == true)
-          {
-
+  function view_cities(patients) {
+    // output = '<option value="">Select City</option>';
+    if (cities.length > 0) {
+        // iterate over cities
+        for (i = 0; i < cities.length; i++) {
+          output += `<option value="${cities[i]['city_id']}">${patients[i]['city']}</option>`;
+          if (!states[cities[i]['state']]) {
+            states[cities[i]['state']] = cities[i]['state'];
           }
-          else {
-            patientCheck[patients[i]['patient_id']] = true;
-            output += `<option value="${patients[i]['patient_id']}">${patients[i]['patient_name']},${patients[i]['guardian_number']},${patients[i]['guardian_cnic']}</option>`;
-          }
+        }
+        // iterate over states
+        for(var key in states) {
+          output2 += `<option value="${states[key]}">${key}</option>`;
         }
     } else {
         output = '<option value="-1">No Data</option>';
     }
-    $('#patients').html(output);
+    $('#cities').append(output);
+    $('#states').append(output2);
+  }
+
+  function get_state(val) {
+    // when val is 0, for "Other" case
+    if (val != 0){
+      // substract 1 from val because index starts from 0, then with state get the state from cities, then get state from states
+      $("#states").val(states[cities[val-1]['state']]).change();
+    }
   }
 
   $(function () {

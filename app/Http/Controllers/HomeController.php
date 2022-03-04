@@ -83,8 +83,8 @@ class HomeController extends Controller
     // show donors create
     public function donor_create()
     {
-
-        return view('donor.create');
+        $cities = $this->get_cities();
+        return view('donor.create', ['cities' => $cities]);
     }
 
     // show patients edit
@@ -146,6 +146,13 @@ class HomeController extends Controller
     {
         $patients_appoint = DB::select("SELECT * FROM visit_details WHERE patient_id = '$patient_id';");
         return $patients_appoint;
+    }
+
+    // get pak cities (common - 158) from db
+    public function get_cities()
+    {
+        $cities = DB::select("SELECT * FROM cities");
+        return $cities;
     }
 
     // patient create
