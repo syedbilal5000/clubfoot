@@ -60,6 +60,7 @@
                 <th>Guardian Name</th>
                 <th>Guardian Number</th>
                 <th>Age (m)</th>
+                <th>Actions</th>
             </tr>
         </tfoot>
       </table>

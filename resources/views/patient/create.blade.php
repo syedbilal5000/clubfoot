@@ -1,6 +1,15 @@
 @extends('layouts.admin')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
+<style type="text/css">
+  .select2-selection {
+    height: unset !important;
+    border: 1px solid #ced4da !important;
+    border-radius: unset !important;
+    padding: 0.375rem .75rem !important;
+  }
+</style>
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
@@ -59,7 +68,7 @@
           </div>
         </div>  <!-- div row end -->
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <div class="form-group">
               <label>Gender: </label>
               <!-- <div class="input-group">
@@ -75,6 +84,15 @@
               <div class="form-check form-check-inline">
                 <label> <input class="form-check-input" type="radio" name="gender" value="2"> Female </label>
               </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Select Donor: </label>
+              <select id="donors" name="donor_id" class="form-control select2" style="width: 100%;">
+                <option selected disabled>Select Donor</option>
+                <option value="0">Other</option>
+              </select>
             </div>
           </div>
         </div>
@@ -644,8 +662,25 @@
 </form>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>
-<script >
+<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+  var output = '';
+  var donors = {!! json_encode($donors) !!};
+  view_donors(donors);
+  
+  function view_donors(donors) {
+    if (donors.length > 0) {
+        for (i = 0; i < donors.length; i++) {
+          output += `<option value="${donors[i]['id']}">${donors[i]['first_name']} ${donors[i]['last_name']}</option>`;
+        }
+    } else {
+        output = '<option value="-1">No Data</option>';
+    }
+    $('#donors').append(output);
+  }
+
   $(function () {
+    $('.select2').select2();
     $('.patient_nav').addClass('active');
     $('.patients_nav_add').addClass('active');
     $('[data-mask]').inputmask();

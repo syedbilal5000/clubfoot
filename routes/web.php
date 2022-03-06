@@ -41,5 +41,8 @@ Route::get('visit/create', [App\Http\Controllers\HomeController::class, 'visit_c
 Route::post('visit/add', [App\Http\Controllers\HomeController::class, 'visit_store'])->name('visit_store');
 Route::get('get_visits/{patient_id}/', [App\Http\Controllers\HomeController::class, 'get_visits']);
 // Route::get('donor', [App\Http\Controllers\HomeController::class, 'donor_index'])->name('donor');
+Route::get('donor', [App\Http\Controllers\HomeController::class, 'donor_index'])->name('donor');
 Route::get('donor/create', [App\Http\Controllers\HomeController::class, 'donor_create'])->name('donor.create');
 Route::post('donor/add', [App\Http\Controllers\HomeController::class, 'donor_store'])->name('donor_store');
+Route::get('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'donor_edit'])->name('donor.edit');
+Route::put('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'donor_update'])->name('donor_update');

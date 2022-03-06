@@ -10,6 +10,7 @@ use App\PatientDiagnosis;
 use App\PatientExamination;
 use App\Appointment;
 use App\Visit;
+use App\Donor;
 
 class HomeController extends Controller
 {
@@ -49,6 +50,13 @@ class HomeController extends Controller
         return view('patient.index', ['patients' => $patients]);
     }
 
+    // Donors report view
+    public function donor_index()
+    {
+        $donors = $this->get_donors();
+        return view('donor.index', ['donors' => $donors]);
+    }
+
     // this method will generate appointment date base on availability
     public function generate_date()
     {
@@ -70,8 +78,8 @@ class HomeController extends Controller
     // show patients create
     public function patient_create()
     {
-
-        return view('patient.create');
+        $donors = $this->get_donors();
+        return view('patient.create', ['donors' => $donors]);
     }
 
     public function visit_create()
@@ -85,18 +93,6 @@ class HomeController extends Controller
     {
         $cities = $this->get_cities();
         return view('donor.create', ['cities' => $cities]);
-    }
-
-    // show patients edit
-    public function patient_edit($id)
-    {
-        $patient = DB::select("SELECT * FROM patients p LEFT JOIN patient_families pf ON pf.patient_id = p.patient_id LEFT JOIN patient_diagnoses pd ON pd.patient_id = p.patient_id LEFT JOIN patient_examinations pe ON pe.patient_id = p.patient_id WHERE p.patient_id = " . $id . ";");
-        if (!$patient) {
-            return redirect('patient')->with('error', 'Incorrect Patient.');
-        }
-        // dd($patient);
-        $patient = (object) $patient[0];
-        return view('patient.edit', ['patient' => $patient]);
     }    
 
     // show appointment create
@@ -130,6 +126,13 @@ class HomeController extends Controller
         return $patients;
     }
 
+    // get donors data
+    public function get_donors()
+    {
+        $donors = DB::select("SELECT d.*, c.city FROM donors d LEFT JOIN cities c ON d.city_id = c.city_id ;");
+        return $donors;
+    }
+
     // public function get_patients_with_appointment()
     // {
     //     $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending');");
@@ -155,6 +158,31 @@ class HomeController extends Controller
         return $cities;
     }
 
+    // show patients edit
+    public function patient_edit($id)
+    {
+        $patient = DB::select("SELECT * FROM patients p LEFT JOIN patient_families pf ON pf.patient_id = p.patient_id LEFT JOIN patient_diagnoses pd ON pd.patient_id = p.patient_id LEFT JOIN patient_examinations pe ON pe.patient_id = p.patient_id WHERE p.patient_id = " . $id . ";");
+        if (!$patient) {
+            return redirect('patient')->with('error', 'Incorrect Patient.');
+        }
+        $donors = $this->get_donors();
+        $patient = (object) $patient[0];
+        return view('patient.edit', ['patient' => $patient, 'donors' => $donors]);
+    }
+
+    // show donors edit
+    public function donor_edit($id)
+    {
+        // $donor = DB::select("SELECT * FROM donors WHERE id = " . $id . ";");
+        $donor = Donor::find($id);
+        if (!$donor) {
+            return redirect('donor')->with('error', 'Incorrect Donor.');
+        }
+        $cities = $this->get_cities();
+        $donor = (object) $donor;
+        return view('donor.edit', ['donor' => $donor, 'cities' => $cities]);
+    }
+
     // patient create
     public function patient_store(Request $request)
     {
@@ -165,6 +193,7 @@ class HomeController extends Controller
         $patient->father_name = $request->father_name;
         // 0: "Other", 1: "Male", 2: "Female"
         $patient->gender = isset($request->gender) ? $request->gender : 0;
+        $patient->donor_id = isset($request->donor_id) ? $request->donor_id : 0;
         $patient->birth_date = $request->birth_date;
         $patient->address = $request->address;
         $patient->address2 = $request->address2;
@@ -305,6 +334,22 @@ class HomeController extends Controller
         dd($request);
     }
 
+    // donor create
+    public function donor_store(Request $request)
+    {
+        // Add donor
+        $donor = new Donor;
+        $donor->first_name = $request->first_name;
+        $donor->last_name = $request->last_name;
+        $donor->donor_email = $request->donor_email;
+        $donor->donor_number = $request->donor_number;
+        $donor->donor_address = $request->donor_address;
+        $donor->city_id = isset($request->city_id) ? $request->city_id : 0;
+        $donor->description = $request->description;
+        $donor->save();
+        return redirect('/donor')->with('success', 'Donor Added Successfully.');
+    }
+
     // patient update
     public function patient_update(Request $request, $id)
     {
@@ -315,6 +360,7 @@ class HomeController extends Controller
         $patient->father_name = $request->father_name;
         // 0: "Other", 1: "Male", 2: "Female"
         $patient->gender = isset($request->gender) ? $request->gender : 0;
+        $patient->donor_id = isset($request->donor_id) ? $request->donor_id : 0;
         $patient->birth_date = $request->birth_date;
         $patient->address = $request->address;
         $patient->address2 = $request->address2;
@@ -405,5 +451,21 @@ class HomeController extends Controller
         // print($query);
         return redirect('/appointment')->with('success', 'Appointment Updated Successfully.');
         dd($request);
+    }
+
+    // donor update
+    public function donor_update(Request $request, $id)
+    {
+        // Update donor
+        $donor = Donor::find($id);
+        $donor->first_name = $request->first_name;
+        $donor->last_name = $request->last_name;
+        $donor->donor_email = $request->donor_email;
+        $donor->donor_number = $request->donor_number;
+        $donor->donor_address = $request->donor_address;
+        $donor->city_id = isset($request->city_id) ? $request->city_id : 0;
+        $donor->description = $request->description;
+        $donor->save();
+        return redirect('/donor')->with('success', 'Donor Updated Successfully.');
     }
 }

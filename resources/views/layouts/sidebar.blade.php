@@ -147,7 +147,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('appointment') }}" class="nav-link donors_nav">
+              <a href="{{ route('donor') }}" class="nav-link donors_nav">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Donors</p>
               </a>
