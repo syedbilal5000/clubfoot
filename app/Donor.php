@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Donor extends Model
 {
-    protected  $primaryKey = 'donor_id';
+    // protected  $primaryKey = 'donor_id';
 
     // protected $table = 'appointment';
 
@@ -14,6 +14,6 @@ class Donor extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'first_name', 'last_name', 'donor_email', 'donor_number', 'donor_address'
+        'first_name', 'last_name', 'donor_email', 'donor_number', 'donor_address', 'city_id', 'description'
     ];
 }

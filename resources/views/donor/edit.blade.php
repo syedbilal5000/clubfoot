@@ -30,8 +30,10 @@
   <!-- /.content-header -->
 
 {{-- Main Content --}}
-<form id="donor_form" method="POST" action="add">
+<form method="POST" action="edit">
   @csrf
+  <!-- <input name="_method" type="hidden" value="PUT"> -->
+  @method('PUT')
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -40,7 +42,7 @@
             <label>First Name: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
               <span class="input-group-text"><i class="fa fa-user"></i></span>
-              <input type="text" name="first_name" class="form-control" placeholder="Enter First Name" required>
+              <input type="text" name="first_name" class="form-control" placeholder="Enter First Name" value="{{ $donor->first_name }}" required>
             </div>
           </div>
         </div>
@@ -49,7 +51,7 @@
             <label>Last Name: </label>
             <div class="input-group">
               <span class="input-group-text"><i class="fa fa-user"></i></span>
-              <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name">
+              <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name" value="{{ $donor->last_name }}">
             </div>
           </div>
         </div>
@@ -61,7 +63,7 @@
             <label>Phone number: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group">
               <span class="input-group-text"><i class="fa fa-phone"></i></span>
-              <input type="text" name="donor_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask required>
+              <input type="text" name="donor_number" class="form-control" data-inputmask='"mask": "0399-9999999"' value="{{ $donor->donor_number }}" data-mask required>
             </div>
           </div>
         </div>
@@ -70,7 +72,7 @@
             <label>Email: </label>
             <div class="input-group">
               <span class="input-group-text"><i class="fa fa-user"></i></span>
-              <input type="email" name="donor_email" class="form-control" placeholder="Enter Email">
+              <input type="email" name="donor_email" class="form-control" placeholder="Enter Email" value="{{ $donor->donor_email }}">
             </div>
           </div>
         </div>
@@ -82,7 +84,7 @@
             <label>Address: </label>
             <div class="input-group">
               <span class="input-group-text"><i class="fa fa-home"></i></span>
-              <input type="text" name="donor_address" placeholder="Enter Address" class="form-control">
+              <input type="text" name="donor_address" placeholder="Enter Address" class="form-control" value="{{ $donor->donor_address }}">
             </div>
           </div>
         </div>
@@ -135,6 +137,7 @@
   
   var output = '', output2 = '', states = {};
   var cities = {!! json_encode($cities) !!};
+  var city_id = {!! json_encode($donor->city_id) !!};
   view_cities(cities);
   
   function view_cities(patients) {
@@ -156,6 +159,7 @@
     }
     $('#cities').append(output);
     $('#states').append(output2);
+    $('#cities').val(city_id);
   }
 
   function get_state(val) {
