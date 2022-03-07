@@ -126,7 +126,7 @@ class HomeController extends Controller
     // get patients data
     public function get_patients()
     {
-        $patients = DB::select("SELECT * FROM patients;");
+        $patients = DB::select("SELECT * FROM patients p JOIN patient_families pf ON p.patient_id = pf.patient_id  JOIN patient_diagnoses pd ON p.patient_id = pd.patient_id;");
         return $patients;
     }
 

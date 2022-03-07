@@ -220,6 +220,7 @@
       $('.visits_nav').addClass('active');
       $('.select2').select2();
       $('#visit_table').DataTable();
+      $(".dataTables_empty").html("Please select patient first")
 
       $('#patients').on('change', function() {
         let id = $("#patients").val();
@@ -254,7 +255,7 @@
               if ( $.fn.DataTable.isDataTable('#visit_table') ) {
                 $('#visit_table').DataTable().destroy();
               }
-              $('#table_body').html(output);
+              $('#table_body').html(output);              
               $('#visit_table').DataTable( {
                 dom: 'Bfrtip',
                 buttons: [
@@ -290,6 +291,9 @@
                   },
                 ]
               });
+              if(output == "") {
+                $(".dataTables_empty").html("Please select patient first")                
+              }
             }
           });
         }

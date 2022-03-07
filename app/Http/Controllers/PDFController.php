@@ -19,13 +19,21 @@ class PDFController extends Controller
 
     public function get_patient($id)
     {
-        $patient = DB::select("SELECT * FROM patients WHERE patient_id = " . $id);
+        $patient = DB::select("SELECT * FROM patients p JOIN patient_families pf ON p.patient_id = pf.patient_id  JOIN patient_diagnoses pd ON p.patient_id = pd.patient_id WHERE p.patient_id = " . $id);
         return $patient;
     }
 
-    public function index()
+	public function calculateAge($dob)
     {
-    	$patient = $this->get_patient(10001);
+    	$interval = date_diff(date_create(), date_create($dob));
+		return $interval->format("%Yy, %Mm, %dd");
+	}
+
+    public function index($patient_id)
+    {
+    	//$this->calculateAge('2021-01-01');
+
+    	$patient = $this->get_patient($patient_id);
     	if ($patient) {
     		$patient = $patient[0];
     		$this->get_pdf($patient);
@@ -33,9 +41,77 @@ class PDFController extends Controller
     		dd("NO DATA FOUND");
     	}
     }
+    
 
     public function get_pdf($patient)
     {
+    	$relation_to_patient = $patient->relation_to_patient;
+    	if($relation_to_patient == '1'){
+    		$relation_to_patient = 'Mother';
+    	}
+    	else if($relation_to_patient == '2'){
+    		$relation_to_patient = 'Father';
+    	}
+    	else if($relation_to_patient == '3'){
+    		$relation_to_patient = 'Sibling';
+    	}
+    	else {
+    		$relation_to_patient = 'Other';
+    	}
+    	$birth_place = $patient->birth_place;
+    	if($birth_place == '1'){
+    		$birth_place = 'Hospital';
+    	}
+    	else if($birth_place == '2'){
+    		$birth_place = 'Clinic';
+    	}
+    	else if($birth_place == '3'){
+    		$birth_place = 'Home';
+    	}
+    	else {
+    		$birth_place = 'Other';
+    	}
+    	$referral_source = $patient->referral_source;
+    	if($referral_source == '1'){
+    		$referral_source = 'Hospital/Clinic';
+    	}
+    	else if($referral_source == '2'){
+    		$referral_source = 'MidWife';
+    	}
+    	else if($referral_source == '3'){
+    		$referral_source = 'Word of mouth';
+    	}
+    	else {
+    		$referral_source = 'Other';
+    	}
+
+    	$feet_affected = $patient->feet_affected;
+    	if($feet_affected == '1'){
+    		$feet_affected = 'Right';
+    	}
+    	else if($feet_affected == '2'){
+    		$feet_affected = 'Left';
+    	}
+    	else if($feet_affected == '3'){
+    		$feet_affected = 'Both';
+    	}
+
+    	$evaluator_title = $patient->evaluator_title;
+    	if($evaluator_title == '1'){
+    		$evaluator_title = 'Doctor';
+    	}
+    	else if($evaluator_title == '2'){
+    		$evaluator_title = 'Nurse';
+    	}
+    	else if($evaluator_title == '3'){
+    		$evaluator_title = 'Midwife';
+    	}
+    	else if($evaluator_title == '3'){
+    		$evaluator_title = 'Physical therapist';
+    	}
+    	else {
+    		$evaluator_title = 'Other';
+    	}
     	$this->fpdf->AddPage();
     	$this->fpdf->SetFont('Arial', 'B', '18');
 		$this->fpdf->SetTextColor(66, 146, 244);
@@ -44,9 +120,9 @@ class PDFController extends Controller
 		$this->fpdf->SetTextColor(0, 0, 0);
 		$this->fpdf->Cell(65, 6, 'Patient form...', 0, 0,'L');
 		$this->fpdf->Cell(18, 6, 'Reg No:', 0, 0,'R');
-		$this->fpdf->Cell(47, 6, $patient->patient_id, 'B', 0,'L');
+		$this->fpdf->Cell(47, 6, 'Pc-'.substr($patient->inserted_at, 2, 2).'|'.$patient->patient_id, 'B', 0,'L');
 		$this->fpdf->Cell(18, 6, 'ICR No:', 0, 0,'R');
-		$this->fpdf->Cell(47, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(47, 6, $patient->icr_number, 'B', 1,'L');
 		$this->fpdf->Line(10, 25, 205, 25);
 
 		$this->fpdf->SetFont('Arial', 'B', '12');
@@ -55,24 +131,24 @@ class PDFController extends Controller
 
 		$this->fpdf->SetFont('Arial', '', '10');
 		$this->fpdf->Cell(25, 6, 'Patient Name:', 0, 0,'L');
-		$this->fpdf->Cell(72, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(72, 6, $patient->patient_name, 'B', 0,'L');
 		$this->fpdf->Cell(26, 6, 'Father\'s Name:', 0, 0,'R');
-		$this->fpdf->Cell(72, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(72, 6, $patient->father_name, 'B', 1,'L');
 
 		$this->fpdf->Cell(15, 6, 'Gender:', 0, 0,'L');
-		$this->fpdf->Cell(50, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(50, 6, $patient->gender == 2 ? 'Female' : 'Male', 'B', 0,'L');
 		$this->fpdf->Cell(15, 6, 'DOB:', 0, 0,'R');
-		$this->fpdf->Cell(50, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(50, 6, $patient->birth_date, 'B', 0,'L');
 		$this->fpdf->Cell(15, 6, 'Age:', 0, 0,'R');
-		$this->fpdf->Cell(50, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(50, 6, $this->calculateAge($patient->birth_date), 'B', 1,'L');
 
 		$this->fpdf->Cell(20, 6, 'Address1:', 0, 0,'L');
-		$this->fpdf->Cell(175, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(175, 6, $patient->address, 'B', 1,'L');
 		$this->fpdf->Cell(20, 6, 'Address2:', 0, 0,'L');
-		$this->fpdf->Cell(175, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(175, 6, $patient->address2, 'B', 1,'L');
 
 		$this->fpdf->Cell(160, 6, 'Does the parent or guardian consent to photographs of the patient being used for evaluation purpose', 0, 0,'L');
-		$this->fpdf->Cell(35, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(35, 6, $patient->has_photo_consent == 1 ? 'Yes' : 'No', 'B', 1,'L');
 
 		$this->fpdf->SetFont('Arial', 'B', '12');
 		$this->fpdf->Cell(0, 8, 'Parent/Guardian Information:', 0, 1,'L');
@@ -80,16 +156,16 @@ class PDFController extends Controller
 
 		$this->fpdf->SetFont('Arial', '', '10');
 		$this->fpdf->Cell(40, 6, 'Relationship to Patient:', 0, 0,'L');
-		$this->fpdf->Cell(68, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(68, 6, $relation_to_patient, 'B', 0,'L');
 		$this->fpdf->Cell(15, 6, 'Name:', 0, 0,'R');
-		$this->fpdf->Cell(72, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(72, 6, $patient->guardian_name, 'B', 1,'L');
 
 		$this->fpdf->Cell(30, 6, 'Phone Number 1:', 0, 0,'L');
-		$this->fpdf->Cell(35, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(35, 6, $patient->guardian_number, 'B', 0,'L');
 		$this->fpdf->Cell(30, 6, 'Phone Number 2:', 0, 0,'R');
-		$this->fpdf->Cell(35, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(35, 6, $patient->guardian_number_2, 'B', 0,'L');
 		$this->fpdf->Cell(20, 6, 'CNIC No:', 0, 0,'R');
-		$this->fpdf->Cell(45, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(45, 6, $patient->guardian_cnic, 'B', 1,'L');
 
 		$this->fpdf->Line(10, 95, 205, 95);
 
@@ -99,38 +175,38 @@ class PDFController extends Controller
 
 		$this->fpdf->SetFont('Arial', '', '10');
 		$this->fpdf->Cell(70, 6, 'Any relatives with the clubfoot deformity:', 0, 0,'L');
-		$this->fpdf->Cell(37, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(37, 6, $patient->is_relatable == 1 ? 'Yes' : 'No', 'B', 0,'L');
 		$this->fpdf->Cell(60, 6, 'Length of pregnancy (in weeks):', 0, 0,'R');
-		$this->fpdf->Cell(27, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(27, 6, $patient->preg_len, 'B', 1,'L');
 
 		$this->fpdf->Cell(90, 6, 'Did the mother have any complication during pregnancy:', 0, 0,'L');
-		$this->fpdf->Cell(17, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(17, 6, $patient->has_complicated_preg == 1 ? 'Yes' : 'No', 'B', 0,'L');
 		$this->fpdf->Cell(60, 6, 'What were the complications:', 0, 0,'R');
-		$this->fpdf->Cell(27, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(27, 6, $patient->complications, 'B', 1,'L');
 
 		$this->fpdf->Cell(75, 6, 'Did mother consume alcohol during pregnancy:', 0, 0,'L');
-		$this->fpdf->Cell(25, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(25, 6, $patient->is_alcoholic == 1 ? 'Yes' : 'No', 'B', 0,'L');
 		$this->fpdf->Cell(67, 6, 'Did the mother smoke during pregnancy:', 0, 0,'R');
-		$this->fpdf->Cell(27, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(27, 6, $patient->is_smoked == 1 ? 'Yes' : 'No', 'B', 1,'L');
 
 		$this->fpdf->Cell(50, 6, 'Any complications during birth:', 0, 0,'L');
-		$this->fpdf->Cell(57, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(57, 6, $patient->has_complicated_birth == 1 ? 'Yes' : 'No', 'B', 0,'L');
 		$this->fpdf->Cell(60, 6, 'Place of birth:', 0, 0,'R');
-		$this->fpdf->Cell(27, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(27, 6, $birth_place, 'B', 1,'L');
 
 		$this->fpdf->SetFont('Arial', 'B', '12');
 		$this->fpdf->Cell(0, 10, 'Referral Information', 0, 1,'L');
 
 		$this->fpdf->SetFont('Arial', '', '10');
 		$this->fpdf->Cell(35, 6, 'Referral source:', 0, 0,'L');
-		$this->fpdf->Cell(160, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(160, 6, $referral_source, 'B', 1,'L');
 
 		$this->fpdf->Cell(25, 6, 'Doctor Name:', 0, 0,'L');
-		$this->fpdf->Cell(40, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(40, 6, $patient->doctor_name, 'B', 0,'L');
 		$this->fpdf->Cell(30, 6, 'Hospital/Clinic:', 0, 0,'C');
-		$this->fpdf->Cell(35, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(35, 6, $patient->referral_hospital, 'B', 0,'L');
 		$this->fpdf->Cell(40, 6, 'If other, please specify:', 0, 0,'C');
-		$this->fpdf->Cell(25, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(25, 6, $patient->other_referral, 'B', 1,'L');
 
 
 		$this->fpdf->Line(10, 152, 205, 152);
@@ -141,37 +217,37 @@ class PDFController extends Controller
 
 		$this->fpdf->SetFont('Arial', '', '10');
 		$this->fpdf->Cell(40, 6, 'Name of evaluator:', 0, 0,'L');
-		$this->fpdf->Cell(57, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(57, 6, $patient->evaluator_name, 'B', 0,'L');
 		$this->fpdf->Cell(40, 6, 'Evaluation Date:', 0, 0,'R');
-		$this->fpdf->Cell(57, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(57, 6, $patient->evaluation_date, 'B', 1,'L');
 
 		$this->fpdf->Cell(40, 6, 'Title of evaluator:', 0, 0,'L');
-		$this->fpdf->Cell(57, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(57, 6, $evaluator_title, 'B', 0,'L');
 		$this->fpdf->Cell(40, 6, 'Feet Affected:', 0, 0,'R');
-		$this->fpdf->Cell(57, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(57, 6, $feet_affected, 'B', 1,'L');
 
 		$this->fpdf->Cell(40, 6, 'Diagnosis:', 0, 0,'L');
-		$this->fpdf->Cell(57, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(57, 6, $patient->diagnosis, 'B', 0,'L');//bilal
 		$this->fpdf->Cell(45, 6, 'Deformity present at birth:', 0, 0,'R');
-		$this->fpdf->Cell(52, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(52, 6, $patient->has_birth_deformity == 1 ? 'Yes' : 'No', 'B', 1,'L');
 
 		$this->fpdf->Cell(43, 6, 'Any Pervious treatments:', 0, 0,'L');
-		$this->fpdf->Cell(45, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(45, 6, $patient->has_treated == 1 ? 'Yes' : 'No', 'B', 0,'L');
 		$this->fpdf->Cell(70, 6, 'How many previous treatment sessions:', 0, 0,'R');
-		$this->fpdf->Cell(37, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(37, 6, $patient->treatments, 'B', 1,'L');
 
 		$this->fpdf->Cell(45, 6, 'Type of previous treatment(S):', 0, 0,'L');
-		$this->fpdf->Cell(52, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(52, 6, $patient->treatment_type, 'B', 0,'C');		//bilal
 		$this->fpdf->Cell(40, 6, 'Diagnosed prenatally:', 0, 0,'R');
-		$this->fpdf->Cell(57, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(57, 6, $patient->has_diagnosed == 1 ? 'Yes' : 'No', 'B', 1,'L');
 
 		$this->fpdf->Cell(40, 6, 'At pregnancy Week:', 0, 0,'L');
-		$this->fpdf->Cell(57, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(57, 6, $patient->preg_week, 'B', 0,'L');
 		$this->fpdf->Cell(40, 6, 'Confirmed at birth:', 0, 0,'R');
-		$this->fpdf->Cell(57, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(57, 6, $patient->has_birth_confirmed == 1 ? 'Yes' : 'No', 'B', 1,'L');
 
 		$this->fpdf->Cell(38, 6, 'Diagnosis comments:', 0, 0,'L');
-		$this->fpdf->Cell(157, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(157, 6, $patient->diagnosis_comments, 'B', 1,'L');
 
 		$this->fpdf->Line(10, 205, 205, 205);
 
