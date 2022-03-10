@@ -330,7 +330,7 @@ class HomeController extends Controller
             $visit2->save();
         }
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
-        // dd($request);
+        dd($request);
         return redirect('/visit')->with('success', 'Visit Added Successfully.');
         dd($request);
     }
