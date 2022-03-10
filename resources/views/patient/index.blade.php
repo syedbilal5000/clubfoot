@@ -33,7 +33,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <table id="patient_table" class="table table-striped table-bordered" style="width:100% !important;">
+      <table id="patient_table" class="table table-striped table-bordered table-responsive" style="width:100% !important;">
         <thead>
             <tr>
                 <th>Reg no</th>
