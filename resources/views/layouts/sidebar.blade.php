@@ -1,8 +1,13 @@
 <!-- Main Sidebar Container -->
+<style type="text/css">
+  [class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link { background-color: rgba(255,255,255,.3); }
+  .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active { background-color: #007bff; }
+</style>
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed; bottom: 0;">
   <!-- Brand Logo -->
   <a href="{{ route('home') }}" class="brand-link">
-    <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <!-- <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
+    <img src="{{ asset('img/clubfoot_logo.png') }}" alt="AdminLTE Logo" class="brand-image" style="">
     <span class="brand-text font-weight-light">ClubFoot</span>
   </a>
 

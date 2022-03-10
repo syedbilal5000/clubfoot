@@ -214,6 +214,7 @@ class HomeController extends Controller
         $patient_family->is_relatable = isset($request->is_relatable) ? $request->is_relatable : 0;
         $patient_family->preg_len = isset($request->preg_len) ? $request->preg_len : 0;
         $patient_family->has_complicated_preg = isset($request->has_complicated_preg) ? $request->has_complicated_preg : 0;
+        $patient_family->complications = $request->complications;
         $patient_family->is_alcoholic = isset($request->is_alcoholic) ? $request->is_alcoholic : 0;
         $patient_family->is_smoked = isset($request->is_smoked) ? $request->is_smoked : 0;
         $patient_family->has_complicated_birth = isset($request->has_complicated_birth) ? $request->has_complicated_birth : 0;
@@ -331,7 +332,6 @@ class HomeController extends Controller
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
         // dd($request);
         return redirect('/visit')->with('success', 'Visit Added Successfully.');
-        dd($request);
     }
 
     // donor create
@@ -381,6 +381,7 @@ class HomeController extends Controller
         $patient_family->is_relatable = isset($request->is_relatable) ? $request->is_relatable : 0;
         $patient_family->preg_len = isset($request->preg_len) ? $request->preg_len : 0;
         $patient_family->has_complicated_preg = isset($request->has_complicated_preg) ? $request->has_complicated_preg : 0;
+        $patient_family->complications = $request->complications;
         $patient_family->is_alcoholic = isset($request->is_alcoholic) ? $request->is_alcoholic : 0;
         $patient_family->is_smoked = isset($request->is_smoked) ? $request->is_smoked : 0;
         $patient_family->has_complicated_birth = isset($request->has_complicated_birth) ? $request->has_complicated_birth : 0;
