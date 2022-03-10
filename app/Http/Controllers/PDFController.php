@@ -19,8 +19,14 @@ class PDFController extends Controller
 
     public function get_patient($id)
     {
-        $patient = DB::select("SELECT * FROM patients p JOIN patient_families pf ON p.patient_id = pf.patient_id  JOIN patient_diagnoses pd ON p.patient_id = pd.patient_id WHERE p.patient_id = " . $id);
+        $patient = DB::select("SELECT * FROM patients p JOIN patient_families pf ON p.patient_id = pf.patient_id  JOIN patient_diagnoses pd ON p.patient_id = pd.patient_id JOIN patient_examinations pe ON p.patient_id = pe.patient_id WHERE p.patient_id = " . $id);
         return $patient;
+    }
+
+    public function get_visits($id)
+    {
+        $visits = DB::select("SELECT * FROM visit_details WHERE patient_id = " . $id . "  Order by visit_date, side");
+        return $visits;
     }
 
 	public function calculateAge($dob)
@@ -35,15 +41,16 @@ class PDFController extends Controller
 
     	$patient = $this->get_patient($patient_id);
     	if ($patient) {
+    		$visits = $this->get_visits($patient_id);
     		$patient = $patient[0];
-    		$this->get_pdf($patient);
+    		$this->get_pdf($patient, $visits);
     	} else {
     		dd("NO DATA FOUND");
     	}
     }
     
 
-    public function get_pdf($patient)
+    public function get_pdf($patient, $visits)
     {
     	$relation_to_patient = $patient->relation_to_patient;
     	if($relation_to_patient == '1'){
@@ -112,6 +119,28 @@ class PDFController extends Controller
     	else {
     		$evaluator_title = 'Other';
     	}
+
+    	$treatment_type = $patient->treatment_type;
+    	if($treatment_type == '1'){
+          $treatment_type = 'Casting above knee';
+        } else if($treatment_type == '2'){
+          $treatment_type = 'Casting below knee';
+        } else if($treatment_type == '3'){
+          $treatment_type = 'Physiotherapy';
+        } else {
+          $treatment_type = 'Other';
+        }
+
+        $diagnosis = $patient->diagnosis;
+    	if($diagnosis == '1'){
+          $diagnosis = 'Idiopathic Clubfoot';
+        } else if($diagnosis == '2'){
+          $diagnosis = 'Syndromic Clubfoot';
+        } else if($diagnosis == '3'){
+          $diagnosis = 'Neuropathic Clubfoot';
+        } else {
+          $diagnosis = 'Other';
+        }
     	$this->fpdf->AddPage();
     	$this->fpdf->SetFont('Arial', 'B', '18');
 		$this->fpdf->SetTextColor(66, 146, 244);
@@ -227,7 +256,7 @@ class PDFController extends Controller
 		$this->fpdf->Cell(57, 6, $feet_affected, 'B', 1,'L');
 
 		$this->fpdf->Cell(40, 6, 'Diagnosis:', 0, 0,'L');
-		$this->fpdf->Cell(57, 6, $patient->diagnosis, 'B', 0,'L');//bilal
+		$this->fpdf->Cell(57, 6, $diagnosis, 'B', 0,'L');
 		$this->fpdf->Cell(45, 6, 'Deformity present at birth:', 0, 0,'R');
 		$this->fpdf->Cell(52, 6, $patient->has_birth_deformity == 1 ? 'Yes' : 'No', 'B', 1,'L');
 
@@ -237,7 +266,7 @@ class PDFController extends Controller
 		$this->fpdf->Cell(37, 6, $patient->treatments, 'B', 1,'L');
 
 		$this->fpdf->Cell(45, 6, 'Type of previous treatment(S):', 0, 0,'L');
-		$this->fpdf->Cell(52, 6, $patient->treatment_type, 'B', 0,'C');		//bilal
+		$this->fpdf->Cell(52, 6, $treatment_type, 'B', 0,'C');
 		$this->fpdf->Cell(40, 6, 'Diagnosed prenatally:', 0, 0,'R');
 		$this->fpdf->Cell(57, 6, $patient->has_diagnosed == 1 ? 'Yes' : 'No', 'B', 1,'L');
 
@@ -255,12 +284,30 @@ class PDFController extends Controller
 		$this->fpdf->Cell(0, 1, '', 0, 1,'L');
 		$this->fpdf->Cell(0, 10, 'Physical Examination:', 0, 1,'L');
 
+		$check = '';
+		$check .= $patient->is_head == '1' ? 'Head,' : '';
+		$check .= $patient->is_heart == '1' ? 'Heart/Lungs,' : '';
+		$check .= $patient->is_urinary == '1' ? 'Urinary/Digestive,' : '';
+		$check .= $patient->is_skin == '1' ? 'Skin,' : '';
+		$check .= $patient->is_spine == '1' ? 'Spine,' : '';
+		$check .= $patient->is_hips == '1' ? 'Hips,' : '';
+
+		$Abnormalities = '';
+		$Abnormalities .= $patient->is_upper == '1' ? 'Upper Extremities,' : '';
+		$Abnormalities .= $patient->is_lower == '1' ? 'Lower Extremities,' : '';
+		$Abnormalities .= $patient->is_neuro == '1' ? 'Neurological,' : '';
+
+		$Weekness = '';
+		$Weekness .= $patient->is_arms == '1' ? 'Arms,' : '';
+		$Weekness .= $patient->is_legs == '1' ? 'Legs,' : '';
+		$Weekness .= $patient->is_other == '1' ? 'Other Parts of Body,' : '';
+
 		$this->fpdf->SetFont('Arial', '', '10');
-		$this->fpdf->Cell(60, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(60, 6, $check, 'B', 0,'L');
 		$this->fpdf->Cell(35, 6, 'Any Abnormalities:', 0, 0,'R');
-		$this->fpdf->Cell(35, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(35, 6, $Abnormalities, 'B', 0,'L');
 		$this->fpdf->Cell(30, 6, 'Any Weekness:', 0, 0,'R');
-		$this->fpdf->Cell(35, 6, '', 'B', 1,'L');
+		$this->fpdf->Cell(35, 6, $Weekness, 'B', 1,'L');
 
 		$this->fpdf->Line(10, 222, 205, 222);
 
@@ -282,20 +329,39 @@ class PDFController extends Controller
 		$this->fpdf->Cell(48, 6, 'Hindfoot Score (HS)', 0, 0,'L');
 		$this->fpdf->Cell(55, 6, 'Posterior Crease (PC)', 0, 0,'L');
 		$this->fpdf->Cell(41, 6, 'Rigid Equinus (RE)', 0, 0,'L');
-		$this->fpdf->Cell(48, 6, 'Empty Heel (EH)', 0, 1,'L');
+		$this->fpdf->Cell(48, 6, 'Empty Heel (total_score)', 0, 1,'L');
 
 		$this->fpdf->Cell(0, 4, '', 0, 1,'L');
 
 		$this->fpdf->SetFont('Arial', '', '10');
 		$this->fpdf->Cell(25, 6, 'Date', 1, 0,'L');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 1,'C');
-
+		$date = "-";
+		$colCount =0;
+		for ($i=0; $i < sizeof($visits); $i++) {
+			if($date != $visits[$i]->visit_date)
+			{
+				if($colCount == 6)
+				{
+					$this->fpdf->Cell(24, 6, $visits[$i]->visit_date , 1, 1,'C');
+				}
+				else {
+					$this->fpdf->Cell(24, 6, $visits[$i]->visit_date , 1, 0,'C');
+				}
+				$date = $visits[$i]->visit_date;
+				$colCount++;
+			}
+		}
+		for ($i=$colCount; $i < 7; $i++) { 
+			if($colCount == 6)
+			{
+				$this->fpdf->Cell(24, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(24, 6, ' ' , 1, 0,'C');
+			}
+			$colCount++;
+		}
+		
 		$this->fpdf->Cell(25, 6, 'Side', 1, 0,'L');
 		$this->fpdf->Cell(12, 6, 'L', 1, 0,'C');
 		$this->fpdf->Cell(12, 6, 'R', 1, 0,'C');
@@ -312,204 +378,554 @@ class PDFController extends Controller
 		$this->fpdf->Cell(12, 6, 'L', 1, 0,'C');
 		$this->fpdf->Cell(12, 6, 'R', 1, 1,'C');
 
+		////////////////////////// CLB //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'CLB', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
-
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->CLB, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->CLB, 1, 1,'C');
+				else 
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->CLB, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->CLB, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else 
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->CLB, 1, 1,'C');
+				else
+					$this->fpdf->Cell(12, 6, $visits[$i]->CLB, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
+		////////////////////////// MC //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'MC', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->MC, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->MC, 1, 1,'C');
+				else
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->MC, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->MC, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->MC, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->MC, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// LHT //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'LHT', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->LHT, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->LHT, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->LHT, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->LHT, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->LHT, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->LHT, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// PC //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'PC', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->PC, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->PC, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->PC, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->PC, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->PC, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->PC, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// RE //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'RE', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->RE, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->RE, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->RE, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->RE, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->RE, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->RE, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// EH //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'EH', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->EH, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->EH, 1, 1,'C');
+				else
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->EH, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->EH, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->EH, 1, 1,'C');
+				else
+					$this->fpdf->Cell(12, 6, $visits[$i]->EH, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// mid_foot_score //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'Midfoot Score', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->mid_foot_score, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->mid_foot_score, 1, 1,'C');
+				else
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->mid_foot_score, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->mid_foot_score, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->mid_foot_score, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->mid_foot_score, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// hind_foot_score //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'Hindfoot Score', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->hind_foot_score, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->hind_foot_score, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->hind_foot_score, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->hind_foot_score, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->hind_foot_score, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->hind_foot_score, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// total_score //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'Total Score', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->total_score, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->total_score, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->total_score, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->total_score, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->total_score, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->total_score, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// treatment //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'Treatment', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->treatment, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->treatment, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->treatment, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->treatment, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->treatment, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->treatment, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// complication //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'Complic', 1, 0,'L');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits) && $colCount < 14; $i++) {
+			// if($date != $visits[$i]->visit_date)
+			if(isset($visits[$i+1]->visit_date) && $visits[$i]->visit_date == $visits[$i+1]->visit_date)
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->complication, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->complication, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i+1]->complication, 1, 0,'C');
+				$i++;
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "L")
+			{
+				$this->fpdf->Cell(12, 6, $visits[$i]->complication, 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				$colCount+=2;
+			}
+			else if($visits[$i]->side == "R") {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+				if($colCount == 12)
+					$this->fpdf->Cell(12, 6, $visits[$i]->complication, 1, 1,'C');
+				else	
+					$this->fpdf->Cell(12, 6, $visits[$i]->complication, 1, 0,'C');
+				$colCount+=2;
+			}
+		}
+		for ($i=$colCount; $i < 14; $i++) { 
+			if($colCount == 13)
+			{
+				$this->fpdf->Cell(12, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(12, 6, ' ', 1, 0,'C');
+			}
+			$colCount++;
+		}
 
+		////////////////////////// next_visit_date //////////////////////////
+		$date = "-";
+		$colCount =0;
 		$this->fpdf->Cell(25, 6, 'Next App', 1, 0,'L');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 1,'C');
+		for ($i=0; $i < sizeof($visits); $i++) {
+			if($date != $visits[$i]->visit_date)
+			{
+				if($colCount == 6)
+				{
+					$this->fpdf->Cell(24, 6, $visits[$i]->visit_date , 1, 1,'C');
+				}
+				else {
+					$this->fpdf->Cell(24, 6, $visits[$i]->visit_date , 1, 0,'C');
+				}
+				$date = $visits[$i]->visit_date;
+				$colCount++;
+			}
+		}
+		for ($i=$colCount; $i < 7; $i++) { 
+			if($i == 6)
+			{
+				$this->fpdf->Cell(24, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(24, 6, ' ' , 1, 0,'C');
+			}
+			//$colCount++;
+		}
 
 		$this->fpdf->Cell(25, 6, 'No of Cast', 1, 0,'L');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 0,'C');
-		$this->fpdf->Cell(24, 6, ' ', 1, 1,'C');
+		
+		for ($i=1; $i <= $colCount; $i++) { 
+			if($i == 6)
+			{
+				$this->fpdf->Cell(24, 6, $i, 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(24, 6, $i, 1, 0,'C');
+			}
+		}
+		for ($i=$colCount; $i < 7; $i++) { 
+			if($i == 6)
+			{
+				$this->fpdf->Cell(24, 6, ' ', 1, 1,'C');
+			}
+			else {
+				$this->fpdf->Cell(24, 6, ' ' , 1, 0,'C');
+			}
+		}
 
 		$this->fpdf->Cell(0, 4, '', 0, 1,'L');
 
 		$this->fpdf->Cell(30, 6, 'Total no of Cast:', 0, 0,'L');
-		$this->fpdf->Cell(57, 6, '', 'B', 0,'L');
+		$this->fpdf->Cell(57, 6, $colCount, 'B', 0,'C');
 		$this->fpdf->Cell(20, 6, '', 0, 0,'L');
 		$this->fpdf->Cell(30, 6, 'Total no of Recast:', 0, 0,'L');
 		$this->fpdf->Cell(57, 6, '', 'B', 1,'L');
