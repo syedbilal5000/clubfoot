@@ -23,6 +23,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/pdf/{patient_id}/', [App\Http\Controllers\PDFController::class, 'index']);
+Route::get('/reports/casted_visits_more/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'report_more_casted']);
 // Route::get('/home/registration', function () {
 //     return view('registration.index');
 // });

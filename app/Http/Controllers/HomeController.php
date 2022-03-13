@@ -31,7 +31,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $start_date = date('Y-m-d', strtotime ('-3 Months'));
+        $end_date = date('Y-m-d');
+        $casted_visits_more = $this->report_more_casted($start_date, $end_date);
+        $data = ['casted_visits_more' => $casted_visits_more];
+        return view('home')->with($data);
+    }
+
+    public function report_more_casted($st_dt, $ed_dt)
+    {
+        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, visits.total_visits, v1.visit_date first_visit, v2.visit_date last_visit, v1.total_score first_visit_score, v2.total_score last_visit_score FROM (SELECT patient_id, COUNT(patient_id) total_visits FROM visit_details WHERE visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "' AND treatment = 1 GROUP BY patient_id HAVING COUNT(patient_id) > 7) visits LEFT JOIN visit_details v1 ON v1.patient_id = visits.patient_id and v1.visit_date = (SELECT MIN(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN visit_details v2 ON v2.patient_id = visits.patient_id and v2.visit_date = (SELECT MAX(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN patients p ON p.patient_id = visits.patient_id ORDER BY v1.total_score DESC, v2.total_score DESC LIMIT 1;";
+        $casted_visits_more = DB::select($query);
+        return $casted_visits_more;
     }
 
     public function dev(Request $request)
