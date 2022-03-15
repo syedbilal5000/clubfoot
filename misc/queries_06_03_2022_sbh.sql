@@ -24,6 +24,42 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `donors`
+--
+
+CREATE TABLE `donors` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) DEFAULT NULL,
+  `donor_email` varchar(30) DEFAULT NULL,
+  `donor_number` varchar(15) NOT NULL,
+  `donor_address` varchar(50) DEFAULT NULL,
+  `city_id` int(11) NOT NULL DEFAULT 0,
+  `description` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `donors`
+--
+ALTER TABLE `donors`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `donors`
+--
+ALTER TABLE `donors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
 ALTER TABLE `patients` ADD `donor_id` INT NOT NULL DEFAULT '0' AFTER `icr_number`;
 
 --

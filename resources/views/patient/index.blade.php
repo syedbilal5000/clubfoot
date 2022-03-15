@@ -36,7 +36,7 @@
       <table id="patient_table" class="table table-striped table-bordered table-responsive" style="width:100% !important;">
         <thead>
             <tr>
-                <th>Reg no</th>
+                <th>Reg no.</th>
                 <th>Patient Name</th>
                 <th>Father Name</th>
                 <th>Date of Birth</th>
@@ -54,7 +54,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>Reg no</th>
+                <th>Reg no.</th>
                 <th>Patient Name</th>
                 <th>Father Name</th>
                 <th>Date of Birth</th>
