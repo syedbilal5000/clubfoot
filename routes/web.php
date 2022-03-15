@@ -46,3 +46,6 @@ Route::get('donor/create', [App\Http\Controllers\HomeController::class, 'donor_c
 Route::post('donor/add', [App\Http\Controllers\HomeController::class, 'donor_store'])->name('donor_store');
 Route::get('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'donor_edit'])->name('donor.edit');
 Route::put('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'donor_update'])->name('donor_update');
+Route::get('followup', [App\Http\Controllers\HomeController::class, 'followup_index'])->name('followup');
+Route::get('followup/create', [App\Http\Controllers\HomeController::class, 'followup_create'])->name('followup.create');
+Route::get('followup/{id}/edit', [App\Http\Controllers\HomeController::class, 'followup_edit'])->name('followup.edit');

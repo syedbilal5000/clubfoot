@@ -119,6 +119,22 @@ class HomeController extends Controller
         return view('visit.index', ['patients' => $patients]);
     }
 
+    public function followup_index()
+    {
+        $patients = $this->get_patients();
+        return view('followup.index', ['patients' => $patients]);
+    }
+    public function followup_create()
+    {
+        $patients = $this->get_patients();
+        return view('followup.index', ['patients' => $patients]);
+    }
+    public function followup_edit()
+    {
+        $patients = $this->get_patients();
+        return view('followup.index', ['patients' => $patients]);
+    }
+
     // get patients data
     public function get_patients()
     {

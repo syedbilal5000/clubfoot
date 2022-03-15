@@ -165,6 +165,35 @@
             </li>
           </ul>
         </li>
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link followup_nav ">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Follow UP
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('followup') }}" class="nav-link followups_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Follow UPs</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('followup.create') }}" class="nav-link followups_nav_add">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Follow UP</p>
+              </a>
+            </li>
+            <!-- <li class="nav-item">
+              <a href="appointment" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Inactive Page</p>
+              </a>
+            </li> -->
+          </ul>
+        </li>
 
         <!-- <li class="nav-item">
           <a href="" class="nav-link appointment_nav">
