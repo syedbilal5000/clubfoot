@@ -49,4 +49,4 @@ Route::get('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'dono
 Route::put('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'donor_update'])->name('donor_update');
 Route::get('followup', [App\Http\Controllers\HomeController::class, 'followup_index'])->name('followup');
 Route::get('followup/create', [App\Http\Controllers\HomeController::class, 'followup_create'])->name('followup.create');
-Route::get('followup/{id}/edit', [App\Http\Controllers\HomeController::class, 'followup_edit'])->name('followup.edit');
+// Route::get('followup/{id}/edit', [App\Http\Controllers\HomeController::class, 'followup_edit'])->name('followup.edit');

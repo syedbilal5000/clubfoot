@@ -17,12 +17,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Visits</h1>
+          <h1 class="m-0">Follow up</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="home">Home</a></li>
-            <li class="breadcrumb-item active">Visits</li>
+            <li class="breadcrumb-item active">Follow up</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -32,7 +32,7 @@
 
 {{-- Main Content --}}
 
-<form method="POST" action="visit/data">
+<form method="POST" action="#">
   @csrf
   <div>
     <div class="row">
@@ -51,11 +51,9 @@
           <table id="visit_table" class="table table-striped table-bordered" style="width:100% !important;">
             <thead class="table_header">
               <tr>
-              <th>Visit Date</th>
-              <th>Side</th>
-              <th>CLB,<br>MC,<br>LHT</th>
-              <th>PC,<br>RE,<br>EH</th>
-              <th>Midfoot Score</th>
+              <th>Date</th>
+              <th>Age</th>
+              <th>Relapse</th>
               <th>Hindfoot Score</th>
               <th>Total Score</th>
               <th>Treatment</th>
@@ -68,11 +66,9 @@
               <!-- bilals get all visits from database when drop down data change-->
             <tfoot>
               <tr>
-              <th>Visit Date</th>
-              <th>Side</th>
-              <th>CLB<br>MC<br>LHT</th>
-              <th>PC<br>RE<br>EH</th>
-              <th>Midfoot Score</th>
+              <th>Date</th>
+              <th>Age</th>
+              <th>Relapse</th>
               <th>Hindfoot Score</th>
               <th>Total Score</th>
               <th>Treatment</th>

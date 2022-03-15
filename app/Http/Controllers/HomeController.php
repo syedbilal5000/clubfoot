@@ -138,12 +138,7 @@ class HomeController extends Controller
     public function followup_create()
     {
         $patients = $this->get_patients();
-        return view('followup.index', ['patients' => $patients]);
-    }
-    public function followup_edit()
-    {
-        $patients = $this->get_patients();
-        return view('followup.index', ['patients' => $patients]);
+        return view('followup.create', ['patients' => $patients]);
     }
 
     // get patients data
@@ -174,8 +169,9 @@ class HomeController extends Controller
 
     public function get_visits($patient_id)
     {
-        $patients_appoint = DB::select("SELECT * FROM visit_details WHERE patient_id = '$patient_id';");
-        return $patients_appoint;
+        $patients_visits = DB::select("SELECT * FROM visit_details WHERE patient_id = '$patient_id';");
+        $patients_fup = DB::select("SELECT * FROM follow_up WHERE patient_id = '$patient_id';");
+        return array("visits" => $patients_visits, "f_up" => $patients_fup);
     }
 
     // get pak cities (common - 158) from db

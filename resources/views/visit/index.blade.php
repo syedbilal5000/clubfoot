@@ -162,16 +162,7 @@
                 <th>Hours</th>
               </tr>
             </thead> 
-            <tbody class="table_followup_body">
-              <tr>
-                <td>check1</td>
-                <td>check1</td>
-                <td>check1</td>
-                <td>check1</td>
-                <td>check1</td>
-                <td>check1</td>
-                <td>check1</td>
-              </tr>
+            <tbody id="table_followup_body">              
             </tbody>
           </table>
         </div>
@@ -232,25 +223,25 @@
             // data:{_token: "{{ csrf_token() }}"
             // },
             success: function( data ) {
-              console.log(data);
+              // console.log(data);
               // let parsedData = JSON.parse(data);
               let output = "";
-              for (var i = 0; i < data.length ; i++) {
+              for (var i = 0; i < data.visits.length ; i++) {
                 output += "<tr><td>"+
-                    (data[i].inserted_at == null ? "-" : data[i].inserted_at) +"</td> <td>"+
-                    data[i].side+"</td> <td>"+
-                    (data[i].CLB == null ? "0" : data[i].CLB)+"<br>"+
-                    (data[i].MC == null ? "0" : data[i].MC)+"<br>"+
-                    (data[i].LHT == null ? "0" : data[i].LHT)+"</td> <td>"+
-                    (data[i].PC == null ? "0" : data[i].PC)+"<br>"+
-                    (data[i].RE == null ? "0" : data[i].RE)+"<br>"+
-                    (data[i].EH == null ? "0" : data[i].EH)+"</td> <td>"+
-                    (data[i].mid_foot_score == null ? "0" : data[i].mid_foot_score )+"</td> <td>"+
-                    (data[i].hind_foot_score == null ? "0" : data[i].hind_foot_score)+"</td> <td>"+
-                    (data[i].total_score == null ? "0" : data[i].total_score)+"</td> <td>"+
-                    data[i].treatment+"</td> <td>"+
-                    (data[i].complication == null ? "No" : data[i].complication)+"</td> <td>"+
-                    (data[i].next_visit_date == null ? "-" : data[i].next_visit_date)+"</td> </tr>";
+                    (data.visits[i].inserted_at == null ? "-" : data.visits[i].inserted_at) +"</td> <td>"+
+                    data.visits[i].side+"</td> <td>"+
+                    (data.visits[i].CLB == null ? "0" : data.visits[i].CLB)+"<br>"+
+                    (data.visits[i].MC == null ? "0" : data.visits[i].MC)+"<br>"+
+                    (data.visits[i].LHT == null ? "0" : data.visits[i].LHT)+"</td> <td>"+
+                    (data.visits[i].PC == null ? "0" : data.visits[i].PC)+"<br>"+
+                    (data.visits[i].RE == null ? "0" : data.visits[i].RE)+"<br>"+
+                    (data.visits[i].EH == null ? "0" : data.visits[i].EH)+"</td> <td>"+
+                    (data.visits[i].mid_foot_score == null ? "0" : data.visits[i].mid_foot_score )+"</td> <td>"+
+                    (data.visits[i].hind_foot_score == null ? "0" : data.visits[i].hind_foot_score)+"</td> <td>"+
+                    (data.visits[i].total_score == null ? "0" : data.visits[i].total_score)+"</td> <td>"+
+                    data.visits[i].treatment+"</td> <td>"+
+                    (data.visits[i].complication == null ? "No" : data.visits[i].complication)+"</td> <td>"+
+                    (data.visits[i].next_visit_date == null ? "-" : data.visits[i].next_visit_date)+"</td> </tr>";
               }
               if ( $.fn.DataTable.isDataTable('#visit_table') ) {
                 $('#visit_table').DataTable().destroy();
@@ -294,6 +285,23 @@
               if(output == "") {
                 $(".dataTables_empty").html("Please select patient first")                
               }
+
+              output = "";
+              for (var i = 0; i < data.f_up.length ; i++) {
+                output += "<tr><td>"+
+                    (data.f_up[i].visit_date == null ? "-" : data.f_up[i].visit_date) +"</td> <td>"+
+                    data.f_up[i].age+"</td> <td>"+
+                    (data.f_up[i].relapse == null ? "-" : data.f_up[i].relapse)+"<br>"+
+                    (data.f_up[i].size == null ? "-" : data.f_up[i].size)+"<br>"+
+                    (data.f_up[i].hours == null ? "-" : data.f_up[i].hours)+"</td> <td>"+
+                    (data.f_up[i].treatment == null ? "-" : data.f_up[i].treatment)+"</td> <td>"+
+                    (data.f_up[i].next_visit_date == null ? "-" : data.f_up[i].next_visit_date)+"</td> </tr>";
+              }
+              if ( $.fn.DataTable.isDataTable('#followup_table') ) {
+                $('#followup_table').DataTable().destroy();
+              }
+              $('#table_followup_body').html(output);
+              $('#followup_table').DataTable( );
             }
           });
         }
