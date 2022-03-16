@@ -187,7 +187,7 @@
             'pdfHtml5'
         ]
     } );
-    $('#home_table'). addClass('table-responsive');
+    $('#home_table').addClass('table-responsive');
   
     // fill_data(patients_appoint);
 
