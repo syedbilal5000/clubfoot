@@ -64,6 +64,13 @@
           </ul>
         </li> -->
 
+        <li class="nav-item">
+          <a href="{{ route('analytic') }}" class="nav-link analytic_nav">
+            <i class="far fa-chart-bar nav-icon"></i>
+            <p>Analytics</p>
+          </a>
+        </li>
+
         <li class="nav-item menu-open">
           <a href="#" class="nav-link patient_nav ">
             <i class="nav-icon fas fa-users"></i>

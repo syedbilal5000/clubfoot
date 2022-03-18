@@ -50,3 +50,4 @@ Route::put('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'dono
 Route::get('followup', [App\Http\Controllers\HomeController::class, 'followup_index'])->name('followup');
 Route::get('followup/create', [App\Http\Controllers\HomeController::class, 'followup_create'])->name('followup.create');
 // Route::get('followup/{id}/edit', [App\Http\Controllers\HomeController::class, 'followup_edit'])->name('followup.edit');
+Route::get('analytic', [App\Http\Controllers\HomeController::class, 'analytic_index'])->name('analytic');

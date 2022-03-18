@@ -68,6 +68,13 @@ class HomeController extends Controller
         return view('donor.index', ['donors' => $donors]);
     }
 
+    // Analysis view
+    public function analytic_index()
+    {
+        // $donors = $this->get_donors();
+        return view('analytic.index');
+    }
+
     // this method will generate appointment date base on availability
     public function generate_date()
     {
