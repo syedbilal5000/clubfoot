@@ -78,7 +78,11 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Hours: </label>
-          <input type="text" name="hours" id="hours" class="form-control">
+          <select id="hours" name="hours" class="form-control select2" style="width: 100%;">
+            <option value="12">12</option>
+            <option value="16">16</option>
+            <option value="23">23</option>
+          </select>
         </div>
       </div>
     </div> <!-- row end -->
@@ -87,15 +91,27 @@
         <div class="form-group">
           <label>Treatment: </label>
           <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;">
+            <option value="3">Reassurance</option>
+            <option value="4">New Brace</option>
             <option value="1">Casted</option>
             <option value="2">Tenotomy</option>
+            <option value="5">Referred</option>
           </select>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Next Appointment: </label>
-          <input type="date" name="next_visit_date" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
+          <!-- <input type="date" name="next_visit_date" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp"> -->
+          <select id="next_visit_date" name="next_visit_date" class="form-control select2" style="width: 100%;">
+            <option value="1 week">1 week</option>
+            <option value="2 weeks">2 weeks</option>
+            <option value="1 month (4 weeks)">1 month (4 weeks)</option>
+            <option value="2 months">2 months</option>
+            <option value="3 months">3 months</option>
+            <option value="6 months">6 months</option>
+            <option value="1 year">1 year</option>
+          </select>
         </div>
       </div>
     </div> <!-- row end -->
@@ -146,58 +162,95 @@
     $('.select2').select2();
     $('.followup_nav').addClass('active');
     $('.followups_nav_add').addClass('active');
-    $(".score_dropd").on('change', function() {
-      calculateScore();
-    });
-    $(".score_dropd2").on('change', function() {
-      calculateScore2();
-    });
     $("#visit_form").validate();
+
+    $('#patients').on('change', function() {
+      let id = $("#patients").val();
+        for (i = 0; i < patients.length; i++) {
+          if(patients[i]['patient_id'] == id)
+          {
+            $("#age").val(getAge(patients[i]['birth_date']));
+          }
+        }
+     });
   });
 
-  function more_clickable(is_hide=0) {
-    if(is_hide == 0) {
-      $('#add_another').css('display', 'block');
-      $('#side_drop2').prop('required', true);
-    }
+  function getAge(dateString) {
+    var now = new Date();
+    var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+
+    var yearNow = now.getYear();
+    var monthNow = now.getMonth();
+    var dateNow = now.getDate();
+
+      // 09/09/1989
+    var dob = new Date(dateString.substring(0, 4),
+                       dateString.substring(5, 7)-1,                   
+                       dateString.substring(8, 10)                  
+                       );
+
+    var yearDob = dob.getYear();
+    var monthDob = dob.getMonth();
+    var dateDob = dob.getDate();
+    var age = {};
+    var ageString = "";
+    var yearString = "";
+    var monthString = "";
+    var dayString = "";
+
+
+    yearAge = yearNow - yearDob;
+
+    if (monthNow >= monthDob)
+      var monthAge = monthNow - monthDob;
     else {
-      $('#add_another').css('display', 'none');
-      $('#side_drop2').prop('required', false);
+      yearAge--;
+      var monthAge = 12 + monthNow -monthDob;
     }
-  }
 
-  function calculateScore() {
-    var clb_drop = $("#clb_drop").val();
-    var mc_drop = $("#mc_drop").val();
-    var lht_drop = $("#lht_drop").val();
-    var pc_drop = $("#pc_drop").val();
-    var re_drop = $("#re_drop").val();
-    var eh_drop = $("#eh_drop").val();
+    if (dateNow >= dateDob)
+      var dateAge = dateNow - dateDob;
+    else {
+      monthAge--;
+      var dateAge = 31 + dateNow - dateDob;
 
-    var midfoot_score = parseFloat(clb_drop) + parseFloat(mc_drop) + parseFloat(lht_drop);
-    var hindfoot_score = parseFloat(pc_drop) + parseFloat(re_drop) + parseFloat(eh_drop);
+      if (monthAge < 0) {
+        monthAge = 11;
+        yearAge--;
+      }
+    }
 
-    $("#midfoot_score").val(midfoot_score);
-    $("#hindfoot_score").val(hindfoot_score);
-    $("#total_score").val(midfoot_score + hindfoot_score);
+    age = {
+        years: yearAge,
+        months: monthAge,
+        days: dateAge
+        };
 
-  }
+    if ( age.years > 1 ) yearString = " years";
+    else yearString = " year";
+    if ( age.months> 1 ) monthString = " months";
+    else monthString = " month";
+    if ( age.days > 1 ) dayString = " days";
+    else dayString = " day";
 
-  function calculateScore2() {
-    var clb_drop = $("#clb_drop2").val();
-    var mc_drop = $("#mc_drop2").val();
-    var lht_drop = $("#lht_drop2").val();
-    var pc_drop = $("#pc_drop2").val();
-    var re_drop = $("#re_drop2").val();
-    var eh_drop = $("#eh_drop2").val();
 
-    var midfoot_score = parseFloat(clb_drop) + parseFloat(mc_drop) + parseFloat(lht_drop);
-    var hindfoot_score = parseFloat(pc_drop) + parseFloat(re_drop) + parseFloat(eh_drop);
+    if ( (age.years > 0) && (age.months > 0) && (age.days > 0) )
+      ageString = age.years + yearString + ", " + age.months + monthString + ", and " + age.days + dayString + " old.";
+    else if ( (age.years == 0) && (age.months == 0) && (age.days > 0) )
+      ageString = "Only " + age.days + dayString + " old!";
+    else if ( (age.years > 0) && (age.months == 0) && (age.days == 0) )
+      ageString = age.years + yearString + " old. Happy Birthday!!";
+    else if ( (age.years > 0) && (age.months > 0) && (age.days == 0) )
+      ageString = age.years + yearString + " and " + age.months + monthString + " old.";
+    else if ( (age.years == 0) && (age.months > 0) && (age.days > 0) )
+      ageString = age.months + monthString + " and " + age.days + dayString + " old.";
+    else if ( (age.years > 0) && (age.months == 0) && (age.days > 0) )
+      ageString = age.years + yearString + " and " + age.days + dayString + " old.";
+    else if ( (age.years == 0) && (age.months > 0) && (age.days == 0) )
+      ageString = age.months + monthString + " old.";
+    else ageString = "Oops! Could not calculate age!";
 
-    $("#midfoot_score2").val(midfoot_score);
-    $("#hindfoot_score2").val(hindfoot_score);
-    $("#total_score2").val(midfoot_score + hindfoot_score);
-
+    return ageString;
   }
 </script>
 @endsection

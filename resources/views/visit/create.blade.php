@@ -323,7 +323,17 @@
     </div> <!-- row end -->
   </div>
   <br>
-      <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <br>
+          <div class="form-check form-check-inline">
+            <label> <input type="checkbox" name="is_emailed" id="is_emailed" value="1"> Email sent to donor ? </label> 
+          </div>
+        </div>
+      </div>
+    </div>    <!-- div row end -->
+      <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary" id="btn_submit">Submit</button>
 </form>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>
@@ -364,6 +374,40 @@
       calculateScore2();
     });
     $("#visit_form").validate();
+    $('#patients').on('change', function() {
+      let id = $("#patients").val();
+        for (i = 0; i < patients.length; i++) {
+          if(patients[i]['patient_id'] == id)
+          {
+            console.log(patients[i])
+            if(patients[i]['feet_affected'] == "1")
+            {
+              $("#side_drop").val("R").change();
+              $("#side_drop2").val("0").change();
+            }
+            else if(patients[i]['feet_affected'] == "2")
+            {
+              $("#side_drop").val("L").change();
+              $("#side_drop2").val("0").change();
+            }
+            else if(patients[i]['feet_affected'] == "3")
+              {
+                console.log(3)
+                $("#side_drop").val("L").change();
+                $("#side_drop2").val("R").change();
+                
+                $('#add_another').css('display', 'block');
+                $('#side_drop2').prop('required', true);
+              }
+          }
+        }
+     });
+
+    $("#btn_submit").on('click', function() {
+      if ($("#is_emailed").prop('checked') == true){ 
+        console.log("email send karo")
+      }
+    })
   });
 
   function more_clickable(is_hide=0) {
