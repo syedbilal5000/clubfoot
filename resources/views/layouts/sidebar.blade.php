@@ -149,7 +149,7 @@
             <li class="nav-item">
               <a href="{{ route('followup.create') }}" class="nav-link followups_nav_add">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Add Follow UP</p>
+                <p>Add Follow-Up</p>
               </a>
             </li>
           </ul>

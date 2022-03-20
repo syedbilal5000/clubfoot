@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Add Follow UP</h1>
+          <h1 class="m-0">Add Follow-Up</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -51,34 +51,47 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
+          <label>Relapse: </label>
+          <select id="relapse" name="relapse" class="form-control select2" style="width: 100%;" onchange="view_relapse(this.value)">
+            <option value="0">NONE</option>
+            <option value="1">VARUS</option>
+            <option value="2">CAVUS</option>
+            <option value="3">EQUINUS</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div id="show_relapse" class="form-group" style="display: none;">
+          <label>Relapse Condition: </label>
+          <br>
+          <div class="form-check form-check-inline">
+            <label> <input class="form-check-input" type="radio" name="relapse_val" id="relapse_val1" onclick="set_relapse(1)"> Early </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label> <input class="form-check-input" type="radio" name="relapse_val" id="relapse_val2" onclick="set_relapse(2)"> Late </label>
+          </div>
+        </div>
+      </div>
+      <input type="text" name="relapse_condition" id="relapse_condition" value="0" style="display: none;">
+    </div><!-- row end -->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
           <label>Date: </label>
           <input type="date" name="visit_date" id="visit_date" value="@php echo date('Y-m-d');@endphp" class="form-control">
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>Age: </label>
-          <input type="text" name="age" id="age" class="form-control">
-        </div>
-      </div>
-    </div><!-- row end -->
-    <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>Relapse: </label>
-          <input type="text" name="relapse" id="relapse" class="form-control">
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
           <label>Size: </label>
-          <input type="text" name="size" id="size" class="form-control">
+          <input type="number" name="size" id="size" class="form-control">
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>Hours: </label>
+          <label>Select Hours: </label>
           <select id="hours" name="hours" class="form-control select2" style="width: 100%;">
+            <option value="0" disabled hidden selected>Select Hours</option>
             <option value="12">12</option>
             <option value="16">16</option>
             <option value="23">23</option>
@@ -91,6 +104,7 @@
         <div class="form-group">
           <label>Treatment: </label>
           <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;">
+            <option value="0" disabled hidden selected>Select Treatment</option>
             <option value="3">Reassurance</option>
             <option value="4">New Brace</option>
             <option value="1">Casted</option>
@@ -104,13 +118,13 @@
           <label>Next Appointment: </label>
           <!-- <input type="date" name="next_visit_date" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp"> -->
           <select id="next_visit_date" name="next_visit_date" class="form-control select2" style="width: 100%;">
-            <option value="1 week">1 week</option>
-            <option value="2 weeks">2 weeks</option>
-            <option value="1 month (4 weeks)">1 month (4 weeks)</option>
-            <option value="2 months">2 months</option>
-            <option value="3 months">3 months</option>
-            <option value="6 months">6 months</option>
-            <option value="1 year">1 year</option>
+            <option value="1">1 week</option>
+            <option value="2">2 weeks</option>
+            <option value="4">1 month</option>
+            <option value="8">2 months</option>
+            <option value="12">3 months</option>
+            <option value="24">6 months</option>
+            <option value="48">1 year</option>
           </select>
         </div>
       </div>
@@ -174,6 +188,21 @@
         }
      });
   });
+
+  function view_relapse(chk) {
+    $("#relapse_val1").prop("checked", false);
+    $("#relapse_val2").prop("checked", false);
+    $("#relapse_condition").val("0");
+    if (chk != "0") {
+      $("#show_relapse").css("display", "block");
+    } else {
+      $("#show_relapse").css("display", "none");
+    }
+  }
+
+  function set_relapse(val) {
+    $('#relapse_condition').val(val);
+  }
 
   function getAge(dateString) {
     var now = new Date();
