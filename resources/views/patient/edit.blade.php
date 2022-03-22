@@ -524,13 +524,13 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Any Pervious treatments: </label><label style="color: red;"> &nbsp;*</label>
+              <label>Any Previous treatments: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_treated" required value="{{ $patient->has_treated }}" {{ $patient->has_treated == 1 ? 'checked' : ''}}> Yes </label> 
+                <label> <input type="radio" name="has_treated" value="{{ $patient->has_treated }}" {{ $patient->has_treated == 1 ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_treated" required value="{{ $patient->has_treated }}" {{ $patient->has_treated == 0 ? 'checked' : ''}}> No </label> 
+                <label> <input type="radio" name="has_treated" value="{{ $patient->has_treated }}" {{ $patient->has_treated == 0 ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -547,19 +547,19 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Type of previous treatment(S): </label><label style="color: red;"> &nbsp;*</label>
+              <label>Type of previous treatment(S): </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" required value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 1 ? 'checked' : ''}}> Casting above knee </label> 
+                <label> <input type="radio" name="treatment_type" value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 1 ? 'checked' : ''}}> Casting above knee </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" required value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 2 ? 'checked' : ''}}> Casting below knee </label> 
+                <label> <input type="radio" name="treatment_type" value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 2 ? 'checked' : ''}}> Casting below knee </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" required value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 3 ? 'checked' : ''}}> Physiotherapy </label> 
+                <label> <input type="radio" name="treatment_type" value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 3 ? 'checked' : ''}}> Physiotherapy </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" required value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 0 ? 'checked' : ''}}> Other </label> 
+                <label> <input type="radio" name="treatment_type" value="{{ $patient->treatment_type }}" {{ $patient->treatment_type == 0 ? 'checked' : ''}}> Other </label> 
               </div>
             </div>
           </div>
@@ -567,13 +567,13 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Diagnosed prenatally: </label><label style="color: red;"> &nbsp;*</label>
+              <label>Diagnosed prenatally: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_diagnosed" required value="{{ $patient->has_diagnosed }}" {{ $patient->has_diagnosed == 1 ? 'checked' : ''}}> Yes </label> 
+                <label> <input type="radio" name="has_diagnosed" value="{{ $patient->has_diagnosed }}" {{ $patient->has_diagnosed == 1 ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_diagnosed" required value="{{ $patient->has_diagnosed }}" {{ $patient->has_diagnosed == 0 ? 'checked' : ''}}> No </label> 
+                <label> <input type="radio" name="has_diagnosed" value="{{ $patient->has_diagnosed }}" {{ $patient->has_diagnosed == 0 ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>
@@ -581,10 +581,10 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>At pregnancy Week: </label><label style="color: red;"> &nbsp;*</label>
+              <label>At pregnancy Week: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                <input type="text" name="preg_week" value="{{ $patient->preg_week }}" class="form-control" placeholder="Enter Value" required>
+                <input type="text" name="preg_week" value="{{ $patient->preg_week }}" class="form-control" placeholder="Enter Value">
               </div>
             </div>
           </div>
@@ -592,13 +592,13 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Confirmed at birth: </label><label style="color: red;"> &nbsp;*</label>
+              <label>Confirmed at birth: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_confirmed" required value="{{ $patient->has_birth_confirmed }}" {{ $patient->has_birth_confirmed == 1 ? 'checked' : ''}}> Yes </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="{{ $patient->has_birth_confirmed }}" {{ $patient->has_birth_confirmed == 1 ? 'checked' : ''}}> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_confirmed" required value="{{ $patient->has_birth_confirmed }}" {{ $patient->has_birth_confirmed == 0 ? 'checked' : ''}}> No </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="{{ $patient->has_birth_confirmed }}" {{ $patient->has_birth_confirmed == 0 ? 'checked' : ''}}> No </label> 
               </div>
             </div>
           </div>

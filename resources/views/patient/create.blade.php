@@ -495,13 +495,13 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Any Pervious treatments: </label><label style="color: red;"> &nbsp;*</label>
+              <label>Any Previous treatments: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_treated" value="1" required> Yes </label> 
+                <label> <input type="radio" name="has_treated" value="1"> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_treated" value="0" required> No </label> 
+                <label> <input type="radio" name="has_treated" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -518,19 +518,19 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Type of previous treatment(S): </label><label style="color: red;"> &nbsp;*</label>
+              <label>Type of previous treatment(S): </label>>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="1" required> Casting above knee </label> 
+                <label> <input type="radio" name="treatment_type" value="1"> Casting above knee </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="2" required> Casting below knee </label> 
+                <label> <input type="radio" name="treatment_type" value="2"> Casting below knee </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="3" required> Physiotherapy </label> 
+                <label> <input type="radio" name="treatment_type" value="3"> Physiotherapy </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="treatment_type" value="0" required> Other </label> 
+                <label> <input type="radio" name="treatment_type" value="0"> Other </label> 
               </div>
             </div>
           </div>
@@ -538,13 +538,13 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label>Diagnosed prenatally: </label><label style="color: red;"> &nbsp;*</label>
+              <label>Diagnosed prenatally: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_diagnosed" value="1" required> Yes </label>
+                <label> <input type="radio" name="has_diagnosed" value="1"> Yes </label>
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_diagnosed" value="0" required> No </label> 
+                <label> <input type="radio" name="has_diagnosed" value="0"> No </label> 
               </div>
             </div>
           </div>
@@ -552,10 +552,10 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>At pregnancy Week: </label><label style="color: red;"> &nbsp;*</label>
+              <label>At pregnancy Week: </label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                <input type="text" name="preg_week" class="form-control" placeholder="Enter Value" required>
+                <input type="text" name="preg_week" class="form-control" placeholder="Enter Value">
               </div>
             </div>
           </div>
@@ -563,13 +563,13 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Confirmed at birth: </label><label style="color: red;"> &nbsp;*</label>
+              <label>Confirmed at birth: </label>
               <br>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_confirmed" value="1" required> Yes </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="1"> Yes </label> 
               </div>
               <div class="form-check form-check-inline">
-                <label> <input type="radio" name="has_birth_confirmed" value="0" required> No </label> 
+                <label> <input type="radio" name="has_birth_confirmed" value="0"> No </label> 
               </div>
             </div>
           </div>

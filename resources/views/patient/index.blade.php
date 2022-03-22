@@ -69,6 +69,9 @@
             </tr>
         </tfoot>
       </table>
+      <div class="">
+          <!-- patients->links() -->
+      </div>
     </div>
   </div> <!-- row end -->
 </div>
@@ -87,67 +90,66 @@
 <script type="text/javascript">
   var patients = {!! json_encode($patients) !!};
   var output = '', patient_id = 0;
-  // console.log(patients);
   
   view_patients(patients);
+  // view_patients(patients.data);
 
   function view_patients(patients) {
     output = '';
-    if (patients.length > 0) {
-        for (i = 0; i < patients.length; i++) {
-            let feet_affected = patients[i]['feet_affected'];
-            if(feet_affected == '1'){
-              feet_affected = 'Right';
-            } else if(feet_affected == '2'){
-              feet_affected = 'Left';
-            } else {
-              feet_affected = 'Both';
-            }
+    for (i = 0; i < patients.length; i++) {
+      let feet_affected = patients[i]['feet_affected'];
+      if(feet_affected == '1'){
+        feet_affected = 'Right';
+      } else if(feet_affected == '2'){
+        feet_affected = 'Left';
+      } else {
+        feet_affected = 'Both';
+      }
 
-            let diagnosis = patients[i]['diagnosis'];
-            if(diagnosis == '1'){
-              diagnosis = 'Idiopathic Clubfoot';
-            } else if(diagnosis == '2'){
-              diagnosis = 'Syndromic Clubfoot';
-            } else if(diagnosis == '3'){
-              diagnosis = 'Neuropathic Clubfoot';
-            } else {
-              diagnosis = 'Other';
-            }
+      let diagnosis = patients[i]['diagnosis'];
+      if(diagnosis == '1'){
+        diagnosis = 'Idiopathic Clubfoot';
+      } else if(diagnosis == '2'){
+        diagnosis = 'Syndromic Clubfoot';
+      } else if(diagnosis == '3'){
+        diagnosis = 'Neuropathic Clubfoot';
+      } else {
+        diagnosis = 'Other';
+      }
 
-            let treatment_type = patients[i]['treatment_type'];
-            if(treatment_type == '1'){
-              treatment_type = 'Casting above knee';
-            } else if(treatment_type == '2'){
-              treatment_type = 'Casting below knee';
-            } else if(treatment_type == '3'){
-              treatment_type = 'Physiotherapy';
-            } else {
-              treatment_type = 'Other';
-            }
+      let treatment_type = patients[i]['treatment_type'];
+      if(treatment_type == '1'){
+        treatment_type = 'Casting above knee';
+      } else if(treatment_type == '2'){
+        treatment_type = 'Casting below knee';
+      } else if(treatment_type == '3'){
+        treatment_type = 'Physiotherapy';
+      } else {
+        treatment_type = 'Other';
+      }
 
-            patient_id = patients[i]['patient_id'];
-            output += `<tr><td>Pc-${patients[i]['inserted_at'].substr(2,2)}|${patients[i]['patient_id']}</td> `;
-            output += `<td>${patients[i]['patient_name']}</td> `;
-            output += '<td>';
-            output += (patients[i]['father_name'] ? patients[i]['father_name'] : '-');
-            output += '</td> <td>';
-            output += (patients[i]['birth_date'] ? patients[i]['birth_date'] : '-');
-            output += '</td> <td>';
-            output += (patients[i]['birth_date'] ? getAge(patients[i]['birth_date']) : '-');
-            output += '</td> <td>';
-            output += (patients[i]['guardian_number'] ? patients[i]['guardian_number'] : '-');
-            output += '</td> <td>';
-            output += (patients[i]['guardian_cnic'] ? patients[i]['guardian_cnic'] : '-');
-            output += '</td> <td> '+feet_affected+' </td> <td>';
-            output += diagnosis + '</td> <td>';
-            output += (patients[i]['has_birth_deformity'] == '1'? 'Yes' : 'No');
-            output += '</td> <td>';
-            output += treatment_type;
-            output += `</td> <td class="text-center"> <a href="pdf/${patient_id}" class="btn btn-link btn-info " target="_blank"><i class="fa fa-file"></i></a> <a href="patient/${patient_id}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a> <a href="patient/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger "><i class="fa fa-times"></i></a> </td></tr>`;
-        }
-    } else {
-        output = '<tr>No Data</tr>';
+      patient_id = patients[i]['patient_id'];
+      output += `<tr><td>Pc-${patients[i]['inserted_at'].substr(2,2)}|${patients[i]['patient_id']}</td> `;
+      output += `<td>${patients[i]['patient_name']}</td> `;
+      output += '<td>';
+      output += (patients[i]['father_name'] ? patients[i]['father_name'] : '-');
+      output += '</td> <td>';
+      output += (patients[i]['birth_date'] ? patients[i]['birth_date'] : '-');
+      output += '</td> <td>';
+      output += (patients[i]['birth_date'] ? getAge(patients[i]['birth_date']) : '-');
+      output += '</td> <td>';
+      output += (patients[i]['guardian_number'] ? patients[i]['guardian_number'] : '-');
+      output += '</td> <td>';
+      output += (patients[i]['guardian_cnic'] ? patients[i]['guardian_cnic'] : '-');
+      output += '</td> <td> '+feet_affected+' </td> <td>';
+      output += diagnosis + '</td> <td>';
+      output += (patients[i]['has_birth_deformity'] == '1'? 'Yes' : 'No');
+      output += '</td> <td>';
+      output += treatment_type;
+      output += `</td> <td class="text-center"> <a href="pdf/${patient_id}" class="btn btn-link btn-info " target="_blank"><i class="fa fa-file"></i></a> <a href="patient/${patient_id}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a> <a href="patient/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger "><i class="fa fa-times"></i></a> </td></tr>`;
+    }
+    if (output == "") {
+      output = '<tr>No Data</tr>';
     }
     $('#patients').html(output);
   }

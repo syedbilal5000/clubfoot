@@ -152,6 +152,9 @@ class HomeController extends Controller
     public function get_patients()
     {
         $patients = DB::select("SELECT * FROM patients p JOIN patient_families pf ON p.patient_id = pf.patient_id  JOIN patient_diagnoses pd ON p.patient_id = pd.patient_id;");
+        // $patients = DB::table('patients')->join('patient_families', 'patients.patient_id', '=', 'patient_families.patient_id')->join('patient_diagnoses', 'patients.patient_id', '=', 'patient_diagnoses.patient_id')->select('patients.*', 'patient_families.*', 'patient_diagnoses.*')->paginate(2);
+        // print_r($patients);
+        // dd(1);
         return $patients;
     }
 
