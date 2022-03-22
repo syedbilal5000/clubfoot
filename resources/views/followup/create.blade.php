@@ -51,16 +51,17 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>Relapse: </label>
-          <select id="relapse" name="relapse" class="form-control select2" style="width: 100%;" onchange="view_relapse(this.value)">
-            <option value="0">NONE</option>
-            <option value="1">VARUS</option>
-            <option value="2">CAVUS</option>
-            <option value="3">EQUINUS</option>
-          </select>
+          <label>Date: </label><label style="color: red;"> &nbsp;*</label>
+          <input type="date" name="visit_date" id="visit_date" value="@php echo date('Y-m-d');@endphp" class="form-control" required>
         </div>
       </div>
       <div class="col-md-4">
+        <div class="form-group">
+          <label>Age: </label>
+          <input type="text" name="age" id="age" class="form-control" placeholder="This should be auto fill when patient selected" disabled>
+        </div>
+      </div>
+      <!-- <div class="col-md-4">
         <div id="show_relapse" class="form-group" style="display: none;">
           <label>Relapse Condition: </label>
           <br>
@@ -71,20 +72,26 @@
             <label> <input class="form-check-input" type="radio" name="relapse_val" id="relapse_val2" onclick="set_relapse(2)"> Late </label>
           </div>
         </div>
-      </div>
-      <input type="text" name="relapse_condition" id="relapse_condition" value="0" style="display: none;">
+      </div> -->
+      <!-- <input type="text" name="relapse_condition" id="relapse_condition" value="0" style="display: none;"> -->
     </div><!-- row end -->
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label>Date: </label>
-          <input type="date" name="visit_date" id="visit_date" value="@php echo date('Y-m-d');@endphp" class="form-control">
+          <label>Select Relapse: </label>
+          <select id="relapse" name="relapse" class="form-control select2" style="width: 100%;" onchange="view_relapse(this.value)">
+            <option disabled hidden>Select Relapse</option>
+            <option value="0" selected>NONE</option>
+            <option value="1">VARUS</option>
+            <option value="2">CAVUS</option>
+            <option value="3">EQUINUS</option>
+          </select>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label>Size: </label>
-          <input type="number" name="size" id="size" class="form-control">
+          <input type="number" name="size" id="size" class="form-control" placeholder="Enter Size">
         </div>
       </div>
       <div class="col-md-4">
@@ -102,7 +109,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label>Treatment: </label>
+          <label>Select Treatment: </label>
           <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;">
             <option value="0" disabled hidden selected>Select Treatment</option>
             <option value="3">Reassurance</option>
@@ -115,7 +122,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>Next Appointment: </label>
+          <label>Select Next Appointment: </label>
           <!-- <input type="date" name="next_visit_date" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp"> -->
           <select id="next_visit_date" name="next_visit_date" class="form-control select2" style="width: 100%;">
             <option value="1">1 week</option>
@@ -189,20 +196,20 @@
      });
   });
 
-  function view_relapse(chk) {
-    $("#relapse_val1").prop("checked", false);
-    $("#relapse_val2").prop("checked", false);
-    $("#relapse_condition").val("0");
-    if (chk != "0") {
-      $("#show_relapse").css("display", "block");
-    } else {
-      $("#show_relapse").css("display", "none");
-    }
-  }
+  // function view_relapse(chk) {
+  //   $("#relapse_val1").prop("checked", false);
+  //   $("#relapse_val2").prop("checked", false);
+  //   $("#relapse_condition").val("0");
+  //   if (chk != "0") {
+  //     $("#show_relapse").css("display", "block");
+  //   } else {
+  //     $("#show_relapse").css("display", "none");
+  //   }
+  // }
 
-  function set_relapse(val) {
-    $('#relapse_condition').val(val);
-  }
+  // function set_relapse(val) {
+  //   $('#relapse_condition').val(val);
+  // }
 
   function getAge(dateString) {
     var now = new Date();

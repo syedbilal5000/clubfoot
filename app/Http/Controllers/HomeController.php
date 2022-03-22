@@ -367,6 +367,24 @@ class HomeController extends Controller
         return redirect('/visit')->with('success', 'Visit Added Successfully.');
     }
 
+    // followup create
+    public function followup_store(Request $request)
+    {
+        dd($request);
+        $patient_id = $request->patient_id;
+        $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 LIMIT 1");
+        $appoint_id = ($query != array()) ? $query[0]->appoint_id : 0;
+        // Add visit
+        $visit = new Visit;
+        $visit->patient_id = $patient_id;
+        $visit->visit_date = $request->visit_date;
+        $visit->next_visit_date = $request->next_visit_date;
+        $visit->inserted_at = date("Y-m-d");
+        $visit->save();
+        // dd($request);
+        return redirect('/visit')->with('success', 'Follow-Up Added Successfully.');
+    }
+
     // donor create
     public function donor_store(Request $request)
     {

@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <label>Status: </label>
+        <label>Select Status: </label>
         <select id="status_text" name="change_status" class="form-control select2" style="width: 100%;">
           <option value="0" selected>Select </option>
           <option value="2">Pending</option>

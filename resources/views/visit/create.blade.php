@@ -57,7 +57,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>Side: </label><label style="color: red;"> &nbsp;*</label>
+          <label>Select Side: </label><label style="color: red;"> &nbsp;*</label>
           <select id="side_drop" name="side" class="form-control select2" style="width: 100%;" required>
             <option selected disabled hidden value="0">Select Side</option>
             <option value="L">Left</option>
@@ -71,7 +71,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label>CLB: </label>
+          <label>Select CLB: </label>
           <select id="clb_drop" name="CLB" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -81,7 +81,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>MC: </label>
+          <label>Select MC: </label>
           <select id="mc_drop" name="MC" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -91,7 +91,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>LHT: </label>
+          <label>Select LHT: </label>
           <select id="lht_drop" name="LHT" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -104,7 +104,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label>PC: </label>
+          <label>Select PC: </label>
           <select id="pc_drop" name="PC" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -114,7 +114,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>RE: </label>
+          <label>Select RE: </label>
           <select id="re_drop" name="RE" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -124,7 +124,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>EH: </label>
+          <label>Select EH: </label>
           <select id="eh_drop" name="EH" class="form-control select2 score_dropd" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -157,7 +157,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label>Treatment: </label>
+          <label>Select Treatment: </label>
           <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;">
             <option value="1">Casted</option>
             <option value="2">Tenotomy</option>
@@ -202,7 +202,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label>Side: </label><label style="color: red;"> &nbsp;*</label>
+          <label>Select Side: </label><label style="color: red;"> &nbsp;*</label>
           <select id="side_drop2" name="side2" class="form-control select2" style="width: 100%;">
             <option selected disabled hidden value="0">Select Side</option>
             <option value="L">Left</option>
@@ -215,7 +215,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label>CLB: </label>
+          <label>Select CLB: </label>
           <select id="clb_drop2" name="CLB2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -225,7 +225,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>MC: </label>
+          <label>Select MC: </label>
           <select id="mc_drop2" name="MC2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -235,7 +235,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>LHT: </label>
+          <label>Select LHT: </label>
           <select id="lht_drop2" name="LHT2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -248,7 +248,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label>PC: </label>
+          <label>Select PC: </label>
           <select id="pc_drop2" name="PC2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -258,7 +258,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>RE: </label>
+          <label>Select RE: </label>
           <select id="re_drop2" name="RE2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -268,7 +268,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label>EH: </label>
+          <label>Select EH: </label>
           <select id="eh_drop2" name="EH2" class="form-control select2 score_dropd2" style="width: 100%;">
             <option value="0.0">0.0</option>
             <option value="0.5">0.5</option>
@@ -301,7 +301,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label>Treatment: </label>
+          <label>Select Treatment: </label>
           <select id="treatment_drop2" name="treatment2" class="form-control select2" style="width: 100%;">
             <option value="1">Casted</option>
             <option value="2">Tenotomy</option>
