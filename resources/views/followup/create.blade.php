@@ -79,12 +79,15 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Select Relapse: </label>
-          <select id="relapse" name="relapse" class="form-control select2" style="width: 100%;" onchange="view_relapse(this.value)">
-            <option disabled hidden>Select Relapse</option>
-            <option value="0" selected>NONE</option>
-            <option value="1">VARUS</option>
-            <option value="2">CAVUS</option>
-            <option value="3">EQUINUS</option>
+          <select id="relapse" name="relapse" class="form-control select2" style="width: 100%;">
+            <option disabled hidden selected>Select Relapse</option>
+            <option value="0">NONE</option>
+            <option value="11">VARUS - Early</option>
+            <option value="12">VARUS - Late</option>
+            <option value="21">CAVUS - Early</option>
+            <option value="22">CAVUS - Late</option>
+            <option value="31">EQUINUS - Early</option>
+            <option value="32">EQUINUS - Late</option>
           </select>
         </div>
       </div>
@@ -125,6 +128,7 @@
           <label>Select Next Appointment: </label>
           <!-- <input type="date" name="next_visit_date" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp"> -->
           <select id="next_visit_date" name="next_visit_date" class="form-control select2" style="width: 100%;">
+            <option value="0" disabled hidden selected>Select Next Appointment</option>
             <option value="1">1 week</option>
             <option value="2">2 weeks</option>
             <option value="4">1 month</option>

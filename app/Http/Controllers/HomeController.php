@@ -10,6 +10,7 @@ use App\PatientDiagnosis;
 use App\PatientExamination;
 use App\Appointment;
 use App\Visit;
+use App\Followup;
 use App\Donor;
 
 class HomeController extends Controller
@@ -180,7 +181,7 @@ class HomeController extends Controller
     public function get_visits($patient_id)
     {
         $patients_visits = DB::select("SELECT * FROM visit_details WHERE patient_id = '$patient_id';");
-        $patients_fup = DB::select("SELECT * FROM follow_up WHERE patient_id = '$patient_id';");
+        $patients_fup = DB::select("SELECT * FROM followup WHERE patient_id = '$patient_id';");
         return array("visits" => $patients_visits, "f_up" => $patients_fup);
     }
 
@@ -370,17 +371,25 @@ class HomeController extends Controller
     // followup create
     public function followup_store(Request $request)
     {
-        dd($request);
         $patient_id = $request->patient_id;
         $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 LIMIT 1");
         $appoint_id = ($query != array()) ? $query[0]->appoint_id : 0;
-        // Add visit
-        $visit = new Visit;
-        $visit->patient_id = $patient_id;
-        $visit->visit_date = $request->visit_date;
-        $visit->next_visit_date = $request->next_visit_date;
-        $visit->inserted_at = date("Y-m-d");
-        $visit->save();
+        $weeks = isset($request->next_visit_date) ? $request->next_visit_date : 0;
+        $next_visit_date = date('Y-m-d', strtotime ('+' . $weeks . ' Weeks'));
+        $next_visit_date = ($weeks != 0) ? $next_visit_date : NULL;
+        // Add followup
+        $followup = new Followup;
+        $followup->patient_id = $patient_id;
+        $followup->appointment_id = $appoint_id;
+        $followup->visit_date = $request->visit_date;
+        $followup->next_visit_date = $next_visit_date;
+        $followup->relapse = isset($request->relapse) ? $request->relapse : 0;
+        $followup->size = isset($request->size) ? $request->size : 0;
+        $followup->hours = isset($request->hours) ? $request->hours : 0;
+        $followup->treatment = isset($request->treatment) ? $request->treatment : 0;
+        $followup->inserted_at = date("Y-m-d");
+        $followup->save();
+        $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
         // dd($request);
         return redirect('/visit')->with('success', 'Follow-Up Added Successfully.');
     }
