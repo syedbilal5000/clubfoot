@@ -318,7 +318,7 @@ class HomeController extends Controller
     {
         // dd($request);
         $patient_id = $request->patient_id;
-        $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 LIMIT 1");
+        $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 ORDER BY inserted_at DESC LIMIT 1");
         $appoint_id = ($query != array()) ? $query[0]->appoint_id : 0;
         // Add visit
         $visit = new Visit;
@@ -372,7 +372,7 @@ class HomeController extends Controller
     public function followup_store(Request $request)
     {
         $patient_id = $request->patient_id;
-        $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 LIMIT 1");
+        $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 ORDER BY inserted_at DESC LIMIT 1");
         $appoint_id = ($query != array()) ? $query[0]->appoint_id : 0;
         $weeks = isset($request->next_visit_date) ? $request->next_visit_date : 0;
         $next_visit_date = date('Y-m-d', strtotime ('+' . $weeks . ' Weeks'));

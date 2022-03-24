@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Add Follow-Up</h1>
+          <h1 class="m-0">Follow-Up</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -34,7 +34,7 @@
 <form id="visit_form" method="POST" action="add">
   @csrf
   <div>
-    <h2 style="text-align:center;">Add New</h2>
+    <h2 style="text-align:center;">Add New Follow-Up</h2>
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">

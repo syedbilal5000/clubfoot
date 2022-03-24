@@ -44,12 +44,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Analysis</h1>
+          <h1 class="m-0">Analytics</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="home">Home</a></li>
-            <li class="breadcrumb-item active">Analysis Page</li>
+            <li class="breadcrumb-item active">Analytics Page</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -58,7 +58,7 @@
 {{-- Main Content --}}
 <form action="appointment/update" method="POST" id="appoint_form">
   @csrf
-  <!-- <div class="content">
+  <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
@@ -70,17 +70,17 @@
                     <div>
                       <div class="transaction-summary">
                         <h3>Appointments</h3>
-                        <h5>View projected revenues of upcoming appointments, track cancelled ones also</h5>
+                        <h5>View projected visits of upcoming appointments, track other ones also</h5>
                         <a href="reports/appointments">Appointments List</a>
                         <hr>
-                        <a href="reports/appointments_summary">Appointments Summary</a>
+                        <a href="reports/appointments_summary">Appointments Status</a>
                         <hr>
-                        <a href="reports/appointments_cancel">Appointments Cancel</a>
+                        <a href="reports/appointments_cancel">Appointments Delayed</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                   <div class="main-transaction-wrapper card">
                     <div>
                       <div class="transaction-summary">
@@ -92,7 +92,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <div class="col-md-6">
@@ -100,17 +100,11 @@
                   <div class="main-transaction-wrapper card">
                     <div>
                       <div class="transaction-summary">
-                        <h3>Sales</h3>
-                        <h5>Analyse the performance of your business by comparing sales across services, staff, and more</h5>
-                        <a href="reports/sales/1">Sales by Service</a>
+                        <h3>Visits</h3>
+                        <h5>Analyse the performance of your business by comparing patient visits across treatment, relapse, and more</h5>
+                        <a href="reports/sales/1">Visits by Treatment</a>
                         <hr>
-                        <a href="reports/sales/2">Sales by Location</a>
-                        <hr>
-                        <a href="reports/sales/3">Sales by Customer</a>
-                        <hr>
-                        <a href="reports/sales/4">Sales by Staff</a>
-                        <hr>
-                        <a href="reports/sales/5">Sales by Month</a>
+                        <a href="reports/sales/1">Visits by Relapse</a>
                       </div>
                     </div>
                   </div>
@@ -121,9 +115,9 @@
                       <div class="transaction-summary">
                         <h3>Miscellaneous</h3>
                         <h5>View other valuable reports</h5>
-                        <a href="reports/customers">Customers List</a>
-                        <hr>
-                        <a href="reports/expenses">Expenses List</a>
+                        <a href="reports/customers">Donors List</a>
+                        <!-- <hr>
+                        <a href="reports/expenses">Expenses List</a> -->
                       </div>
                     </div>
                   </div>
@@ -134,7 +128,7 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </form>
 <!-- ./wrapper -->
 <!-- jQuery 3 -->
