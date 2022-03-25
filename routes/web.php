@@ -23,7 +23,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/pdf/{patient_id}/', [App\Http\Controllers\PDFController::class, 'index']);
-Route::get('/reports/casted_visits_more/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'report_more_casted']);
 // Route::get('/home/registration', function () {
 //     return view('registration.index');
 // });
@@ -52,3 +51,7 @@ Route::get('followup/create', [App\Http\Controllers\HomeController::class, 'foll
 Route::post('followup/add', [App\Http\Controllers\HomeController::class, 'followup_store'])->name('followup_store');
 // Route::get('followup/{id}/edit', [App\Http\Controllers\HomeController::class, 'followup_edit'])->name('followup.edit');
 Route::get('analytic', [App\Http\Controllers\HomeController::class, 'analytic_index'])->name('analytic');
+Route::get('analytic/casted_more', [App\Http\Controllers\HomeController::class, 'casted_more_view'])->name('analytic.casted_more_view');
+Route::get('analytic/casted_more_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'casted_more_report']);
+Route::get('analytic/casted_same', [App\Http\Controllers\HomeController::class, 'casted_same_view'])->name('analytic.casted_same_view');
+Route::get('analytic/casted_same_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'casted_same_report']);

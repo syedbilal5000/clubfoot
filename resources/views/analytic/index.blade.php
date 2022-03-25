@@ -69,33 +69,15 @@
                   <div class="main-transaction-wrapper card">
                     <div>
                       <div class="transaction-summary">
-                        <h3>Appointments</h3>
-                        <h5>View projected visits of upcoming appointments, track other ones also</h5>
-                        <a href="reports/appointments">Appointments List</a>
+                        <h3>Alerts</h3>
+                        <h5>Check the alerts to better manage your business</h5>
+                        <a href="analytic/casted_more">Casted Visits More Than Seven</a>
                         <hr>
-                        <a href="reports/appointments_summary">Appointments Status</a>
-                        <hr>
-                        <a href="reports/appointments_cancel">Appointments Delayed</a>
+                        <a href="analytic/casted_same">Casted Three Visits Have Same Value</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- <div class="col-md-12">
-                  <div class="main-transaction-wrapper card">
-                    <div>
-                      <div class="transaction-summary">
-                        <h3>Staff</h3>
-                        <h5>View your team's performance, commission details as well</h5>
-                        <a href="reports/commission_summary">Commission Summary</a>
-                        <hr>
-                        <a href="reports/commission_detail">Commission Detailed</a>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-              </div>
-
-              <div class="col-md-6">
                 <div class="col-md-12">
                   <div class="main-transaction-wrapper card">
                     <div>
@@ -105,6 +87,24 @@
                         <a href="reports/sales/1">Visits by Treatment</a>
                         <hr>
                         <a href="reports/sales/1">Visits by Relapse</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="col-md-12">
+                  <div class="main-transaction-wrapper card">
+                    <div>
+                      <div class="transaction-summary">
+                        <h3>Appointments</h3>
+                        <h5>View projected visits of upcoming appointments, track other ones also</h5>
+                        <a href="reports/appointments">Appointments List</a>
+                        <hr>
+                        <a href="reports/appointments_summary">Appointments Status</a>
+                        <hr>
+                        <a href="reports/appointments_cancel">Appointments Delayed</a>
                       </div>
                     </div>
                   </div>
