@@ -14,6 +14,6 @@ class Followup extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'patient_id', 'appointment_id', 'visit_date', 'next_visit_date', 'relapse', 'size', 'hours', 'treatment', 'description', 'inserted_at'
+        'patient_id', 'appointment_id', 'visit_date', 'next_visit_date', 'relapse', 'size', 'hours', 'treatment', 'is_virtual', 'description', 'inserted_at'
     ];
 }

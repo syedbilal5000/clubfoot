@@ -139,6 +139,16 @@
           </select>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Select Site: </label>
+          <select id="is_virtual" name="is_virtual" class="form-control select2" style="width: 100%;">
+            <option disabled hidden>Select Site</option>
+            <option value="0">Live</option>
+            <option value="1">Virtual</option>
+          </select>
+        </div>
+      </div>
     </div> <!-- row end -->
     <div class="row">
         <div class="col-md-12">

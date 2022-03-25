@@ -231,6 +231,7 @@ class HomeController extends Controller
         $patient->birth_date = $request->birth_date;
         $patient->address = $request->address;
         $patient->address2 = $request->address2;
+        $patient->out_of_city = isset($request->out_of_city) ? $request->out_of_city : 0;
         // 0: false, 1: true
         $patient->has_photo_consent = isset($request->has_photo_consent) ? $request->has_photo_consent : 0;
         // 0: "Other", 1: "Mother", 2: "Father", 3: "Sibling"
@@ -387,6 +388,7 @@ class HomeController extends Controller
         $followup->size = isset($request->size) ? $request->size : 0;
         $followup->hours = isset($request->hours) ? $request->hours : 0;
         $followup->treatment = isset($request->treatment) ? $request->treatment : 0;
+        $followup->is_virtual = isset($request->is_virtual) ? $request->is_virtual : 0;
         $followup->inserted_at = date("Y-m-d");
         $followup->save();
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
@@ -424,6 +426,7 @@ class HomeController extends Controller
         $patient->birth_date = $request->birth_date;
         $patient->address = $request->address;
         $patient->address2 = $request->address2;
+        $patient->out_of_city = isset($request->out_of_city) ? $request->out_of_city : 0;
         // 0: false, 1: true
         $patient->has_photo_consent = isset($request->has_photo_consent) ? $request->has_photo_consent : 0;
         // 0: "Other", 1: "Mother", 2: "Father", 3: "Sibling"
@@ -454,7 +457,9 @@ class HomeController extends Controller
         $patient_family->other_referral = $request->other_referral;
         $patient_family->save();
         // Add patient diagnosis info
+        print($id);
         $patient_diagnosis = PatientDiagnosis::where('patient_id', '=', $id)->firstOrFail();
+        print_r($patient_diagnosis);
         // $patient_diagnosis->patient_id = $patient_id;
         $patient_diagnosis->evaluator_name = $request->evaluator_name;
         $patient_diagnosis->evaluation_date = $request->evaluation_date;
