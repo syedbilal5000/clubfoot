@@ -11,17 +11,17 @@
   }
 </style>
   <!-- Content Header (Page header) -->
-  <div class="content-header">
+  <div class="content-header" style="padding-left: 0px;">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Follow-Up</h1>
+          <h1 class="m-0">Add Follow-Up</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="../home">Home</a></li>
-            <li class="breadcrumb-item"><a href="../visit">Visit</a></li>
-            <li class="breadcrumb-item active">Add Followup</li>
+            <li class="breadcrumb-item"><a href="../visit">Visits</a></li>
+            <li class="breadcrumb-item active">Add New Followup</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -33,8 +33,9 @@
 
 <form id="visit_form" method="POST" action="add">
   @csrf
+  <div class="container-fluid">
   <div>
-    <h2 style="text-align:center;">Add New Follow-Up</h2>
+    <!-- <h2 style="text-align:center;">Add New Follow-Up</h2> -->
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
@@ -163,7 +164,8 @@
       </div>  <!-- row end -->
   </div>
   <br>
-      <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
+    <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
+  </div>
 </form>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/inputmask/jquery.inputmask.js') }}"></script>

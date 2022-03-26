@@ -32,12 +32,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $start_date = date('Y-m-d', strtotime ('-3 Months'));
-        // $end_date = date('Y-m-d');
-        // $casted_visits_more = $this->report_more_casted($start_date, $end_date);
-        // $data = ['casted_visits_more' => $casted_visits_more];
-        // return view('home')->with($data);
-        // dd(1);
         return view('home');
     }
 
@@ -105,6 +99,17 @@ class HomeController extends Controller
         $casted_same = $this->casted_same_report($start_date, $end_date);
         $data = ['casted_same' => $casted_same];
         return view('analytic.casted_same')->with($data);
+    }
+
+    // analytic/visits/type - visits report view
+    public function visits_view($type)
+    {
+        $sales_report = [1 => 'Treatment', 2 => 'Relapse', 3 => 'Month'];
+        $start_date = date('Y-m-d', strtotime ('-3 Months'));
+        $end_date = date('Y-m-d');
+        $report_vsts = $this->casted_same_report($start_date, $end_date);
+        $data = ['report_vsts' => $report_vsts, 'type' => $type, 'report_name' => $sales_report[$type]];
+        return view('analytic.visit_report')->with($data);
     }
 
     // this method will generate appointment date base on availability

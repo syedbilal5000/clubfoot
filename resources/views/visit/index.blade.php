@@ -13,7 +13,7 @@
   }
 </style>
   <!-- Content Header (Page header) -->
-  <div class="content-header">
+  <div class="content-header" style="padding-left: 0px;">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -34,7 +34,7 @@
 
 <form method="POST" action="visit/data">
   @csrf
-  <div>
+  <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">

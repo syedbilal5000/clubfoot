@@ -55,3 +55,4 @@ Route::get('analytic/casted_more', [App\Http\Controllers\HomeController::class, 
 Route::get('analytic/casted_more_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'casted_more_report']);
 Route::get('analytic/casted_same', [App\Http\Controllers\HomeController::class, 'casted_same_view'])->name('analytic.casted_same_view');
 Route::get('analytic/casted_same_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'casted_same_report']);
+Route::get('analytic/visits/{type}/', [App\Http\Controllers\HomeController::class, 'visits_view'])->name('analytic.visits_view');

@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
   <!-- Content Header (Page header) -->
-  <div class="content-header">
+  <div class="content-header" style="padding-left: 0px;">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -29,6 +29,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="../home">Home</a></li>
             <li class="breadcrumb-item"><a href="./">Analytics</a></li>
             <li class="breadcrumb-item active">Casted Same Report</li>
           </ol>
@@ -39,7 +40,6 @@
 {{-- Main Content --}}
 <form action="appointment/update" method="POST" id="appoint_form">
   @csrf
-<div class="content">
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4">
@@ -103,7 +103,6 @@
     </div>
     </div>
     </div>
-  </div>
 </form>
 
 <!-- ./wrapper -->

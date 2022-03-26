@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/dataTables-buttons/css/buttons.dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
   <!-- Content Header (Page header) -->
-  <div class="content-header">
+  <div class="content-header" style="padding-left: 0px;">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -25,7 +25,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="home">Home</a></li>
-            <li class="breadcrumb-item active">Appointment Page</li>
+            <li class="breadcrumb-item active">Appointments</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -34,7 +34,6 @@
 {{-- Main Content --}}
 <form action="appointment/update" method="POST" id="appoint_form">
   @csrf
-<div class="content">
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4">
@@ -122,10 +121,10 @@
       </table>
       <input type="hidden" name="appoint_ids[]" id="appoint_ids">
       <input type="hidden" name="selected_option" value="0" id="selected_option">
-    </form>
     </div>
   </div> <!-- row end -->
-</div>
+  </div>
+</form>
 
 <!-- ./wrapper -->
 

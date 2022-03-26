@@ -25,13 +25,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Casted More Report</h1>
+          <h1 class="m-0"><span class="head_name"></span> Report</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="../home">Home</a></li>
             <li class="breadcrumb-item"><a href="./">Analytics</a></li>
-            <li class="breadcrumb-item active">Casted More Report</li>
+            <li class="breadcrumb-item active"><span class="head_name"></span> Report</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -60,18 +60,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="col-md-4">
-      <div class="form-group">
-        <label>Select Status: </label>
-        <select id="status_text" name="change_status" class="form-control select2" style="width: 100%;">
-          <option value="0" selected>Select </option>
-          <option value="2">Pending</option>
-          <option value="3">Reject</option>
-          <option disabled title="Not Allowed" value="4">Extend</option>
-          <option disabled title="Not Allowed"  value="1">Done</option>
-        </select>
-      </div>
-    </div> -->
     <div class="col-md-4">
       <div class="form-group">
         <label>&nbsp;</label>
@@ -97,7 +85,7 @@
                 <th>Last Score</th>
             </tr>
         </thead>
-        <tbody id="casted_vsts">
+        <tbody id="report_vsts">
         </tbody>
         <tfoot>
             <tr>
@@ -133,29 +121,32 @@
 <!-- Page specific script -->
 <script type="text/javascript">
   var patient_id = 0, output = '', st_dt, ed_dt;
-  var casted_vsts = {!! json_encode($casted_more) !!};
+  var report_vsts = {!! json_encode($report_vsts) !!};
+  var type = {!! json_encode($type) !!};
+  var report_name = {!! json_encode($report_name) !!};
+  $('.head_name').html(report_name);
   
-  view_casted_vsts(casted_vsts);
+  view_report_vsts(report_vsts);
 
-  function view_casted_vsts(casted_vsts) {
+  function view_report_vsts(report_vsts) {
     let url = '';
     output = '';
-    for (i = 0; i < casted_vsts.length; i++) {
-      patient_id = casted_vsts[i]['patient_id'];
+    for (i = 0; i < report_vsts.length; i++) {
+      patient_id = report_vsts[i]['patient_id'];
       url = `patient/${patient_id}/edit`;
       output += `<tr><td><a href="${url}" class="txt_link">${patient_id}</a></td> `;
-      output += `<td>${casted_vsts[i]['patient_name']}</td> `;
-      output += `<td>${casted_vsts[i]['guardian_number']}</td> `;
-      output += `<td class="txt_center">${casted_vsts[i]['total_visits']}</td> `;
-      output += `<td>${casted_vsts[i]['first_visit']}</td> `;
-      output += `<td>${casted_vsts[i]['last_visit']}</td> `;
-      output += `<td class="txt_center">${casted_vsts[i]['first_visit_score']}</td> `;
-      output += `<td class="txt_center">${casted_vsts[i]['last_visit_score']}</td></tr>`;
+      output += `<td>${report_vsts[i]['patient_name']}</td> `;
+      output += `<td>${report_vsts[i]['guardian_number']}</td> `;
+      output += `<td class="txt_center">${report_vsts[i]['total_visits']}</td> `;
+      output += `<td>${report_vsts[i]['first_visit']}</td> `;
+      output += `<td>${report_vsts[i]['last_visit']}</td> `;
+      output += `<td class="txt_center">${report_vsts[i]['first_visit_score']}</td> `;
+      output += `<td class="txt_center">${report_vsts[i]['last_visit_score']}</td></tr>`;
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
     }
-    $('#casted_vsts').html(output);
+    $('#report_vsts').html(output);
   }
 
   // search records on date range
@@ -166,7 +157,7 @@
       type: 'GET',
       url: '../analytic/casted_more_report/' + st_dt + '/' + ed_dt,
       success: function (data) {
-        view_casted_vsts(data);
+        view_report_vsts(data);
       },
       error: function() { 
         console.log("none");

@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/dataTables-buttons/css/buttons.dataTables.min.css') }}">
   <!-- Content Header (Page header) -->
-  <div class="content-header">
+  <div class="content-header" style="padding-left: 0px;">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">

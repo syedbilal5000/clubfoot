@@ -11,17 +11,17 @@
   }
 </style>
   <!-- Content Header (Page header) -->
-  <div class="content-header">
+  <div class="content-header" style="padding-left: 0px;">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Donors</h1>
+          <h1 class="m-0">Add Donor</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="../home">Home</a></li>
-            <li class="breadcrumb-item"><a href="../appointment">Donor</a></li>
-            <li class="breadcrumb-item active">Add Donor</li>
+            <li class="breadcrumb-item"><a href="../appointment">Donors</a></li>
+            <li class="breadcrumb-item active">Add New Donor</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -32,95 +32,93 @@
 {{-- Main Content --}}
 <form id="donor_form" method="POST" action="add">
   @csrf
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>First Name: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="fa fa-user"></i></span>
-              <input type="text" name="first_name" class="form-control" placeholder="Enter First Name" required>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Last Name: </label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="fa fa-user"></i></span>
-              <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name">
-            </div>
-          </div>
-        </div>
-      </div>  <!-- div row end -->
-      
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Phone number: </label><label style="color: red;"> &nbsp;*</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="fa fa-phone"></i></span>
-              <input type="text" name="donor_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask required>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Email: </label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="fa fa-user"></i></span>
-              <input type="email" name="donor_email" class="form-control" placeholder="Enter Email">
-            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>First Name: </label><label style="color: red;"> &nbsp;*</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+            <input type="text" name="first_name" class="form-control" placeholder="Enter First Name" required>
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Address: </label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="fa fa-home"></i></span>
-              <input type="text" name="donor_address" placeholder="Enter Address" class="form-control">
-            </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Last Name: </label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+            <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name">
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Select City: </label>
-            <select id="cities" name="city_id" class="form-control select2" onchange="get_state(this.value)" style="width: 100%;">
-              <option selected disabled>Select City</option>
-              <option value="0">Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Select State: </label>
-            <select id="states" name="state_id" class="form-control select2" style="width: 100%;">
-              <option selected disabled>Select State</option>
-            </select>
+    </div>  <!-- div row end -->
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Phone number: </label><label style="color: red;"> &nbsp;*</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+            <input type="text" name="donor_number" class="form-control" data-inputmask='"mask": "0399-9999999"' data-mask required>
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Description: </label>
-            <div class="input-group">
-              <textarea class="form-control" name="description" rows="3"></textarea>
-            </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Email: </label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+            <input type="email" name="donor_email" class="form-control" placeholder="Enter Email">
           </div>
         </div>
-      </div>  <!-- row end -->
-      <br>
-      <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Address: </label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa fa-home"></i></span>
+            <input type="text" name="donor_address" placeholder="Enter Address" class="form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Select City: </label>
+          <select id="cities" name="city_id" class="form-control select2" onchange="get_state(this.value)" style="width: 100%;">
+            <option selected disabled>Select City</option>
+            <option value="0">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Select State: </label>
+          <select id="states" name="state_id" class="form-control select2" style="width: 100%;">
+            <option selected disabled>Select State</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Description: </label>
+          <div class="input-group">
+            <textarea class="form-control" name="description" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>  <!-- row end -->
+    <br>
+    <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
   </div>
 </form>
 

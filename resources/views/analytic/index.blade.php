@@ -49,7 +49,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="home">Home</a></li>
-            <li class="breadcrumb-item active">Analytics Page</li>
+            <li class="breadcrumb-item active">Analytics</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -84,9 +84,9 @@
                       <div class="transaction-summary">
                         <h3>Visits</h3>
                         <h5>Analyse the performance of your business by comparing patient visits across treatment, relapse, and more</h5>
-                        <a href="reports/sales/1">Visits by Treatment</a>
+                        <a href="analytic/visits/1">Visits by Treatment</a>
                         <hr>
-                        <a href="reports/sales/1">Visits by Relapse</a>
+                        <a href="analytic/visits/2">Visits by Relapse</a>
                       </div>
                     </div>
                   </div>
