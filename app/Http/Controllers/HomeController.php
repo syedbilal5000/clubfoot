@@ -390,6 +390,18 @@ class HomeController extends Controller
     // visit create
     public function visit_store(Request $request)
     {
+        // if ($request->hasFile('image1')) {
+        //     $destinationPath = 'public/img/upload';
+        //     $file = $request->file('image1'); // will get all files
+
+        //     // foreach ($files as $file) {//this statement will loop through all files.
+
+        //         $file_name = $file->getClientOriginalName(); //Get file original name
+        //         $file->move($destinationPath , $file_name); // move files to destination folder
+        //     // }
+        // }
+ 
+ 
         // dd($request);
         $patient_id = $request->patient_id;
         $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 ORDER BY inserted_at DESC LIMIT 1");
@@ -414,6 +426,8 @@ class HomeController extends Controller
         $visit->complication = $request->complication;
         $visit->description = $request->description;
         $visit->inserted_at = date("Y-m-d");
+        // $imageName = $patient_id .'_'. date('YmdHis').$request->image->extension();
+        // $visit->img_path = $request->image->move(public_path('img/upload'), $imageName);
         $visit->save();
         if(isset($request->side2)) {
             $visit2 = new Visit;
@@ -435,6 +449,8 @@ class HomeController extends Controller
             $visit2->complication = $request->complication2;
             $visit2->description = $request->description;
             $visit2->inserted_at = date("Y-m-d");
+            // $imageName = $patient_id .'_'. date('YmdHis');
+            // $visit2->img_path = $request->image->move(public_path('img/upload'), $imageName);
             $visit2->save();
         }
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);

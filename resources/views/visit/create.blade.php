@@ -325,12 +325,19 @@
   </div>
   <br>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <div class="form-group">
           <br>
           <div class="form-check form-check-inline">
             <label> <input type="checkbox" name="is_emailed" id="is_emailed" value="1"> Email sent to donor ? </label> 
           </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="form-check form-check-inline">
+          <label class="form-control"><input type="file" name="image1" id="image1"  > Upload Image</label>
+        </div>
         </div>
       </div>
     </div>    <!-- div row end -->
