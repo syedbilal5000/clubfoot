@@ -51,6 +51,14 @@ class HomeController extends Controller
         return $casted_same;
     }
 
+    // get visits report data by treatment type
+    public function visits_report($type, $st_dt, $ed_dt)
+    {
+        $query = "SELECT treatment, SUM(visit_count) visit_count, SUM(followup_count) followup_count FROM (SELECT COUNT(*) visit_count, 0 followup_count, treatment FROM visit_details v GROUP BY v.treatment UNION ALL SELECT 0 visit_count, COUNT(*) followup_count, treatment FROM followup f GROUP BY f.treatment) sb GROUP BY treatment;";
+        $visits_grouped = DB::select($query);
+        return $visits_grouped;
+    }
+
     public function dev(Request $request)
     {
         $patient_id = 10;
@@ -107,7 +115,7 @@ class HomeController extends Controller
         $sales_report = [1 => 'Treatment', 2 => 'Relapse', 3 => 'Month'];
         $start_date = date('Y-m-d', strtotime ('-3 Months'));
         $end_date = date('Y-m-d');
-        $report_vsts = $this->casted_same_report($start_date, $end_date);
+        $report_vsts = $this->visits_report($type, $start_date, $end_date);
         $data = ['report_vsts' => $report_vsts, 'type' => $type, 'report_name' => $sales_report[$type]];
         return view('analytic.visit_report')->with($data);
     }
@@ -210,7 +218,7 @@ class HomeController extends Controller
 
     public function get_data_appoint($status)
     {
-        $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = '$status');");
+        $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = '$status') ORDER BY a.appointment_date DESC;");
         return $patients_appoint;
     }
 
