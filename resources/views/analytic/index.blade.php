@@ -85,8 +85,8 @@
                         <h3>Visits</h3>
                         <h5>Analyse the performance of your business by comparing patient visits across treatment, relapse, and more</h5>
                         <a href="analytic/visits/1">Visits by Treatment</a>
-                        <hr>
-                        <a href="analytic/visits/2">Visits by Relapse</a>
+                        <!-- <hr>
+                        <a href="analytic/visits/2">Visits by Relapse</a> -->
                       </div>
                     </div>
                   </div>
@@ -100,7 +100,7 @@
                       <div class="transaction-summary">
                         <h3>Appointments</h3>
                         <h5>View projected visits of upcoming appointments, track other ones also</h5>
-                        <a href="reports/appointments">Appointments List</a>
+                        <a href="appointment">Appointments List</a>
                         <hr>
                         <a href="reports/appointments_summary">Appointments Status</a>
                         <hr>
@@ -115,7 +115,7 @@
                       <div class="transaction-summary">
                         <h3>Miscellaneous</h3>
                         <h5>View other valuable reports</h5>
-                        <a href="reports/customers">Donors List</a>
+                        <a href="donor">Donors List</a>
                         <!-- <hr>
                         <a href="reports/expenses">Expenses List</a> -->
                       </div>

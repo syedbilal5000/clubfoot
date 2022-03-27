@@ -71,32 +71,24 @@
   <!-- <hr> -->
   <div class="row">
     <div class="col-md-12">
-      <h4 class="txt_heading">Casted Visits More Than Seven</h4>
+      <h4 class="txt_heading">Visits By <span class="head_name"></span></h4>
       <table id="home_table" class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Reg no.</th>
-                <th>Patient Name</th>
-                <th>Guardian Number</th>
-                <th>Total Visits</th>
-                <th>First Visit</th>
-                <th>Last Visit</th>
-                <th>First Score</th>
-                <th>Last Score</th>
+                <th>Treatment</th>
+                <th>Visits Count</th>
+                <th>Followup Count</th>
+                <th>Total Count</th>
             </tr>
         </thead>
         <tbody id="report_vsts">
         </tbody>
         <tfoot>
             <tr>
-                <th>Reg no.</th>
-                <th>Patient Name</th>
-                <th>Guardian Number</th>
-                <th>Total Visits</th>
-                <th>First Visit</th>
-                <th>Last Visit</th>
-                <th>First Score</th>
-                <th>Last Score</th>
+                <th>Treatment</th>
+                <th>Visits Count</th>
+                <th>Followup Count</th>
+                <th>Total Count</th>
             </tr>
         </tfoot>
       </table>
@@ -120,7 +112,8 @@
 
 <!-- Page specific script -->
 <script type="text/javascript">
-  var patient_id = 0, output = '', st_dt, ed_dt;
+  var treat_type = 0, output = '', st_dt, ed_dt;
+  var treatments = {1: "Casted", 2: "Tenotomy", 3: "Reassurance", 4: "New Brace", 5: "Referred"};
   var report_vsts = {!! json_encode($report_vsts) !!};
   var type = {!! json_encode($type) !!};
   var report_name = {!! json_encode($report_name) !!};
@@ -129,22 +122,19 @@
   view_report_vsts(report_vsts);
 
   function view_report_vsts(report_vsts) {
-    let url = '';
+    let visit_count = 0, followup_count = 0;
     output = '';
     for (i = 0; i < report_vsts.length; i++) {
-      patient_id = report_vsts[i]['patient_id'];
-      url = `patient/${patient_id}/edit`;
-      output += `<tr><td><a href="${url}" class="txt_link">${patient_id}</a></td> `;
-      output += `<td>${report_vsts[i]['patient_name']}</td> `;
-      output += `<td>${report_vsts[i]['guardian_number']}</td> `;
-      output += `<td class="txt_center">${report_vsts[i]['total_visits']}</td> `;
-      output += `<td>${report_vsts[i]['first_visit']}</td> `;
-      output += `<td>${report_vsts[i]['last_visit']}</td> `;
-      output += `<td class="txt_center">${report_vsts[i]['first_visit_score']}</td> `;
-      output += `<td class="txt_center">${report_vsts[i]['last_visit_score']}</td></tr>`;
+      treat_type = report_vsts[i]['treatment'];
+      visit_count = parseInt(report_vsts[i]['visit_count']);
+      followup_count = parseInt(report_vsts[i]['followup_count']);
+      output += `<tr><td>${treatments[treat_type]}</td> `;
+      output += `<td>${visit_count != 0 ? visit_count : '-' }</td> `;
+      output += `<td>${followup_count != 0 ? followup_count : '-' }</td> `;
+      output += `<td>${visit_count + followup_count}</td></tr> `;
     }
     if (output == '') {
-      output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
+      output = `<tr class="odd"><td valign="top" colspan="4" class="dataTables_empty">No data available in table</td></tr>`;
     }
     $('#report_vsts').html(output);
   }
