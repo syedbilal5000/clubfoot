@@ -78,11 +78,7 @@
                 <th>Reg no.</th>
                 <th>Patient Name</th>
                 <th>Guardian Number</th>
-                <th>Total Visits</th>
-                <th>First Visit</th>
-                <th>Last Visit</th>
-                <th>First Score</th>
-                <th>Last Score</th>
+                <th>Total Score</th>
             </tr>
         </thead>
         <tbody id="casted_vsts">
@@ -92,11 +88,7 @@
                 <th>Reg no.</th>
                 <th>Patient Name</th>
                 <th>Guardian Number</th>
-                <th>Total Visits</th>
-                <th>First Visit</th>
-                <th>Last Visit</th>
-                <th>First Score</th>
-                <th>Last Score</th>
+                <th>Total Score</th>
             </tr>
         </tfoot>
       </table>
@@ -128,17 +120,14 @@
   function view_casted_vsts(casted_vsts) {
     let url = '';
     output = '';
+      console.log(casted_vsts);
     for (i = 0; i < casted_vsts.length; i++) {
       patient_id = casted_vsts[i]['patient_id'];
-      url = `patient/${patient_id}/edit`;
-      output += `<tr><td><a href="${url}" class="txt_link">${patient_id}</a></td> `;
+      url = `../patient/${patient_id}/edit`;
+      output += `<tr><td><a href="${url}" class="txt_link">Pc-${casted_vsts[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
       output += `<td>${casted_vsts[i]['patient_name']}</td> `;
       output += `<td>${casted_vsts[i]['guardian_number']}</td> `;
-      output += `<td class="txt_center">${casted_vsts[i]['total_visits']}</td> `;
-      output += `<td>${casted_vsts[i]['first_visit']}</td> `;
-      output += `<td>${casted_vsts[i]['last_visit']}</td> `;
-      output += `<td class="txt_center">${casted_vsts[i]['first_visit_score']}</td> `;
-      output += `<td class="txt_center">${casted_vsts[i]['last_visit_score']}</td></tr>`;
+      output += `<td class="txt_center">${casted_vsts[i]['total_score']}</td> `;
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;

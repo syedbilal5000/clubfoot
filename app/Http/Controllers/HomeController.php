@@ -46,9 +46,38 @@ class HomeController extends Controller
     // get report data for casted three same values
     public function casted_same_report($st_dt, $ed_dt)
     {
-        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, visits.total_visits, v1.visit_date first_visit, v2.visit_date last_visit, v1.total_score first_visit_score, v2.total_score last_visit_score FROM (SELECT patient_id, COUNT(patient_id) total_visits FROM visit_details WHERE visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "' AND treatment = 1 GROUP BY patient_id HAVING COUNT(patient_id) > 7) visits LEFT JOIN visit_details v1 ON v1.patient_id = visits.patient_id and v1.visit_date = (SELECT MIN(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN visit_details v2 ON v2.patient_id = visits.patient_id and v2.visit_date = (SELECT MAX(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN patients p ON p.patient_id = visits.patient_id ORDER BY v1.total_score DESC, v2.total_score DESC LIMIT 1;";
+        $query = "SELECT v.patient_id, v.visit_date, v.next_visit_date, v.total_score, p.inserted_at, p.guardian_number, p.patient_name FROM visit_details v, patients p WHERE p.patient_id = v.patient_id AND v.visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "' Order by v.patient_id, v.visit_date DESC";
         $casted_same = DB::select($query);
-        return $casted_same;
+        $count =0;
+        $curr_total_score =0;
+        $curr_record;
+        $curr_records= array();
+        $curr_patient_id =0;
+        for ($i = 0; $i < count($casted_same); $i++) {
+            if($curr_total_score == $casted_same[$i]->total_score && $curr_patient_id == $casted_same[$i]->patient_id)
+            {
+                $count ++;
+            }
+            else if($curr_total_score == $casted_same[$i]->total_score)
+            {
+                $count =1;
+            }
+            if($count >= 3)
+            {
+                // print $curr_patient_id . '<br>';
+                // print $curr_total_score. '<br>';
+                array_push($curr_records, $casted_same[$i]); 
+                $count =0;
+            }
+            if($curr_patient_id != $casted_same[$i]->patient_id){
+                $curr_patient_id = $casted_same[$i]->patient_id;
+                $curr_total_score =$casted_same[$i]->total_score;
+                $curr_record = $casted_same[$i];
+                $count =1;
+            }
+        }
+        // dd(1);
+        return $curr_records;
     }
 
     // get visits report data by treatment type
@@ -361,6 +390,18 @@ class HomeController extends Controller
     // visit create
     public function visit_store(Request $request)
     {
+        // if ($request->hasFile('image1')) {
+        //     $destinationPath = 'public/img/upload';
+        //     $file = $request->file('image1'); // will get all files
+
+        //     // foreach ($files as $file) {//this statement will loop through all files.
+
+        //         $file_name = $file->getClientOriginalName(); //Get file original name
+        //         $file->move($destinationPath , $file_name); // move files to destination folder
+        //     // }
+        // }
+ 
+ 
         // dd($request);
         $patient_id = $request->patient_id;
         $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 ORDER BY inserted_at DESC LIMIT 1");
@@ -385,6 +426,8 @@ class HomeController extends Controller
         $visit->complication = $request->complication;
         $visit->description = $request->description;
         $visit->inserted_at = date("Y-m-d");
+        // $imageName = $patient_id .'_'. date('YmdHis').$request->image->extension();
+        // $visit->img_path = $request->image->move(public_path('img/upload'), $imageName);
         $visit->save();
         if(isset($request->side2)) {
             $visit2 = new Visit;
@@ -406,6 +449,8 @@ class HomeController extends Controller
             $visit2->complication = $request->complication2;
             $visit2->description = $request->description;
             $visit2->inserted_at = date("Y-m-d");
+            // $imageName = $patient_id .'_'. date('YmdHis');
+            // $visit2->img_path = $request->image->move(public_path('img/upload'), $imageName);
             $visit2->save();
         }
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
