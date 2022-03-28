@@ -8,7 +8,7 @@ class Followup extends Model
 {
     // protected  $primaryKey = 'appointment_id';
 
-    protected $table = 'Followup';
+    protected $table = 'followup';
 
     // created_at and updated_at will not make
     public $timestamps = false;
