@@ -25,20 +25,20 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Casted More Report</h1>
+          <h1 class="m-0">Delayed Appointment</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="../home">Home</a></li>
             <li class="breadcrumb-item"><a href="./">Analytics</a></li>
-            <li class="breadcrumb-item active">Casted More Report</li>
+            <li class="breadcrumb-item active">Delayed Appointment</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
 {{-- Main Content --}}
-<form action="appointment/update" method="POST" id="appoint_form">
+<form action="appointment/delayed" method="POST" id="appoint_form">
   @csrf
 <div class="container-fluid">
   <div class="row">
@@ -60,18 +60,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="col-md-4">
-      <div class="form-group">
-        <label>Select Status: </label>
-        <select id="status_text" name="change_status" class="form-control select2" style="width: 100%;">
-          <option value="0" selected>Select </option>
-          <option value="2">Pending</option>
-          <option value="3">Reject</option>
-          <option disabled title="Not Allowed" value="4">Extend</option>
-          <option disabled title="Not Allowed"  value="1">Done</option>
-        </select>
-      </div>
-    </div> -->
     <div class="col-md-4">
       <div class="form-group">
         <label>&nbsp;</label>
@@ -83,18 +71,15 @@
   <!-- <hr> -->
   <div class="row">
     <div class="col-md-12">
-      <h4 class="txt_heading">Casted Visits More Than Seven</h4>
+      <h4 class="txt_heading">Delayed Appointment</h4>
       <table id="home_table" class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Reg no.</th>
                 <th>Patient Name</th>
                 <th>Guardian Number</th>
-                <th>Total Visits</th>
-                <th>First Visit</th>
-                <th>Last Visit</th>
-                <th>First Score</th>
-                <th>Last Score</th>
+                <th>Appointment Date</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody id="appoint_delayed">
@@ -104,11 +89,8 @@
                 <th>Reg no.</th>
                 <th>Patient Name</th>
                 <th>Guardian Number</th>
-                <th>Total Visits</th>
-                <th>First Visit</th>
-                <th>Last Visit</th>
-                <th>First Score</th>
-                <th>Last Score</th>
+                <th>Appointment Date</th>
+                <th>Status</th>
             </tr>
         </tfoot>
       </table>
@@ -143,14 +125,11 @@
     for (i = 0; i < appoint_delayed.length; i++) {
       patient_id = appoint_delayed[i]['patient_id'];
       url = `patient/${patient_id}/edit`;
-      output += `<tr><td><a href="${url}" class="txt_link">${patient_id}</a></td> `;
+      output += `<tr><td><a href="${url}" class="txt_link">Pc-${appoint_delayed[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
       output += `<td>${appoint_delayed[i]['patient_name']}</td> `;
       output += `<td>${appoint_delayed[i]['guardian_number']}</td> `;
-      output += `<td class="txt_center">${appoint_delayed[i]['total_visits']}</td> `;
-      output += `<td>${appoint_delayed[i]['first_visit']}</td> `;
-      output += `<td>${appoint_delayed[i]['last_visit']}</td> `;
-      output += `<td class="txt_center">${appoint_delayed[i]['first_visit_score']}</td> `;
-      output += `<td class="txt_center">${appoint_delayed[i]['last_visit_score']}</td></tr>`;
+      output += `<td class="txt_center">${appoint_delayed[i]['appointment_date']}</td> `;
+      output += `<td>Pending</td> `;
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;

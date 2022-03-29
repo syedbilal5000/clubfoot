@@ -99,8 +99,9 @@ class HomeController extends Controller
     // get report data for appointment delayed
     public function appoint_delayed_report($st_dt, $ed_dt)
     {
-        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, visits.total_visits, v1.visit_date first_visit, v2.visit_date last_visit, v1.total_score first_visit_score, v2.total_score last_visit_score FROM (SELECT patient_id, COUNT(patient_id) total_visits FROM visit_details WHERE visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "' AND treatment = 1 GROUP BY patient_id HAVING COUNT(patient_id) > 7) visits LEFT JOIN visit_details v1 ON v1.patient_id = visits.patient_id and v1.visit_date = (SELECT MIN(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN visit_details v2 ON v2.patient_id = visits.patient_id and v2.visit_date = (SELECT MAX(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN patients p ON p.patient_id = visits.patient_id ORDER BY v1.total_score DESC, v2.total_score DESC LIMIT 1;";
+        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending') AND a.appointment_date < '" . $st_dt . "'"; 
         $appoint_delayed = DB::select($query);
+        // dd($query);
         return $appoint_delayed;
     }
 
@@ -156,6 +157,7 @@ class HomeController extends Controller
     // alert for casted more than seven
     public function appoint_delayed_view()
     {
+        // $start_date = date('Y-m-d');
         $start_date = date('Y-m-d', strtotime ('-3 Months'));
         $end_date = date('Y-m-d');
         $appoint_delayed = $this->appoint_delayed_report($start_date, $end_date);
