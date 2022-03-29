@@ -128,7 +128,7 @@
       output += `<tr><td><a href="${url}" class="txt_link">Pc-${appoint_delayed[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
       output += `<td>${appoint_delayed[i]['patient_name']}</td> `;
       output += `<td>${appoint_delayed[i]['guardian_number']}</td> `;
-      output += `<td class="txt_center">${appoint_delayed[i]['appointment_date']}</td> `;
+      output += `<td>${appoint_delayed[i]['appointment_date']}</td> `;
       output += `<td>Pending</td> `;
     }
     if (output == '') {

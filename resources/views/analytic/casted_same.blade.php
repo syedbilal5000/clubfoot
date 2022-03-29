@@ -127,7 +127,7 @@
       output += `<tr><td><a href="${url}" class="txt_link">Pc-${casted_vsts[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
       output += `<td>${casted_vsts[i]['patient_name']}</td> `;
       output += `<td>${casted_vsts[i]['guardian_number']}</td> `;
-      output += `<td class="txt_center">${casted_vsts[i]['total_score']}</td> `;
+      output += `<td>${casted_vsts[i]['total_score']}</td> `;
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
