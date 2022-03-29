@@ -31,7 +31,7 @@
 
 {{-- Main Content --}}
 
-<form id="visit_form" method="POST" action="add">
+<form id="visit_form" method="POST" action="add" enctype="multipart/form-data">
   @csrf
   <div class="container-fluid">
   <div>
@@ -327,17 +327,15 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <br>
-          <div class="form-check form-check-inline">
-            <label> <input type="checkbox" name="is_emailed" id="is_emailed" value="1"> Email sent to donor ? </label> 
-          </div>
+          <input class="form-control" type="file" name="img_file" style="padding-top: 3px;">
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
+          <!-- <br> -->
           <div class="form-check form-check-inline">
-          <label class="form-control"><input type="file" name="image1" id="image1"  > Upload Image</label>
-        </div>
+            <label style="padding-top: 5px;"> &nbsp;&nbsp; <input type="checkbox" name="is_emailed" id="is_emailed" value="1"> Email sent to donor ? </label> 
+          </div>
         </div>
       </div>
     </div>    <!-- div row end -->

@@ -35,6 +35,22 @@ class HomeController extends Controller
         return view('home');
     }
 
+    // dev - use for development/testing purpose
+    public function dev(Request $request)
+    {
+        $name = 'Cloudways';
+        Mail::to('syedbilalhussain168@gmail.com')->send(new MailController($name));
+        // $details = [
+        //     'title' => 'Mail from ItSolutionStuff.com',
+        //     'body' => 'This is for testing email using smtp'
+        // ];
+       
+        // \Mail::to('syedbilalhussain168@gmail.com')->send(new \App\MailController($details));
+       
+        dd("Email is Sent.");
+        // dd(123);
+    }
+
     // get report data for casted more than seven
     public function casted_more_report($st_dt, $ed_dt)
     {
@@ -80,21 +96,20 @@ class HomeController extends Controller
         return $curr_records;
     }
 
+    // get report data for appointment delayed
+    public function appoint_delayed_report($st_dt, $ed_dt)
+    {
+        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, visits.total_visits, v1.visit_date first_visit, v2.visit_date last_visit, v1.total_score first_visit_score, v2.total_score last_visit_score FROM (SELECT patient_id, COUNT(patient_id) total_visits FROM visit_details WHERE visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "' AND treatment = 1 GROUP BY patient_id HAVING COUNT(patient_id) > 7) visits LEFT JOIN visit_details v1 ON v1.patient_id = visits.patient_id and v1.visit_date = (SELECT MIN(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN visit_details v2 ON v2.patient_id = visits.patient_id and v2.visit_date = (SELECT MAX(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN patients p ON p.patient_id = visits.patient_id ORDER BY v1.total_score DESC, v2.total_score DESC LIMIT 1;";
+        $appoint_delayed = DB::select($query);
+        return $appoint_delayed;
+    }
+
     // get visits report data by treatment type
     public function visits_report($type, $st_dt, $ed_dt)
     {
         $query = "SELECT treatment, SUM(visit_count) visit_count, SUM(followup_count) followup_count FROM (SELECT COUNT(*) visit_count, 0 followup_count, treatment FROM visit_details v GROUP BY v.treatment UNION ALL SELECT 0 visit_count, COUNT(*) followup_count, treatment FROM followup f GROUP BY f.treatment) sb GROUP BY treatment;";
         $visits_grouped = DB::select($query);
         return $visits_grouped;
-    }
-
-    public function dev(Request $request)
-    {
-        $patient_id = 10;
-        $msg = 'Patient Added Successfully.';
-        $data = ['success' => $msg, 'patient_id' => $patient_id];
-        return redirect('/appointment/create/' . $patient_id);
-        // dd(123);
     }
 
     // Patients report view
@@ -136,6 +151,16 @@ class HomeController extends Controller
         $casted_same = $this->casted_same_report($start_date, $end_date);
         $data = ['casted_same' => $casted_same];
         return view('analytic.casted_same')->with($data);
+    }
+
+    // alert for casted more than seven
+    public function appoint_delayed_view()
+    {
+        $start_date = date('Y-m-d', strtotime ('-3 Months'));
+        $end_date = date('Y-m-d');
+        $appoint_delayed = $this->appoint_delayed_report($start_date, $end_date);
+        $data = ['appoint_delayed' => $appoint_delayed];
+        return view('analytic.appoint_delayed')->with($data);
     }
 
     // analytic/visits/type - visits report view
@@ -390,18 +415,6 @@ class HomeController extends Controller
     // visit create
     public function visit_store(Request $request)
     {
-        // if ($request->hasFile('image1')) {
-        //     $destinationPath = 'public/img/upload';
-        //     $file = $request->file('image1'); // will get all files
-
-        //     // foreach ($files as $file) {//this statement will loop through all files.
-
-        //         $file_name = $file->getClientOriginalName(); //Get file original name
-        //         $file->move($destinationPath , $file_name); // move files to destination folder
-        //     // }
-        // }
- 
- 
         // dd($request);
         $patient_id = $request->patient_id;
         $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 ORDER BY inserted_at DESC LIMIT 1");
@@ -426,9 +439,19 @@ class HomeController extends Controller
         $visit->complication = $request->complication;
         $visit->description = $request->description;
         $visit->inserted_at = date("Y-m-d");
-        // $imageName = $patient_id .'_'. date('YmdHis').$request->image->extension();
-        // $visit->img_path = $request->image->move(public_path('img/upload'), $imageName);
+        // adding image file
+        if($request->file('img_file')){
+            $request->validate([
+                'img_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
+            $file = $request->file('img_file');
+            // $filename = date('YmdHis') . $file->getClientOriginalName();
+            $filename = date('YmdHis') . '_' . $patient_id . '.' . $request->img_file->extension();;
+            $year_month = substr($filename, 0, 6);
+            $file->move(public_path('img/upload/' . $year_month), $filename);
+            $visit->img_path = $filename;
+        }
         $visit->save();
+
         if(isset($request->side2)) {
             $visit2 = new Visit;
             $visit2->patient_id = $patient_id;
@@ -479,6 +502,16 @@ class HomeController extends Controller
         $followup->treatment = isset($request->treatment) ? $request->treatment : 0;
         $followup->is_virtual = isset($request->is_virtual) ? $request->is_virtual : 0;
         $followup->inserted_at = date("Y-m-d");
+        // adding image file
+        if($request->file('img_file')){
+            $request->validate([
+                'img_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
+            $file = $request->file('img_file');
+            $filename = date('YmdHis') . '_' . $patient_id . '.' . $request->img_file->extension();;
+            $year_month = substr($filename, 0, 6);
+            $file->move(public_path('img/upload/' . $year_month), $filename);
+            $followup->img_path = $filename;
+        }
         $followup->save();
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
         // dd($request);

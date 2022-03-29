@@ -104,7 +104,7 @@
                         <hr>
                         <a href="reports/appointments_summary">Appointments Status</a>
                         <hr>
-                        <a href="reports/appointments_cancel">Appointments Delayed</a>
+                        <a href="analytic/appoint_delayed/">Appointments Delayed</a>
                       </div>
                     </div>
                   </div>
