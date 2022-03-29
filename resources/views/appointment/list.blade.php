@@ -195,7 +195,15 @@
         for (i = 0; i < patients_appoint.length; i++) {
             const newdate = new Date(patients_appoint[i]['appointment_date']);
             patient_id = patients_appoint[i]['patient_id'];
-            output += `<tr><td><input type="checkbox" class="appoint_chk" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
+
+            if(patients_appoint[i]['out_of_city'] == 1)
+            {
+              output += `<tr style="background-color : red">`;
+            }
+            else {
+              output += `<tr>`;
+            }
+            output += `<td><input type="checkbox" class="appoint_chk" name="all_appointment_check" value="${patients_appoint[i]['appointment_id']}"></td><td>${patients_appoint[i]['patient_id']}</td><td>${patients_appoint[i]['patient_name']}</td><td>${patients_appoint[i]['guardian_cnic']}</td><td>${patients_appoint[i]['guardian_number']}</td><td>`+days[newdate.getDay()] + ` ` +newdate.toLocaleDateString() +`</td><td>${patients_appoint[i]['status']}</td></tr>`;
         }
     }
     if ( $.fn.DataTable.isDataTable('#appoint_table') ) {
