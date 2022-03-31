@@ -4,7 +4,7 @@
     <title>ItsolutionStuff.com</title>
 </head>
 <body>
-    <h1>{{ $name }}</h1>
+    <h1>Test</h1>
 
     <p>Thank you</p>
 </body>

@@ -51,6 +51,7 @@ Route::get('followup/create', [App\Http\Controllers\HomeController::class, 'foll
 Route::post('followup/add', [App\Http\Controllers\HomeController::class, 'followup_store'])->name('followup_store');
 // Route::get('followup/{id}/edit', [App\Http\Controllers\HomeController::class, 'followup_edit'])->name('followup.edit');
 Route::get('analytic', [App\Http\Controllers\HomeController::class, 'analytic_index'])->name('analytic');
+Route::get('dashboard/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'casted_more_report']);
 Route::get('analytic/casted_more', [App\Http\Controllers\HomeController::class, 'casted_more_view'])->name('analytic.casted_more_view');
 Route::get('analytic/casted_more_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'casted_more_report']);
 Route::get('analytic/casted_same', [App\Http\Controllers\HomeController::class, 'casted_same_view'])->name('analytic.casted_same_view');

@@ -14,6 +14,6 @@ class Visit extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'patient_id', 'visit_date', 'next_visit_date', 'appointment_id', 'side', 'CLB', 'MC', 'LHT', 'PC', 'RE', 'EH', 'mid_foot_score', 'hind_foot_score', 'total_score', 'treatment', 'complication', 'img_path', 'description', 'inserted_at'
+        'patient_id', 'visit_date', 'next_visit_date', 'appointment_id', 'side', 'CLB', 'MC', 'LHT', 'PC', 'RE', 'EH', 'mid_foot_score', 'hind_foot_score', 'total_score', 'treatment', 'complication', 'img_path', 'amount_payed', 'description', 'inserted_at'
     ];
 }

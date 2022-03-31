@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailController;
+use Illuminate\Support\Facades\Http;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Patient;
@@ -32,12 +36,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // return view('home');
+        $start_date = date('Y-m-d', strtotime ('-3 Months'));
+        $end_date = date('Y-m-d');
+        $casted_more = $this->casted_more_report($start_date, $end_date);
+        $data = ['casted_more' => $casted_more];
+        return view('home')->with($data);
     }
 
     // dev - use for development/testing purpose
     public function dev(Request $request)
     {
+        // print($request->url());
+        $response = Http::post('http://localhost:8080/clubfoot/public/appointment/add', [
+            'patient_id' => '10001',
+            'appointment_date' => '2022-03-31',
+        ]);
+        // print($response);
+        dd(4);
         $name = 'Cloudways';
         Mail::to('syedbilalhussain168@gmail.com')->send(new MailController($name));
         // $details = [
@@ -51,10 +67,20 @@ class HomeController extends Controller
         // dd(123);
     }
 
+    // get report data for dashboard (appointments & visits)
+    public function dashboard_report($st_dt, $ed_dt)
+    {
+        $appointments = DB::select("SELECT status FROM appointments WHERE booking_date BETWEEN '" . $dt1 . "' AND '" . $dt2 . "' and client_location_id " . $client_logic);
+        $visits = DB::select("SELECT * FROM ( SELECT COUNT(*) cnt, COALESCE(SUM(total_price), 0) income FROM invoices WHERE business_date BETWEEN '" . $dt1 . "' AND '" . $dt2 . "' and client_location_id " . $client_logic . " ) inv LEFT JOIN ( SELECT COALESCE(ROUND(SUM((price * discount) / 100)), 0) discounts FROM sales WHERE business_date BETWEEN '" . $dt1 . "' AND '" . $dt2 . "' and client_location_id " . $client_logic . " ) dst ON true LEFT JOIN ( SELECT COALESCE(SUM(total_price), 0) expense FROM expenses WHERE business_date BETWEEN '" . $dt1 . "' AND '" . $dt2 . "' and client_location_id " . $client_logic . " ) exp ON true");
+        $data["appointments"] = $appointments;
+        $data["visits"] = $visits;
+        return $data;
+    }
+
     // get report data for casted more than seven
     public function casted_more_report($st_dt, $ed_dt)
     {
-        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, visits.total_visits, v1.visit_date first_visit, v2.visit_date last_visit, v1.total_score first_visit_score, v2.total_score last_visit_score FROM (SELECT patient_id, COUNT(patient_id) total_visits FROM visit_details WHERE visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "' AND treatment = 1 GROUP BY patient_id HAVING COUNT(patient_id) > 7) visits LEFT JOIN visit_details v1 ON v1.patient_id = visits.patient_id and v1.visit_date = (SELECT MIN(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN visit_details v2 ON v2.patient_id = visits.patient_id and v2.visit_date = (SELECT MAX(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN patients p ON p.patient_id = visits.patient_id ORDER BY v1.total_score DESC, v2.total_score DESC LIMIT 1;";
+        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, visits.total_visits, v1.visit_date first_visit, v2.visit_date last_visit, v1.total_score first_visit_score, v2.total_score last_visit_score FROM (SELECT patient_id, COUNT(patient_id) total_visits FROM visit_details WHERE visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "' AND treatment = 1 GROUP BY patient_id HAVING COUNT(patient_id) > 7) visits LEFT JOIN visit_details v1 ON v1.patient_id = visits.patient_id and v1.visit_date = (SELECT MIN(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN visit_details v2 ON v2.patient_id = visits.patient_id and v2.visit_date = (SELECT MAX(visit_date) FROM visit_details WHERE patient_id = visits.patient_id) LEFT JOIN patients p ON p.patient_id = visits.patient_id ORDER BY v1.total_score DESC, v2.total_score DESC LIMIT 1;";
         $casted_more = DB::select($query);
         return $casted_more;
     }
@@ -99,7 +125,7 @@ class HomeController extends Controller
     // get report data for appointment delayed
     public function appoint_delayed_report($st_dt, $ed_dt)
     {
-        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending') AND a.appointment_date < '" . $st_dt . "'"; 
+        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending') AND a.appointment_date >= '" . $st_dt . "' AND a.appointment_date <= '" . $ed_dt . "' "; 
         $appoint_delayed = DB::select($query);
         // dd($query);
         return $appoint_delayed;
@@ -400,18 +426,21 @@ class HomeController extends Controller
     // appointment create
     public function appoint_store(Request $request)
     {
+        dd($request);
         $patient_id = $request->patient_id;
-        $appoint = DB::select("UPDATE appointment SET appointment_status = 4 WHERE appointment_id IN (SELECT appointment_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2)");
+        $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 ORDER BY appointment_id DESC LIMIT 1");
+        $appoint_id = ($query != array()) ? $query[0]->appoint_id : 0;
+        $appoint = DB::select("UPDATE appointment SET appointment_status = 4 WHERE appointment_id = " . $appoint_id);
         // Add patient general info
         $appointment = new Appointment;
         $appointment->appointment_date = $request->appointment_date;
         $appointment->patient_id = $patient_id;
         $appointment->appointment_status = 2; // Pending - status
-        $appointment->previous_appointment_id = 0; // for new appointment
+        // 0 for new appointment, else appoint_id for old appointment
+        $appointment->previous_appointment_id = $appoint_id;
         $appointment->inserted_at = date("Y-m-d");
         $appointment->save();
         return redirect('/appointment')->with('success', 'Appointment Added Successfully.');
-        dd($request);
     }
 
     // visit create
@@ -478,6 +507,16 @@ class HomeController extends Controller
             // $visit2->img_path = $request->image->move(public_path('img/upload'), $imageName);
             $visit2->save();
         }
+        // add amount_payed if available
+        if(isset($request->amount_payed)) {
+            $values = [
+                "patient_id" => $patient_id,
+                "transaction_id" => $visit->id,
+                "is_followup" => 0,
+                "amount" => $request->amount_payed,
+            ];
+            $this->amount_payed_store($values);
+        }
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
         // dd($request);
         return redirect('/visit')->with('success', 'Visit Added Successfully.');
@@ -505,7 +544,7 @@ class HomeController extends Controller
         $followup->is_virtual = isset($request->is_virtual) ? $request->is_virtual : 0;
         $followup->inserted_at = date("Y-m-d");
         // adding image file
-        if($request->file('img_file')){
+        if($request->file('img_file')) {
             $request->validate([
                 'img_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
             $file = $request->file('img_file');
@@ -515,9 +554,31 @@ class HomeController extends Controller
             $followup->img_path = $filename;
         }
         $followup->save();
+        // add amount_payed if available
+        if(isset($request->amount_payed)) {
+            $values = [
+                "patient_id" => $patient_id,
+                "transaction_id" => $followup->id,
+                "is_followup" => 1,
+                "amount" => $request->amount_payed,
+            ];
+            $this->amount_payed_store($values);
+        }
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
         // dd($request);
         return redirect('/visit')->with('success', 'Follow-Up Added Successfully.');
+    }
+
+    // to store amount payed for visit/followup into amount_payed table
+    public function amount_payed_store($values)
+    {
+        $query = "INSERT INTO amount_payed (patient_id, transaction_id, is_followup, amount)  VALUES (";
+        foreach ($values as $key => $value) {
+            $query .= $value . ", ";
+        }
+        $query = substr($query, 0, -2);
+        $query .= ")";
+        $amount_payed = DB::select($query);
     }
 
     // donor create

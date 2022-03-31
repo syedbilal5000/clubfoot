@@ -163,22 +163,27 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="form-group">
           <input class="form-control" type="file" name="img_file" style="padding-top: 3px;">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
           <!-- <br> -->
           <div class="form-check form-check-inline">
-            <label style="padding-top: 5px;"> &nbsp;&nbsp; <input type="checkbox" name="is_emailed" id="is_emailed" value="1"> Email sent to donor ? </label> 
+            <label style="padding-top: 5px;"> &nbsp;&nbsp; <input type="checkbox" name="is_emailed" id="is_emailed" value="1">&nbsp; Email sent to donor? </label> 
           </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Amount Payed: </label>
+          <input type="number" name="amount_payed" id="amount_payed" class="form-control" placeholder="Enter Amount Payed to Patient, If Any.">
         </div>
       </div>
     </div>    <!-- div row end -->
   </div>
-  <br>
     <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
   </div>
 </form>

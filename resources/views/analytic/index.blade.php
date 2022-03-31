@@ -101,8 +101,8 @@
                         <h3>Appointments</h3>
                         <h5>View projected visits of upcoming appointments, track other ones also</h5>
                         <a href="appointment">Appointments List</a>
-                        <hr>
-                        <a href="reports/appointments_summary">Appointments Status</a>
+                        <!-- <hr>
+                        <a href="reports/appointments_summary">Appointments Status</a> -->
                         <hr>
                         <a href="analytic/appoint_delayed/">Appointments Delayed</a>
                       </div>

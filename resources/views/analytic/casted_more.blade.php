@@ -143,7 +143,8 @@
     for (i = 0; i < casted_vsts.length; i++) {
       patient_id = casted_vsts[i]['patient_id'];
       url = `patient/${patient_id}/edit`;
-      output += `<tr><td><a href="${url}" class="txt_link">${patient_id}</a></td> `;
+      output += `<tr><td><a href="${url}" class="txt_link">Pc-${casted_vsts[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
+      // output += `<tr><td><a href="${url}" class="txt_link">${patient_id}</a></td> `;
       output += `<td>${casted_vsts[i]['patient_name']}</td> `;
       output += `<td>${casted_vsts[i]['guardian_number']}</td> `;
       output += `<td class="txt_center">${casted_vsts[i]['total_visits']}</td> `;
