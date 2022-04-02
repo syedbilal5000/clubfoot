@@ -426,7 +426,7 @@ class HomeController extends Controller
     // appointment create
     public function appoint_store(Request $request)
     {
-        dd($request);
+        // dd($request);
         $patient_id = $request->patient_id;
         $query = DB::select("SELECT COALESCE(appointment_id, 0) appoint_id FROM appointment WHERE patient_id = " . $patient_id . " AND appointment_status = 2 ORDER BY appointment_id DESC LIMIT 1");
         $appoint_id = ($query != array()) ? $query[0]->appoint_id : 0;
@@ -701,7 +701,6 @@ class HomeController extends Controller
         }
         // print($query);
         return redirect('/appointment')->with('success', 'Appointment Updated Successfully.');
-        dd($request);
     }
 
     // donor update
