@@ -288,7 +288,7 @@ class HomeController extends Controller
     // get donors data
     public function get_donors()
     {
-        $donors = DB::select("SELECT d.*, c.city FROM donors d LEFT JOIN cities c ON d.city_id = c.city_id ;");
+        $donors = DB::select("SELECT d.*, c.city FROM donors d LEFT JOIN cities c ON d.city_id = c.city_id;");
         return $donors;
     }
 

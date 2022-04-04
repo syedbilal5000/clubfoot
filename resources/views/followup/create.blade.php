@@ -118,6 +118,8 @@
             <option value="0" disabled hidden selected>Select Treatment</option>
             <option value="3">Reassurance</option>
             <option value="4">New Brace</option>
+            <option value="6">Change Brace</option>
+            <option value="7">Completed</option>
             <option value="1">Casted</option>
             <option value="2">Tenotomy</option>
             <option value="5">Referred</option>
@@ -172,7 +174,7 @@
         <div class="form-group">
           <!-- <br> -->
           <div class="form-check form-check-inline">
-            <label style="padding-top: 5px;"> &nbsp;&nbsp; <input type="checkbox" name="is_emailed" id="is_emailed" value="1">&nbsp; Email sent to donor? </label> 
+            <label style="padding-top: 5px;"> &nbsp;&nbsp; <input type="checkbox" name="is_emailed" id="is_emailed" value="1">&nbsp; Email send to donor? </label> 
           </div>
         </div>
       </div>
