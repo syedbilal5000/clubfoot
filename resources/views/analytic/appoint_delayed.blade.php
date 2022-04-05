@@ -55,7 +55,7 @@
       <div class="form-group">
         <label>End Date: </label>
         <div class="input-group">
-          <input type="date" name="end_date" id="end_date" class="form-control" required
+          <input type="date" name="end_date" id="end_date" class="form-control" required 
           value="@php echo date('Y-m-d'); @endphp">
         </div>
       </div>
@@ -80,6 +80,7 @@
                 <th>Guardian Number</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody id="appoint_delayed">
@@ -91,11 +92,44 @@
                 <th>Guardian Number</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </tfoot>
       </table>
     </div>
     </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="hidden" name="appointment_id" id="appointment_id" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Status: </label>
+          <select id="status" name="status" class="form-control select2" style="width: 100%;">
+            <option value="Called">Called</option>
+            <option value="NoResponse">No Response</option>
+            <option value="WrongNumber">Wrong Number</option>
+          </select>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Description: </label>
+        <div class="input-group">
+          <input type="text" name="description" id="description" class="form-control" required 
+          value="">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>&nbsp;</label>
+        <a class="form-control pull-right btn btn-primary" id="submit_btn" onclick="submit_btn()">Submit</a>
+      </div>
+    </div>
+  </div> <!-- div row end -->
     </div>
 </form>
 
@@ -130,6 +164,7 @@
       output += `<td>${appoint_delayed[i]['guardian_number']}</td> `;
       output += `<td>${appoint_delayed[i]['appointment_date']}</td> `;
       output += `<td>Pending</td> `;
+      output += `<td><a href="#" class="btn btn-success " onclick="setIDFunction(${appoint_delayed[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
@@ -137,6 +172,10 @@
     $('#appoint_delayed').html(output);
   }
 
+  function setIDFunction(appointment_id)
+  {
+    $("#appointment_id").val(appointment_id)
+  }
   // search records on date range
   function search_records() {
     st_dt = $('#start_date').val();

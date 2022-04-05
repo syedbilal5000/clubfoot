@@ -37,11 +37,19 @@ class HomeController extends Controller
     public function index()
     {
         // return view('home');
+
         $start_date = date('Y-m-d', strtotime ('-3 Months'));
         $end_date = date('Y-m-d');
         $casted_more = $this->casted_more_report($start_date, $end_date);
         $data = ['casted_more' => $casted_more];
         return view('home')->with($data);
+    }
+    public function home_data_report($st_dt, $ed_dt)
+    {
+        $appointments = DB::select("SELECT patient_id, COUNT(*) AS completed FROM `appointment` WHERE appointment_status = (SELECT id FROM status WHERE status_name = 'Completed') AND appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "' GROUP BY patient_id");
+        $data["appointments"] = $appointments;
+        $data["visits"] = $visits;
+        return $data;
     }
 
     // dev - use for development/testing purpose
