@@ -88,19 +88,18 @@
 
   function view_donors(donors) {
     output = '';
-    if (donors.length > 0) {
-        for (i = 0; i < donors.length; i++) {
-            donor_id = donors[i]['id'];
-            output += `<tr><td>${donors[i]['first_name']}</td> <td>`;
-            output += (donors[i]['last_name'] ? donors[i]['last_name'] : '-');
-            output += `</td><td>${donors[i]['donor_number']}</td> <td>`;
-            output += (donors[i]['donor_email'] ? donors[i]['donor_email'] : '-');
-            output += '</td> <td>';
-            output += (donors[i]['city'] ? donors[i]['city'] : '-');
-            output += `</td> <td class="text-center"> <a href="donor/${donor_id}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a> <a href="donor/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger "><i class="fa fa-times"></i></a> </td></tr>`;
-        }
-    } else {
-        output = '<tr>No Data</tr>';
+    for (i = 0; i < donors.length; i++) {
+        donor_id = donors[i]['id'];
+        output += `<tr><td>${donors[i]['first_name']}</td> <td>`;
+        output += (donors[i]['last_name'] ? donors[i]['last_name'] : '-');
+        output += `</td><td>${donors[i]['donor_number']}</td> <td>`;
+        output += (donors[i]['donor_email'] ? donors[i]['donor_email'] : '-');
+        output += '</td> <td>';
+        output += (donors[i]['city'] ? donors[i]['city'] : '-');
+        output += `</td> <td class="text-center"> <a href="donor/${donor_id}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a> <a href="donor/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger "><i class="fa fa-times"></i></a> </td></tr>`;
+    }
+    if (output == '') {
+      output = '<tr>No Data</tr>';
     }
     $('#donors').html(output);
   }

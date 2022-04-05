@@ -160,8 +160,10 @@
         <div class="form-group">
           <label>Select Treatment: </label>
           <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;">
+            <option value="0" selected disabled hidden>Select Treatment</option>
             <option value="1">Casted</option>
             <option value="2">Tenotomy</option>
+            <option value="3">Full Correction</option>
           </select>
         </div>
       </div>
@@ -306,6 +308,7 @@
           <select id="treatment_drop2" name="treatment2" class="form-control select2" style="width: 100%;">
             <option value="1">Casted</option>
             <option value="2">Tenotomy</option>
+            <option value="3">Full Correction</option>
           </select>
         </div>
       </div>
@@ -341,7 +344,7 @@
         <div class="form-group">
           <!-- <br> -->
           <div class="form-check form-check-inline">
-            <label style="padding-top: 5px;"> &nbsp;&nbsp; <input type="checkbox" name="is_emailed" id="is_emailed" value="1">&nbsp; Email sent to donor? </label> 
+            <label style="padding-top: 5px;"> &nbsp;&nbsp; <input type="checkbox" name="is_emailed" id="is_emailed" value="1">&nbsp; Email send to donor? </label> 
           </div>
         </div>
       </div>
