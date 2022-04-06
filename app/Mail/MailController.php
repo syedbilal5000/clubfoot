@@ -28,7 +28,7 @@ class MailController extends Mailable
      */
     public function build()
     {
-        return $this->from('syedbilalhussain168@gmail.com')
+        return $this->from('contact@smartrounder.com')
                 ->view('mail.testMail');
     }
 }
