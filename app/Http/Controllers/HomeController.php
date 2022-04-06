@@ -56,12 +56,11 @@ class HomeController extends Controller
     public function dev(Request $request)
     {
         // print($request->url());
-        $response = Http::post('http://localhost:8080/clubfoot/public/appointment/add', [
-            'patient_id' => '10001',
-            'appointment_date' => '2022-03-31',
-        ]);
+        // $response = Http::post('http://localhost:8080/clubfoot/public/appointment/add', [
+        //     'patient_id' => '10001',
+        //     'appointment_date' => '2022-03-31',
+        // ]);
         // print($response);
-        dd(4);
         $name = 'Cloudways';
         Mail::to('syedbilalhussain168@gmail.com')->send(new MailController($name));
         // $details = [
