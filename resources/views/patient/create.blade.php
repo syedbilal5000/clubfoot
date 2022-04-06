@@ -474,21 +474,30 @@
         </div>
       </div>    <!-- div row end -->
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
           <div class="form-group">
             <label>Diagnosis: </label><label style="color: red;"> &nbsp;*</label>
             <br>
             <div class="form-check form-check-inline">
-              <label> <input type="radio" name="diagnosis" value="1" required> Idiopathic Clubfoot </label> 
+              <label> <input type="radio" class = "diagnosis_class" name="diagnosis" value="1" required> Idiopathic Clubfoot </label> 
             </div>
             <div class="form-check form-check-inline">
-              <label> <input type="radio" name="diagnosis" value="2" required> Syndromic Clubfoot </label> 
+              <label> <input type="radio" class = "diagnosis_class" name="diagnosis" value="2" required> Syndromic Clubfoot </label> 
             </div>
             <div class="form-check form-check-inline">
-              <label> <input type="radio" name="diagnosis" value="3" required> Neuropathic Clubfoot </label> 
+              <label> <input type="radio" class = "diagnosis_class" name="diagnosis" value="3" required> Neuropathic Clubfoot </label> 
             </div>
             <div class="form-check form-check-inline">
-              <label> <input type="radio" name="diagnosis" value="0" required> Other </label> 
+              <label> <input type="radio" class = "diagnosis_class" name="diagnosis" value="0" required> Other </label> 
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" id="div_other_diagnosis" style="display : none;">
+          <div class="form-group">
+            <label>Specific Other: </label>
+            <div class="input-group" >
+              <span class="input-group-text"><i class="fa fa-edit"></i></span>
+              <input type="text" name="other_diagnosis" class="form-control" >
             </div>
           </div>
         </div>
@@ -701,6 +710,10 @@
     $("#date_text").on('change', function() {
       $("#age_text").val(getAge($("#date_text").val()));
     })
+    $(".diagnosis_class").on("change", function() {
+      var id_dia = $("input[type='radio'][name='diagnosis']:checked").val();
+      $("#div_other_diagnosis").css("display", id_dia == "0" ? "block" : "none");;
+    });
   });
   function general_clickable() {
     if($('#general_view').css('display') == 'block') {
