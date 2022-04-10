@@ -494,10 +494,10 @@
         </div>
         <div class="col-md-4" id="div_other_diagnosis" style="display : none;">
           <div class="form-group">
-            <label>Specific Other: </label>
+            <label>Specific Other: </label><label style="color: red;"> &nbsp;*</label>
             <div class="input-group" >
               <span class="input-group-text"><i class="fa fa-edit"></i></span>
-              <input type="text" name="other_diagnosis" class="form-control" >
+              <input type="text" name="other_diagnosis" id="other_diagnosis" class="form-control" >
             </div>
           </div>
         </div>
@@ -713,6 +713,8 @@
     $(".diagnosis_class").on("change", function() {
       var id_dia = $("input[type='radio'][name='diagnosis']:checked").val();
       $("#div_other_diagnosis").css("display", id_dia == "0" ? "block" : "none");;
+      $("#other_diagnosis").prop("required", id_dia == "0" ? true : false);
+      $("#other_diagnosis").val(id_dia != "0" ? null : $("#other_diagnosis").val());
     });
   });
   function general_clickable() {

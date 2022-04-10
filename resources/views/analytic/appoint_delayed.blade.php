@@ -99,18 +99,15 @@
     </div>
     </div>
     <div class="row">
-      <div class="form-group">
-        <div class="input-group">
-          <input type="hidden" name="appointment_id" id="appointment_id" class="form-control">
-      </div>
-    </div>
+    <input type="hidden" name="appointment_id" id="appointment_id" value="0" class="form-control">
     <div class="col-md-4">
       <div class="form-group">
-        <label>Status: </label>
+        <label>Select Status: </label>
           <select id="status" name="status" class="form-control select2" style="width: 100%;">
-            <option value="Called">Called</option>
-            <option value="NoResponse">No Response</option>
-            <option value="WrongNumber">Wrong Number</option>
+            <option value="0" disabled selected hidden>Select Status</option>
+            <option value="1">Called</option>
+            <option value="2">No Response</option>
+            <option value="3">Wrong Number</option>
           </select>
       </div>
     </div>
@@ -158,13 +155,13 @@
     output = '';
     for (i = 0; i < appoint_delayed.length; i++) {
       patient_id = appoint_delayed[i]['patient_id'];
-      url = `patient/${patient_id}/edit`;
+      url = `../patient/${patient_id}/edit`;
       output += `<tr><td><a href="${url}" class="txt_link">Pc-${appoint_delayed[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
       output += `<td>${appoint_delayed[i]['patient_name']}</td> `;
       output += `<td>${appoint_delayed[i]['guardian_number']}</td> `;
       output += `<td>${appoint_delayed[i]['appointment_date']}</td> `;
       output += `<td>Pending</td> `;
-      output += `<td><a href="#" class="btn btn-success " onclick="setIDFunction(${appoint_delayed[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
+      output += `<td><a class="btn btn-success " onclick="setIDFunction(${appoint_delayed[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;

@@ -40,16 +40,9 @@ class HomeController extends Controller
 
         $start_date = date('Y-m-d', strtotime ('-3 Months'));
         $end_date = date('Y-m-d');
-        $casted_more = $this->casted_more_report($start_date, $end_date);
-        $data = ['casted_more' => $casted_more];
+        $data = $this->dashboard_report($start_date, $end_date);
+        // $data = ['casted_more' => $casted_more];
         return view('home')->with($data);
-    }
-    public function home_data_report($st_dt, $ed_dt)
-    {
-        $appointments = DB::select("SELECT patient_id, COUNT(*) AS completed FROM `appointment` WHERE appointment_status = (SELECT id FROM status WHERE status_name = 'Completed') AND appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "' GROUP BY patient_id");
-        $data["appointments"] = $appointments;
-        $data["visits"] = $visits;
-        return $data;
     }
 
     // dev - use for development/testing purpose
@@ -77,8 +70,10 @@ class HomeController extends Controller
     // get report data for dashboard (appointments & visits)
     public function dashboard_report($st_dt, $ed_dt)
     {
-        $appointments = DB::select("SELECT status FROM appointments WHERE booking_date BETWEEN '" . $dt1 . "' AND '" . $dt2 . "' and client_location_id " . $client_logic);
-        $visits = DB::select("SELECT * FROM ( SELECT COUNT(*) cnt, COALESCE(SUM(total_price), 0) income FROM invoices WHERE business_date BETWEEN '" . $dt1 . "' AND '" . $dt2 . "' and client_location_id " . $client_logic . " ) inv LEFT JOIN ( SELECT COALESCE(ROUND(SUM((price * discount) / 100)), 0) discounts FROM sales WHERE business_date BETWEEN '" . $dt1 . "' AND '" . $dt2 . "' and client_location_id " . $client_logic . " ) dst ON true LEFT JOIN ( SELECT COALESCE(SUM(total_price), 0) expense FROM expenses WHERE business_date BETWEEN '" . $dt1 . "' AND '" . $dt2 . "' and client_location_id " . $client_logic . " ) exp ON true");
+        // dd("SELECT appointment_status FROM appointment WHERE appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "'");
+        $appointments = DB::select("SELECT appointment_status FROM appointment WHERE appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "'");
+        $query = DB::select("SELECT v.visit_count, f.followup_count FROM (SELECT COUNT(id) visit_count FROM visit_details WHERE visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "') v, (SELECT COUNT(id) followup_count FROM followup WHERE visit_date >= '" . $st_dt . "' AND visit_date <= '" . $ed_dt . "') f");
+        $visits = ($query != array()) ? $query[0] : $query;
         $data["appointments"] = $appointments;
         $data["visits"] = $visits;
         return $data;
@@ -402,6 +397,7 @@ class HomeController extends Controller
         $patient_diagnosis->evaluator_title = isset($request->evaluator_title) ? $request->evaluator_title : 0;
         $patient_diagnosis->feet_affected = isset($request->feet_affected) ? $request->feet_affected : 0;
         $patient_diagnosis->diagnosis = isset($request->diagnosis) ? $request->diagnosis : 0;
+        $patient_diagnosis->other_diagnosis = $request->other_diagnosis;
         $patient_diagnosis->has_birth_deformity = isset($request->has_birth_deformity) ? $request->has_birth_deformity : 0;
         $patient_diagnosis->has_treated = isset($request->has_treated) ? $request->has_treated : 0;
         $patient_diagnosis->treatments = isset($request->treatments) ? $request->treatments : 0;
@@ -649,9 +645,8 @@ class HomeController extends Controller
         $patient_family->other_referral = $request->other_referral;
         $patient_family->save();
         // Add patient diagnosis info
-        print($id);
         $patient_diagnosis = PatientDiagnosis::where('patient_id', '=', $id)->firstOrFail();
-        print_r($patient_diagnosis);
+        $patient_diagnosis->other_diagnosis = $request->other_diagnosis;
         // $patient_diagnosis->patient_id = $patient_id;
         $patient_diagnosis->evaluator_name = $request->evaluator_name;
         $patient_diagnosis->evaluation_date = $request->evaluation_date;

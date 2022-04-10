@@ -115,7 +115,7 @@
             <h2><span id="all_count">0</span></h2>
             <!-- <p style="color: red"><i class="fa fa-caret-down"></i>-100% previous day</p> -->
             <p>Completed <span class="font-weight-bold"><span id="completed_count">0</span> (<span id="completed_percent">0</span>%)</span></p>
-            <p>Canceled <span class="font-weight-bold"><span id="cancelled_count">0</span> (<span id="cancelled_percent">0</span>%)</span></p>
+            <p>Missed <span class="font-weight-bold"><span id="cancelled_count">0</span> (<span id="cancelled_percent">0</span>%)</span></p>
             <!-- <p>No Show <span class="font-weight-bold">0 (0%)</span></p> -->
           </div>
         </div>
@@ -126,10 +126,10 @@
         <div class="">
           <div class="transaction-summary">
             <h3>Total Visits</h3>
-            <h2><span id="total_sales">0</span></h2>
+            <h2><span id="total_visits">0</span></h2>
             <!-- <p style="color: red"><i class="fa fa-caret-down"></i>-22% previous day</p> -->
-            <p>Visit Count <span class="font-weight-bold" id="discounts"></span></p>
-            <p>Followup Count <span class="font-weight-bold" id="sales_count"></span></p>
+            <p>Visit Count <span class="font-weight-bold" id="visit_count"></span></p>
+            <p>Followup Count <span class="font-weight-bold" id="followup_count"></span></p>
             <!-- <p>&nbsp;</p> -->
           </div>
         </div>
@@ -154,30 +154,31 @@
 
 <!-- Page specific script -->
 <script type="text/javascript">
-  var patient_id = 0, output = '', st_dt, ed_dt;
-  var casted_vsts = {!! json_encode($casted_more) !!};
+  var patient_id = 0, output = '', st_dt, ed_dt, status, status_count;
+  var appointments = {!! json_encode($appointments) !!};
+  var visits = {!! json_encode($visits) !!};
   
-  // view_dashboard(casted_vsts);
+  view_dashboard(appointments, visits);
 
   // set appointments and visits stats
   function view_dashboard(appointments, visits) {
+    // 1: "Done", 2: "Pending", 3: "Reject", 4: "Extend"
+    status_count = { 1: 0, 2: 0, 3: 0, 4: 0 };
     for (i = 0; i < appointments.length; i++) {
-      status = appointments[i]["status"];
+      status = appointments[i]["appointment_status"];
       status_count[status] += 1;
     }
     all_count = appointments.length;
-    profit = invoices["income"] - invoices["expense"];
     $("#all_count").html(all_count);
-    $("#completed_count").html(status_count[4]);
-    $("#completed_percent").html(( status_count[4] / all_count) * 100);
-    $("#not_comp_count").html(all_count - status_count[4]);
-    $("#not_comp_percent").html(( (all_count - status_count[4]) / all_count) * 100);
-    $("#cancelled_count").html(status_count[3]);
-    $("#cancelled_percent").html(( status_count[3] / all_count) * 100);
-    $("#total_sales").html(invoices["income"]);
-    $("#discounts").html(invoices["discounts"]);
-    $("#sales_count").html(invoices["cnt"]);
-    $("#avg_sales").html(parseInt(invoices["income"] / (invoices["cnt"] ? invoices["cnt"] : 1 )));
+    $("#completed_count").html(status_count[1]);
+    $("#completed_percent").html(parseInt((status_count[1] / all_count) * 100));
+    // $("#not_comp_count").html(all_count - status_count[1]);
+    // $("#not_comp_percent").html(( (all_count - status_count[1]) / all_count) * 100);
+    $("#cancelled_count").html(status_count[2]);
+    $("#cancelled_percent").html(parseInt((status_count[2] / all_count) * 100));
+    $("#total_visits").html(parseInt(visits["visit_count"]) + parseInt(visits["followup_count"]));
+    $("#visit_count").html(visits["visit_count"]);
+    $("#followup_count").html(visits["followup_count"]);
   }
 
   // search records on date range
@@ -186,9 +187,9 @@
     ed_dt = $('#end_date').val();
     $.ajax({
       type: 'GET',
-      url: 'dashboard/' + st_dt + '/' + ed_dt,
+      url: 'home/dashboard/' + st_dt + '/' + ed_dt,
       success: function (data) {
-        // view_dashboard(data);
+        view_dashboard(data["appointments"], data["visits"]);
       },
       error: function() { 
         console.log("none");
