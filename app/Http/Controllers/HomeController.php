@@ -16,6 +16,7 @@ use App\Appointment;
 use App\Visit;
 use App\Followup;
 use App\Donor;
+use App\AppointDelayed;
 
 class HomeController extends Controller
 {
@@ -127,7 +128,7 @@ class HomeController extends Controller
     // get report data for appointment delayed
     public function appoint_delayed_report($st_dt, $ed_dt)
     {
-        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending') AND a.appointment_date >= '" . $st_dt . "' AND a.appointment_date <= '" . $ed_dt . "' "; 
+        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date, COALESCE(ad.reason, 0) reason FROM (SELECT * FROM appointment WHERE appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "' AND appointment_status = (SELECT id FROM status WHERE status_name = 'Pending')) a LEFT JOIN patients p ON p.patient_id = a.patient_id LEFT JOIN appoint_delayed ad ON ad.appointment_id = a.appointment_id"; 
         $appoint_delayed = DB::select($query);
         // dd($query);
         return $appoint_delayed;
@@ -207,7 +208,7 @@ class HomeController extends Controller
     // this method will generate appointment date base on availability
     public function generate_date()
     {
-        $pending = 120;
+        // $pending = 120;
         $pending = DB::select("SELECT COALESCE(COUNT(*), 0) pendings FROM appointment WHERE appointment_status = 2")[0]->pendings;
         $lookups = DB::select("SELECT * FROM lookups");
         $day_cnt1 = $lookups[0]->count;
@@ -232,7 +233,8 @@ class HomeController extends Controller
     public function visit_create()
     {
         $patients = $this->get_patients();
-        return view('visit.create', ['patients' => $patients]);
+        $date = $this->generate_date();
+        return view('visit.create', ['patients' => $patients, 'date' => $date]);
     }
 
     // show donors create
@@ -343,6 +345,18 @@ class HomeController extends Controller
         $cities = $this->get_cities();
         $donor = (object) $donor;
         return view('donor.edit', ['donor' => $donor, 'cities' => $cities]);
+    }
+
+    // appoint delayed create
+    public function appoint_delayed_store(Request $request)
+    {
+        // dd($request);
+        $appoint_delayed = new AppointDelayed;
+        $appoint_delayed->appointment_id = $request->appointment_id;
+        $appoint_delayed->reason = isset($request->reason) ? $request->reason : 0;
+        $appoint_delayed->description = $request->description;
+        $appoint_delayed->save();
+        return redirect('analytic/appoint_delayed');
     }
 
     // patient create

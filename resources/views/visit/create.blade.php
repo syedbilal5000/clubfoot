@@ -176,7 +176,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Next Appointment: </label>
-          <input type="date" name="next_visit_date" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
+          <input type="date" name="next_visit_date" id="next_appointment" class="form-control nxt_date" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
         </div>
       </div>
     </div> <!-- row end -->
@@ -321,7 +321,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label>Next Appointment: </label>
-          <input type="date" name="next_visit_date2" id="next_appointment2" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
+          <input type="date" name="next_visit_date2" id="next_appointment2" class="form-control nxt_date" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp">
         </div>
       </div>
     </div> <!-- row end -->
@@ -363,6 +363,8 @@
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <script>
   var patients = {!! json_encode($patients) !!};
+  var date = {!! json_encode($date) !!};
+  $(".nxt_date").val(date);
   
   view_patients(patients);
   

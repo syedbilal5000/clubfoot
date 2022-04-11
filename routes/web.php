@@ -59,3 +59,4 @@ Route::get('analytic/casted_same_report/{st_dt}/{ed_dt}/', [App\Http\Controllers
 Route::get('analytic/visits/{type}/', [App\Http\Controllers\HomeController::class, 'visits_view'])->name('analytic.visits_view');
 Route::get('analytic/appoint_delayed', [App\Http\Controllers\HomeController::class, 'appoint_delayed_view'])->name('analytic.appoint_delayed_view');
 Route::get('analytic/appoint_delayed_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'appoint_delayed_report']);
+Route::post('analytic/appoint_delayed/add', [App\Http\Controllers\HomeController::class, 'appoint_delayed_store'])->name('appoint_delayed_store');

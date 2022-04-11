@@ -25,21 +25,20 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Delayed Appointment</h1>
+          <h1 class="m-0">Appointments Delayed</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="../home">Home</a></li>
             <li class="breadcrumb-item"><a href="./">Analytics</a></li>
-            <li class="breadcrumb-item active">Delayed Appointment</li>
+            <li class="breadcrumb-item active">Appointments Delayed</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
 {{-- Main Content --}}
-<form action="appointment/delayed" method="POST" id="appoint_form">
-  @csrf
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4">
@@ -71,7 +70,7 @@
   <!-- <hr> -->
   <div class="row">
     <div class="col-md-12">
-      <h4 class="txt_heading">Delayed Appointment</h4>
+      <h4 class="txt_heading">Appointments Delayed / Missed</h4>
       <table id="home_table" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -80,6 +79,7 @@
                 <th>Guardian Number</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
+                <th>Call Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -92,19 +92,22 @@
                 <th>Guardian Number</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
+                <th>Call Status</th>
                 <th>Action</th>
             </tr>
         </tfoot>
       </table>
     </div>
     </div>
+    <form action="appoint_delayed/add" method="POST" id="appoint_form">
+      @csrf
     <div class="row">
     <input type="hidden" name="appointment_id" id="appointment_id" value="0" class="form-control">
     <div class="col-md-4">
       <div class="form-group">
         <label>Select Status: </label>
-          <select id="status" name="status" class="form-control select2" style="width: 100%;">
-            <option value="0" disabled selected hidden>Select Status</option>
+          <select id="status" name="reason" class="form-control select2" style="width: 100%;" required>
+            <option disabled selected hidden>Select Status</option>
             <option value="1">Called</option>
             <option value="2">No Response</option>
             <option value="3">Wrong Number</option>
@@ -115,20 +118,21 @@
       <div class="form-group">
         <label>Description: </label>
         <div class="input-group">
-          <input type="text" name="description" id="description" class="form-control" required 
-          value="">
+          <input type="text" name="description" id="description" class="form-control" 
+          placeholder="Enter description, if any">
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label>&nbsp;</label>
-        <a class="form-control pull-right btn btn-primary" id="submit_btn" onclick="submit_btn()">Submit</a>
+        <!-- <a class="form-control pull-right btn btn-primary" type="submit">Submit</a> -->
+        <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
       </div>
     </div>
-  </div> <!-- div row end -->
-    </div>
-</form>
+  </div>
+  </form>
+</div>
 
 <!-- ./wrapper -->
 
@@ -145,13 +149,14 @@
 
 <!-- Page specific script -->
 <script type="text/javascript">
-  var patient_id = 0, output = '', st_dt, ed_dt;
+  var patient_id = 0, output = '', st_dt, ed_dt, url, status_dict;
   var appoint_delayed = {!! json_encode($appoint_delayed) !!};
   
   view_appoint_delayed(appoint_delayed);
 
   function view_appoint_delayed(appoint_delayed) {
-    let url = '';
+    url = '';
+    status_dict = { 0: "-", 1: "Called", 2: "No Response", 3: "Wrong Number" };
     output = '';
     for (i = 0; i < appoint_delayed.length; i++) {
       patient_id = appoint_delayed[i]['patient_id'];
@@ -161,6 +166,7 @@
       output += `<td>${appoint_delayed[i]['guardian_number']}</td> `;
       output += `<td>${appoint_delayed[i]['appointment_date']}</td> `;
       output += `<td>Pending</td> `;
+      output += `<td>${status_dict[appoint_delayed[i]['reason']]}</td> `;
       output += `<td><a class="btn btn-success " onclick="setIDFunction(${appoint_delayed[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
     }
     if (output == '') {
@@ -193,6 +199,14 @@
     // $('.appointment_nav').addClass('active');
     // $('.appointments_nav').addClass('active');
     $('.select2').select2();
+    $("#appoint_form").validate();
+    $('#appoint_form').submit(function () {
+      let appoint_id = $("#appointment_id").val();
+      if (appoint_id == "0") {
+        alert("Please add / select appoint before submit.");
+        return false;
+      }
+    });
     $('#home_table').DataTable( {
         dom: 'Bfrtip',
         buttons: [
