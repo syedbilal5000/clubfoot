@@ -130,7 +130,7 @@
         <div class="form-group">
           <label>Select Next Appointment: </label>
           <!-- <input type="date" name="next_visit_date" id="next_appointment" class="form-control" value="@php echo date('Y-m-d', strtotime('+1 week'));@endphp"> -->
-          <select id="next_visit_date" name="next_visit_date" class="form-control select2" style="width: 100%;">
+          <select id="next_appointment" name="next_visit_date" class="form-control select2" style="width: 100%;">
             <option value="0" disabled hidden selected>Select Next Appointment</option>
             <option value="1">1 week</option>
             <option value="2">2 weeks</option>
@@ -222,6 +222,20 @@
     $('.followup_nav').addClass('active');
     $('.followups_nav_add').addClass('active');
     $("#visit_form").validate();
+    // check next_visit_date is not holiday
+    $('#visit_form').submit(function () {
+      let holidays_dict = {2: 5, 3: 23, 5: 11, 8: 14, 12: 25};
+      let numWeeks = parseInt($("#next_appointment").val());
+      let now = new Date();
+      now.setDate(now.getDate() + numWeeks * 7);
+      let month = now.getMonth() + 1;
+      let date = now.getDate();
+      let nxt_date = now.getFullYear()  + "-" + month + "-" + date;
+      if (month in holidays_dict && holidays_dict[month] == date) {
+        alert("Please select another date (week) for next appointment becuase you selected the holiday.");
+        return false;
+      }
+    });
 
     $('#patients').on('change', function() {
       let id = $("#patients").val();

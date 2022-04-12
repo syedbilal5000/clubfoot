@@ -392,13 +392,33 @@
     $('.select2').select2();
     $('.visit_nav').addClass('active');
     $('.visits_nav_add').addClass('active');
+    $("#visit_form").validate();
+    // check next_visit_date is not holiday
+    $('#visit_form').submit(function () {
+      let holidays_dict = {2: 5, 3: 23, 5: 1, 8: 14, 12: 25};
+      let nxt_date = $("#next_appointment").val();
+      let month = parseInt(nxt_date.substr(5, 2));
+      let date = parseInt(nxt_date.substr(8, 2));
+      if (month in holidays_dict && holidays_dict[month] == date) {
+        alert("Please select another date for next appointment becuase you selected the holiday.");
+        return false;
+      } else if ($("#side_drop2").val() != null) {
+        nxt_date = $("#next_appointment2").val();
+        month = parseInt(nxt_date.substr(5, 2));
+        date = parseInt(nxt_date.substr(8, 2));
+        if (month in holidays_dict && holidays_dict[month] == date) {
+          alert("Please select another date for next appointment becuase you selected the holiday in your second visit.");
+          return false;
+        }
+      }
+    });
+
     $(".score_dropd").on('change', function() {
       calculateScore();
     });
     $(".score_dropd2").on('change', function() {
       calculateScore2();
     });
-    $("#visit_form").validate();
     $('#patients').on('change', function() {
       let id = $("#patients").val();
         for (i = 0; i < patients.length; i++) {
