@@ -330,7 +330,7 @@
     <div class="row">
       <div class="col-md-8">
         <div class="form-group">
-          <input class="form-control" type="file" name="img_file" style="padding-top: 3px;">
+          <input class="form-control" type="file" name="img_file" id="img_file" style="padding-top: 3px;">
         </div>
       </div>
       <!-- <div class="col-md-3">
@@ -395,6 +395,7 @@
     $("#visit_form").validate();
     // check next_visit_date is not holiday
     $('#visit_form').submit(function () {
+      // check next appointment should not be from holiday list
       let holidays_dict = {2: 5, 3: 23, 5: 1, 8: 14, 12: 25};
       let nxt_date = $("#next_appointment").val();
       let month = parseInt(nxt_date.substr(5, 2));
@@ -411,6 +412,14 @@
           return false;
         }
       }
+      // if checkbox is checked then image should be there
+      if ($("#is_emailed").prop('checked') == true) {
+        let img_file = $("#img_file").val();
+        if (!img_file) {
+          alert("Please select image to send email.");
+          return false;
+        }
+      }
     });
 
     $(".score_dropd").on('change', function() {
@@ -424,7 +433,7 @@
         for (i = 0; i < patients.length; i++) {
           if(patients[i]['patient_id'] == id)
           {
-            console.log(patients[i])
+            // console.log(patients[i])
             if(patients[i]['feet_affected'] == "1")
             {
               $("#side_drop").val("R").change();
@@ -437,7 +446,7 @@
             }
             else if(patients[i]['feet_affected'] == "3")
               {
-                console.log(3)
+                // console.log(3);
                 $("#side_drop").val("L").change();
                 $("#side_drop2").val("R").change();
                 
@@ -447,12 +456,6 @@
           }
         }
      });
-
-    $("#btn_submit").on('click', function() {
-      if ($("#is_emailed").prop('checked') == true){ 
-        console.log("email send karo")
-      }
-    })
   });
 
   function more_clickable(is_hide=0) {

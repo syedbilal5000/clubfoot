@@ -55,8 +55,12 @@ class HomeController extends Controller
         //     'appointment_date' => '2022-03-31',
         // ]);
         // print($response);
+        $id = "10001";
+        $patient = Patient::find($id);
+        // dd($patient);
         $name = 'Cloudways';
-        Mail::to('syedbilalhussain168@gmail.com')->send(new MailController($name));
+        // Mail::to('syedbilalhussain168@gmail.com')->send(new MailController($name));
+        Mail::to('syedbilalhussain168@gmail.com')->send(new MailController($patient));
         // $details = [
         //     'title' => 'Mail from ItSolutionStuff.com',
         //     'body' => 'This is for testing email using smtp'
@@ -249,7 +253,7 @@ class HomeController extends Controller
     {
         $patients = $this->get_patients();
         $date = $this->generate_date();
-        $data = ['patients' => $patients, 'date' => $date, 'patient_id' => $patient_id, 'success' => 'Patient Added Successfully.'];
+        $data = ['patients' => $patients, 'date' => $date, 'patient_id' => $patient_id, 'success' => 'Patient added successfully.'];
         return view('appointment.create')->with($data);
     }
 
@@ -437,7 +441,7 @@ class HomeController extends Controller
         $patient_examination->is_legs = isset($request->is_legs) ? $request->is_legs : 0;
         $patient_examination->is_other = isset($request->is_other) ? $request->is_other : 0;
         $patient_examination->save();
-        return redirect('/appointment/create/' . $patient_id)->with('success', 'Patient Added Successfully.');
+        return redirect('/appointment/create/' . $patient_id)->with('success', 'Patient added successfully.');
     }
 
     // appointment create
@@ -457,7 +461,7 @@ class HomeController extends Controller
         $appointment->previous_appointment_id = $appoint_id;
         $appointment->inserted_at = date("Y-m-d");
         $appointment->save();
-        return redirect('/appointment')->with('success', 'Appointment Added Successfully.');
+        return redirect('/appointment')->with('success', 'Appointment added successfully.');
     }
 
     // visit create
@@ -487,6 +491,7 @@ class HomeController extends Controller
         $visit->complication = $request->complication;
         $visit->description = $request->description;
         $visit->inserted_at = date("Y-m-d");
+        $message = 'Visit added successfully.';
         // adding image file
         if($request->file('img_file')){
             $request->validate([
@@ -495,8 +500,19 @@ class HomeController extends Controller
             // $filename = date('YmdHis') . $file->getClientOriginalName();
             $filename = date('YmdHis') . '_' . $patient_id . '.' . $request->img_file->extension();;
             $year_month = substr($filename, 0, 6);
-            $file->move(public_path('img/upload/' . $year_month), $filename);
+            $path_dir = 'img/upload/' . $year_month;
+            $path_file = $path_dir . '/' . $filename;
+            $file->move(public_path($path_dir), $filename);
             $visit->img_path = $filename;
+            $message = substr($message, 0, -1);
+            // $email = 'syedbilalhussain168@gmail.com';
+            $query = DB::select("SELECT donor_email FROM donors WHERE id IN (SELECT donor_id FROM patients WHERE patient_id = " . $patient_id . ")");
+            $email = ($query != array()) ? $query[0]->donor_email : "";
+            if ($this->send_mail($email, $patient_id, $path_file)) {
+                $message .= ", also email sent.";
+            } else {
+                $message .= ", but email not send.";
+            }
         }
         $visit->save();
 
@@ -536,7 +552,7 @@ class HomeController extends Controller
         }
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
         // dd($request);
-        return redirect('/visit')->with('success', 'Visit Added Successfully.');
+        return redirect('/visit')->with('success', $message);
     }
 
     // followup create
@@ -583,7 +599,7 @@ class HomeController extends Controller
         }
         $appoint = DB::select("UPDATE appointment SET appointment_status = 1 WHERE appointment_id = " . $appoint_id);
         // dd($request);
-        return redirect('/visit')->with('success', 'Follow-Up Added Successfully.');
+        return redirect('/visit')->with('success', 'Follow-Up added successfully.');
     }
 
     // to store amount payed for visit/followup into amount_payed table
@@ -605,13 +621,13 @@ class HomeController extends Controller
         $donor = new Donor;
         $donor->first_name = $request->first_name;
         $donor->last_name = $request->last_name;
-        $donor->donor_email = $request->donor_email;
+        $donor->donor_email = $request->email;
         $donor->donor_number = $request->donor_number;
         $donor->donor_address = $request->donor_address;
         $donor->city_id = isset($request->city_id) ? $request->city_id : 0;
         $donor->description = $request->description;
         $donor->save();
-        return redirect('/donor')->with('success', 'Donor Added Successfully.');
+        return redirect('/donor')->with('success', 'Donor added successfully.');
     }
 
     // patient update
@@ -713,10 +729,10 @@ class HomeController extends Controller
             $appoint_ids = implode(',', $request->appoint_ids);
             $query .= "WHERE appointment_id IN ($appoint_ids)";
             $out = DB::select($query);
-            $msg = 'Appointment Updated Successfully.';
+            $msg = 'Appointment updated successfully.';
         }
         // print($query);
-        return redirect('/appointment')->with('success', 'Appointment Updated Successfully.');
+        return redirect('/appointment')->with('success', 'Appointment updated successfully.');
     }
 
     // donor update
@@ -726,12 +742,26 @@ class HomeController extends Controller
         $donor = Donor::find($id);
         $donor->first_name = $request->first_name;
         $donor->last_name = $request->last_name;
-        $donor->donor_email = $request->donor_email;
+        $donor->donor_email = $request->email;
         $donor->donor_number = $request->donor_number;
         $donor->donor_address = $request->donor_address;
         $donor->city_id = isset($request->city_id) ? $request->city_id : 0;
         $donor->description = $request->description;
         $donor->save();
-        return redirect('/donor')->with('success', 'Donor Updated Successfully.');
+        return redirect('/donor')->with('success', 'Donor updated successfully.');
+    }
+
+    // send patient table data through mail to donor 
+    public function send_mail($email, $patient_id=0, $path_file='')
+    {
+        if ($email != "") {
+            $patient = Patient::find($patient_id);
+            // dd($patient);
+            // $name = 'Cloudways';
+            // Mail::to('syedbilalhussain168@gmail.com')->send(new MailController($name));
+            Mail::to($email)->send(new MailController($patient, $path_file));
+            return true;
+        }
+        return false;
     }
 }

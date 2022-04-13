@@ -72,7 +72,7 @@
             <label>Email: </label>
             <div class="input-group">
               <span class="input-group-text"><i class="fa fa-user"></i></span>
-              <input type="email" name="donor_email" class="form-control" placeholder="Enter Email" value="{{ $donor->donor_email }}">
+              <input type="email" name="email" class="form-control" placeholder="Enter Email" value="{{ $donor->donor_email }}">
             </div>
           </div>
         </div>

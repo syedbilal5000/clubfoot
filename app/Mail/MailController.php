@@ -16,9 +16,11 @@ class MailController extends Mailable
      *
      * @return void
      */
-    public function __construct($name)
+    public function __construct($patient, $path_file)
     {
-        $this->name = $name;
+        // $this->name = $name;
+        $this->patient = $patient;
+        $this->path_file = $path_file;
     }
 
     /**
@@ -28,7 +30,10 @@ class MailController extends Mailable
      */
     public function build()
     {
+        // dd(1234);
+        // $data = ["name" => $this->name];
+        $data = ["patient" => $this->patient, "path_file" => $this->path_file];
         return $this->from('contact@smartrounder.com')
-                ->view('mail.testMail');
+                ->view('mail.mail_table')->with($data);
     }
 }
