@@ -60,3 +60,12 @@ Route::get('analytic/visits/{type}/', [App\Http\Controllers\HomeController::clas
 Route::get('analytic/appoint_delayed', [App\Http\Controllers\HomeController::class, 'appoint_delayed_view'])->name('analytic.appoint_delayed_view');
 Route::get('analytic/appoint_delayed_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'appoint_delayed_report']);
 Route::post('analytic/appoint_delayed/add', [App\Http\Controllers\HomeController::class, 'appoint_delayed_store'])->name('appoint_delayed_store');
+
+Route::get('category', [App\Http\Controllers\HomeController::class, 'category_index'])->name('category');
+Route::get('category/create', [App\Http\Controllers\HomeController::class, 'category_create'])->name('category.create');
+Route::get('expense', [App\Http\Controllers\HomeController::class, 'expense_index'])->name('expense');
+Route::get('expense/create', [App\Http\Controllers\HomeController::class, 'expense_create'])->name('expense.create');
+Route::get('item', [App\Http\Controllers\HomeController::class, 'item_index'])->name('item');
+Route::get('item/create', [App\Http\Controllers\HomeController::class, 'item_create'])->name('item.create');
+Route::get('inventory', [App\Http\Controllers\HomeController::class, 'inventory_index'])->name('inventory');
+Route::get('inventory/create', [App\Http\Controllers\HomeController::class, 'inventory_create'])->name('inventory.create');

@@ -241,12 +241,51 @@ class HomeController extends Controller
         return view('visit.create', ['patients' => $patients, 'date' => $date]);
     }
 
+    public function item_create()
+    {
+        $patients = $this->get_patients();
+        $date = $this->generate_date();
+        return view('item.create', ['patients' => $patients, 'date' => $date]);
+    }
+
+    public function item_index()
+    {
+        $iitems = DB::select("SELECT id, name, price, description FROM item;");
+        return view('item.index', ['items' => $iitems]);
+    }
+
+    public function category_create()
+    {
+        $patients = $this->get_patients();
+        $date = $this->generate_date();
+        return view('category.create', ['patients' => $patients, 'date' => $date]);
+    }
+
+    public function category_index()
+    {
+        $category = DB::select("SELECT id, name, description FROM category;");
+        return view('category.index', ['category' => $category]);
+    }
+
+    public function inventory_create()
+    {
+        $patients = $this->get_patients();
+        $date = $this->generate_date();
+        return view('inventory.create', ['patients' => $patients, 'date' => $date]);
+    }
+
+    public function inventory_index()
+    {
+        $inventory = DB::select("SELECT i.id, item_id, item.name as item_name, user_id,  i.name as inv_name, u.name as user_name, i.unit_cost, i.total_amount, i.unit_balance, i.description, i.inserted_at FROM inventory i JOIN users u on i.user_id = u.id join item as item on item.id = i.item_id;");
+        return view('inventory.index', ['inventory' => $inventory]);
+    }
+
     // show donors create
     public function donor_create()
     {
         $cities = $this->get_cities();
         return view('donor.create', ['cities' => $cities]);
-    }    
+    }
 
     // show appointment create
     public function appoint_create($patient_id=0)

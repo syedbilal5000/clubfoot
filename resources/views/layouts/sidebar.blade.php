@@ -156,6 +156,78 @@
         </li>
 
         <li class="nav-item menu-open">
+          <a href="#" class="nav-link expense_nav">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Expense
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('expense') }}" class="nav-link expense_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Expenses</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('expense.create') }}" class="nav-link expense_nav_add">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Expense</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('category') }}" class="nav-link category_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Categories</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('category.create') }}" class="nav-link category_nav_add">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Category</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link inventory_nav">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Inventory
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('inventory') }}" class="nav-link inventory_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Inventories</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('inventory.create') }}" class="nav-link inventory_nav_add">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Inventory</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('item') }}" class="nav-link item_nav">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Items</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('item.create') }}" class="nav-link item_nav_add">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Add Item</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item menu-open">
           <a href="#" class="nav-link donor_nav">
             <i class="nav-icon fas fa-users"></i>
             <p>
