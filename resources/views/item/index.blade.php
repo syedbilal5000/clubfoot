@@ -91,7 +91,7 @@
   $(function() {
     $(document).ready(function () {
       $('.item_nav').addClass('active');
-      $('.items_nav').addClass('active');
+      $('.inventory_navs').addClass('active');
       $('.select2').select2();
       $('#item_table').DataTable( {
         dom: 'Bfrtip',

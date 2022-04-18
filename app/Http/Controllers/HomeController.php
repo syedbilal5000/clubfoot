@@ -243,9 +243,7 @@ class HomeController extends Controller
 
     public function item_create()
     {
-        $patients = $this->get_patients();
-        $date = $this->generate_date();
-        return view('item.create', ['patients' => $patients, 'date' => $date]);
+        return view('item.create');
     }
 
     public function item_index()
@@ -256,9 +254,7 @@ class HomeController extends Controller
 
     public function category_create()
     {
-        $patients = $this->get_patients();
-        $date = $this->generate_date();
-        return view('category.create', ['patients' => $patients, 'date' => $date]);
+        return view('category.create');
     }
 
     public function category_index()
@@ -278,6 +274,18 @@ class HomeController extends Controller
     {
         $inventory = DB::select("SELECT i.id, item_id, item.name as item_name, user_id,  i.name as inv_name, u.name as user_name, i.unit_cost, i.total_amount, i.unit_balance, i.description, i.inserted_at FROM inventory i JOIN users u on i.user_id = u.id join item as item on item.id = i.item_id;");
         return view('inventory.index', ['inventory' => $inventory]);
+    }
+
+    public function expense_create()
+    {
+        $expense = DB::select("SELECT id, name, description FROM category");
+        return view('expense.create', ['expense' => $expense]);
+    }
+
+    public function expense_index()
+    {
+        $expense = DB::select("SELECT e.id, cat_id, c.name as c_name, user_id,  e.name as e_name, u.name as user_name, e.amount, e.description, e.inserted_at FROM expense e JOIN users u on e.user_id = u.id join category as c on c.id = e.cat_id;");
+        return view('expense.index', ['expense' => $expense]);
     }
 
     // show donors create

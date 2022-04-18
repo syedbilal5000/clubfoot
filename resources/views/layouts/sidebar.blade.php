@@ -156,7 +156,7 @@
         </li>
 
         <li class="nav-item menu-open">
-          <a href="#" class="nav-link expense_nav">
+          <a href="#" class="nav-link expense_navs">
             <i class="nav-icon fas fa-users"></i>
             <p>
               Expense
@@ -192,7 +192,7 @@
         </li>
 
         <li class="nav-item menu-open">
-          <a href="#" class="nav-link inventory_nav">
+          <a href="#" class="nav-link inventory_navs">
             <i class="nav-icon fas fa-users"></i>
             <p>
               Inventory

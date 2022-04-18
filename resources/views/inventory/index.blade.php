@@ -84,9 +84,9 @@
 <script>
   var inventory = {!! json_encode($inventory) !!};
   
-  view_patients(inventory);
+  view_inventory(inventory);
 
-  function view_patients(inventory) {
+  function view_inventory(inventory) {
     var output = "";
     if (inventory.length > 0) {
         for (i = 0; i < inventory.length; i++) {
@@ -98,8 +98,8 @@
    
   $(function() {
     $(document).ready(function () {
-      $('.item_nav').addClass('active');
-      $('.items_nav').addClass('active');
+      $('.inventory_nav').addClass('active');
+      $('.inventory_navs').addClass('active');
       $('.select2').select2();
       $('#inventory_table').DataTable( {
         dom: 'Bfrtip',
