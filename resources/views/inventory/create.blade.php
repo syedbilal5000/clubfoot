@@ -15,12 +15,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Add Item</h1>
+          <h1 class="m-0">Add Inventory</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="home">Home</a></li>
-            <li class="breadcrumb-item active">Add New Item</li>
+            <li class="breadcrumb-item active">Add New Inventory</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -30,25 +30,54 @@
 
 {{-- Main Content --}}
 
-<form id="category_form" method="POST" action="add" enctype="multipart/form-data">
+<form id="inventory_form" method="POST" action="add" enctype="multipart/form-data">
   @csrf
   <div class="container-fluid">
   <div>
     
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Select Item: </label><label style="color: red;"> &nbsp;*</label>
+          <select id="item" name="item" class="form-control select2 @error('id') is-invalid @enderror" style="width: 100%;" required>
+            <option selected disabled>Select Item</option>
+          </select>
+          @error('id')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+      </div>
+      <div class="col-md-6">
         <div class="form-group">
           <label>Name: </label>
           <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name">
         </div>
       </div>
-      <div class="col-md-4">
+    </div>
+    <div class="row">
+      <div class="col-md-6">
         <div class="form-group">
-          <label>Price: </label>
-          <input type="number" name="price" id="price" class="form-control" placeholder="Enter Price">
+          <label>Unit Cost: </label>
+          <input type="number" name="unit_cost" id="unit_cost" class="form-control" placeholder="Enter Cost">
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Unit Balance: </label>
+          <input type="text" name="unit_balance" id="unit_balance" class="form-control" placeholder="Enter Balance">
+        </div>
+      </div>
+    </div> <!-- row end -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Amount: </label>
+          <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter Amount">
+        </div>
+      </div>
+      <div class="col-md-6">
         <div class="form-group">
           <label>Description: </label>
           <input type="text" name="description" id="description" class="form-control" placeholder="Enter Description">
@@ -67,9 +96,34 @@
   $(function () {
     $('.select2').select2();
     $('.inventory_navs').addClass('active');
-    $('.item_nav_add').addClass('active');
+    $('.inventory_nav_add').addClass('active');
 
   });
+
+  var inventory = {!! json_encode($inventory) !!};
+  
+  view_inventory(inventory);
+  
+  function view_inventory(inventory) {
+    output = '<option value="">Select Item</option>';
+    if (inventory.length > 0) {
+        var inventoryCheck = {};
+        for (i = 0; i < inventory.length; i++) {
+            if(inventoryCheck[inventory[i]['id']] == true)
+          {
+
+          }
+          else {
+            inventoryCheck[inventory[i]['id']] = true;
+            output += `<option value="${inventory[i]['id']}">${inventory[i]['name']}, ${inventory[i]['price']}</option>`;
+          }
+        }
+    } else {
+        output = '<option value="-1">No Data</option>';
+    }
+    $('#item').html(output);
+  }
+
 
 </script>
 @endsection

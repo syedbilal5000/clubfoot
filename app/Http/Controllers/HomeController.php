@@ -265,9 +265,8 @@ class HomeController extends Controller
 
     public function inventory_create()
     {
-        $patients = $this->get_patients();
-        $date = $this->generate_date();
-        return view('inventory.create', ['patients' => $patients, 'date' => $date]);
+        $inventory = DB::select("SELECT id, name, price, description FROM item");
+        return view('inventory.create', ['inventory' => $inventory]);
     }
 
     public function inventory_index()
