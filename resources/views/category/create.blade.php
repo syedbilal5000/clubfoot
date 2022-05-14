@@ -39,7 +39,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Name: </label>
+          <label>Name: </label><label style="color: red;"> &nbsp;*</label>
           <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name">
         </div>
       </div>

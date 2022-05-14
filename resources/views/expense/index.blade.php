@@ -46,7 +46,7 @@
               <th>User Name</th>
               <th>Amount</th>
               <th>Description</th>
-              <th>Action</th>
+              <!-- <th>Action</th> -->
               </tr>
             </thead> 
             <tbody id="table_body">
@@ -58,7 +58,7 @@
               <th>User Name</th>
               <th>Amount</th>
               <th>Description</th>
-              <th>Action</th>
+              <!-- <th>Action</th> -->
               </tr>
             </tfoot>
             
@@ -86,7 +86,7 @@
     var output = "";
     if (expense.length > 0) {
         for (i = 0; i < expense.length; i++) {
-          output += `<tr id="${expense[i]['id']}"><td>${expense[i]['e_name']}</td><td>${expense[i]['c_name']}</td><td>${expense[i]['user_name']}</td><td>${expense[i]['amount']}</td><td>${expense[i]['description']}</td><td class="text-center"><a href="expense/${expense[i]['id']}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a></td></tr>`;
+          output += `<tr id="${expense[i]['id']}"><td>${expense[i]['e_name']}</td><td>${expense[i]['c_name']}</td><td>${expense[i]['user_name']}</td><td>${expense[i]['amount']}</td><td>${expense[i]['description']}</td></tr>`;
       }
     }
     $('#table_body').html(output);

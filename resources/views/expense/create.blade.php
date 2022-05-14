@@ -51,7 +51,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label>Name: </label>
+          <label>Expense Name: </label>
           <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name">
         </div>
       </div>
@@ -59,8 +59,8 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Amount: </label>
-          <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter Amount">
+          <label>Amount: </label><label style="color: red;"> &nbsp;*</label>
+          <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter Amount" required>
         </div>
       </div>
       <div class="col-md-6">

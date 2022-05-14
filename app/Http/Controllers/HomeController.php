@@ -8,18 +8,15 @@ use Illuminate\Support\Facades\Http;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Patient;
-use App\PatientFamily;
-use App\PatientDiagnosis;
-use App\PatientExamination;
-use App\Appointment;
-use App\Visit;
-use App\Followup;
-use App\Donor;
-use App\AppointDelayed;
+use Auth;
+use App\Patient, App\PatientFamily, App\PatientDiagnosis, App\PatientExamination;
+use App\Appointment, App\AppointDelayed, App\Visit, App\Followup;
+use App\Donor, App\Category, App\Expense, App\Item, App\Inventory;
 
 class HomeController extends Controller
 {
+    private $auth_user;
+
     /**
      * Create a new controller instance.
      *
@@ -70,6 +67,15 @@ class HomeController extends Controller
        
         dd("Email is Sent.");
         // dd(123);
+    }
+
+    // return auth user
+    public function auth_user()
+    {
+        if (!$this->auth_user) {
+            $this->auth_user = auth()->user();
+        }
+        return $this->auth_user;
     }
 
     // get report data for dashboard (appointments & visits)
@@ -271,7 +277,7 @@ class HomeController extends Controller
 
     public function inventory_index()
     {
-        $inventory = DB::select("SELECT i.id, item_id, item.name as item_name, user_id,  i.name as inv_name, u.name as user_name, i.unit_cost, i.total_amount, i.unit_balance, i.description, i.inserted_at FROM inventory i JOIN users u on i.user_id = u.id join item as item on item.id = i.item_id;");
+        $inventory = DB::select("SELECT i.id, item_id, item.name as item_name, user_id,  i.name as inv_name, u.name as user_name, i.unit_cost, i.total_amount, i.unit_balance, i.description, i.inserted_at FROM inventory i LEFT JOIN users u on i.user_id = u.id LEFT JOIN item as item on item.id = i.item_id;");
         return view('inventory.index', ['inventory' => $inventory]);
     }
 
@@ -283,7 +289,7 @@ class HomeController extends Controller
 
     public function expense_index()
     {
-        $expense = DB::select("SELECT e.id, cat_id, c.name as c_name, user_id,  e.name as e_name, u.name as user_name, e.amount, e.description, e.inserted_at FROM expense e JOIN users u on e.user_id = u.id join category as c on c.id = e.cat_id;");
+        $expense = DB::select("SELECT e.id, cat_id, c.name as c_name, user_id,  e.name as e_name, u.name as user_name, e.amount, e.description, e.inserted_at FROM expense e LEFT JOIN users u on e.user_id = u.id LEFT JOIN category as c on c.id = e.cat_id;");
         return view('expense.index', ['expense' => $expense]);
     }
 
@@ -332,7 +338,7 @@ class HomeController extends Controller
     // get patients data
     public function get_patients()
     {
-        $patients = DB::select("SELECT * FROM patients p JOIN patient_families pf ON p.patient_id = pf.patient_id  JOIN patient_diagnoses pd ON p.patient_id = pd.patient_id;");
+        $patients = DB::select("SELECT * FROM patients p LEFT JOIN patient_families pf ON p.patient_id = pf.patient_id LEFT JOIN patient_diagnoses pd ON p.patient_id = pd.patient_id;");
         // $patients = DB::table('patients')->join('patient_families', 'patients.patient_id', '=', 'patient_families.patient_id')->join('patient_diagnoses', 'patients.patient_id', '=', 'patient_diagnoses.patient_id')->select('patients.*', 'patient_families.*', 'patient_diagnoses.*')->paginate(2);
         // print_r($patients);
         // dd(1);
@@ -348,13 +354,13 @@ class HomeController extends Controller
 
     // public function get_patients_with_appointment()
     // {
-    //     $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending');");
+    //     $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p LEFT JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = 'Pending');");
     //     return $patients_appoint;
     // }
 
     public function get_data_appoint($status)
     {
-        $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, p.out_of_city, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = '$status') ORDER BY a.appointment_date DESC, p.out_of_city DESC;");
+        $patients_appoint = DB::select("SELECT p.patient_id, p.patient_name, p.guardian_number, p.guardian_cnic, p.out_of_city, a.appointment_id, a.appointment_date, a.appointment_status, a.previous_appointment_id, (SELECT status_name FROM status WHERE id =a.appointment_status) AS status FROM patients p LEFT JOIN appointment a ON p.patient_id = a.patient_id WHERE a.appointment_status = (SELECT id FROM status WHERE status_name = '$status') ORDER BY a.appointment_date DESC, p.out_of_city DESC;");
         return $patients_appoint;
     }
 
@@ -674,6 +680,63 @@ class HomeController extends Controller
         $donor->description = $request->description;
         $donor->save();
         return redirect('/donor')->with('success', 'Donor added successfully.');
+    }
+
+    // category (expense) create
+    public function category_store(Request $request)
+    {
+        // Add category
+        $cat = new Category;
+        $cat->name = $request->name;
+        $cat->description = $request->description;
+        $cat->save();
+        return redirect('/category')->with('success', 'Category added successfully.');
+    }
+
+    // expense create
+    public function expense_store(Request $request)
+    {
+        $user_id = $this->auth_user()->id;
+        // Add expense
+        $exp = new Expense;
+        $exp->cat_id = $request->category;
+        $exp->user_id = $user_id;
+        $exp->name = $request->name;
+        $exp->amount = $request->amount;
+        $exp->description = $request->description;
+        $exp->inserted_at = date("Y-m-d");
+        $exp->save();
+        return redirect('/expense')->with('success', 'Expense added successfully.');
+    }
+
+    // item (inventory) create
+    public function item_store(Request $request)
+    {
+        // Add category
+        $item = new Item;
+        $item->name = $request->name;
+        $item->price = $request->price;
+        $item->description = $request->description;
+        $item->save();
+        return redirect('/item')->with('success', 'Item added successfully.');
+    }
+
+    // inventory create
+    public function inventory_store(Request $request)
+    {
+        $user_id = $this->auth_user()->id;
+        // Add inventory
+        $inv = new Inventory;
+        $inv->item_id = $request->item;
+        $inv->user_id = $user_id;
+        $inv->name = $request->name;
+        $inv->unit_cost = $request->unit_cost;
+        $inv->total_amount = $request->total_amount;
+        $inv->unit_balance = $request->unit_balance;
+        $inv->description = $request->description;
+        $inv->inserted_at = date("Y-m-d");
+        $inv->save();
+        return redirect('/inventory')->with('success', 'Inventory added successfully.');
     }
 
     // patient update

@@ -65,16 +65,16 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label>Unit Balance: </label>
-          <input type="text" name="unit_balance" id="unit_balance" class="form-control" placeholder="Enter Balance">
+          <label>Unit Balance: </label><label style="color: red;"> &nbsp;*</label>
+          <input type="text" name="unit_balance" id="unit_balance" class="form-control" placeholder="Enter Balance" required>
         </div>
       </div>
     </div> <!-- row end -->
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Amount: </label>
-          <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter Amount">
+          <label>Total Amount: </label><label style="color: red;"> &nbsp;*</label>
+          <input type="number" name="total_amount" id="total_amount" class="form-control" placeholder="Enter Total Amount" required>
         </div>
       </div>
       <div class="col-md-6">

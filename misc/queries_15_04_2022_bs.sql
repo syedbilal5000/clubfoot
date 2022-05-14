@@ -5,14 +5,14 @@ CREATE TABLE IF NOT EXISTS `category` (
   `name` varchar(50) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=322 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
-(321, 'daily_tea', 'luqman laya');
+(1, 'tea', 'each time we drink tea, we will record.');
 
 
 
@@ -23,14 +23,14 @@ CREATE TABLE IF NOT EXISTS `item` (
   `price` int(15) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21235 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `item`
 --
 
 INSERT INTO `item` (`id`, `name`, `price`, `description`) VALUES
-(21234, 'shoes', 500, 'luqman received');
+(1, 'shoes', 500, 'luqman received');
 
 
 
@@ -46,14 +46,14 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `description` varchar(100) DEFAULT NULL,
   `inserted_at` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=124433 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `inventory`
 --
 
 INSERT INTO `inventory` (`id`, `item_id`, `user_id`, `name`, `unit_cost`, `total_amount`, `unit_balance`, `description`, `inserted_at`) VALUES
-(124432, 21234, 4352, 'shoes', 100, 500, 5, NULL, '2022-04-15');
+(1, 1, 1, 'shoes', 100, 500, 5, NULL, '2022-04-15');
 
 
 
@@ -74,4 +74,4 @@ CREATE TABLE IF NOT EXISTS `expense` (
 --
 
 INSERT INTO `expense` (`id`, `cat_id`, `user_id`, `name`, `amount`, `description`, `inserted_at`) VALUES
-(12345, 321, 4352, 'daily_tea', 50, NULL, '2022-04-15');
+(1, 1, 1, 'lunch tea', 50, NULL, '2022-04-15');

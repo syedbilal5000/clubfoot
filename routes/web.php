@@ -63,9 +63,15 @@ Route::post('analytic/appoint_delayed/add', [App\Http\Controllers\HomeController
 
 Route::get('category', [App\Http\Controllers\HomeController::class, 'category_index'])->name('category');
 Route::get('category/create', [App\Http\Controllers\HomeController::class, 'category_create'])->name('category.create');
+Route::post('category/add', [App\Http\Controllers\HomeController::class, 'category_store'])->name('category_store');
+// Route::get('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'donor_edit'])->name('donor.edit');
+// Route::put('donor/{id}/edit', [App\Http\Controllers\HomeController::class, 'donor_update'])->name('donor_update');
 Route::get('expense', [App\Http\Controllers\HomeController::class, 'expense_index'])->name('expense');
 Route::get('expense/create', [App\Http\Controllers\HomeController::class, 'expense_create'])->name('expense.create');
+Route::post('expense/add', [App\Http\Controllers\HomeController::class, 'expense_store'])->name('expense_store');
 Route::get('item', [App\Http\Controllers\HomeController::class, 'item_index'])->name('item');
 Route::get('item/create', [App\Http\Controllers\HomeController::class, 'item_create'])->name('item.create');
+Route::post('item/add', [App\Http\Controllers\HomeController::class, 'item_store'])->name('item_store');
 Route::get('inventory', [App\Http\Controllers\HomeController::class, 'inventory_index'])->name('inventory');
 Route::get('inventory/create', [App\Http\Controllers\HomeController::class, 'inventory_create'])->name('inventory.create');
+Route::post('inventory/add', [App\Http\Controllers\HomeController::class, 'inventory_store'])->name('inventory_store');
