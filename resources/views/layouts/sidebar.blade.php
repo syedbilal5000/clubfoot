@@ -101,6 +101,7 @@
           </ul>
         </li>
 
+        @cannot('isViewer')
         <li class="nav-item menu-open">
           <a href="#" class="nav-link appointment_nav">
             <i class="nav-icon fas fa-users"></i>
@@ -124,7 +125,9 @@
             </li>
           </ul>
         </li>
+        @endcannot
 
+        @cannot('isViewer')
         <li class="nav-item menu-open">
           <a href="#" class="nav-link visit_nav">
             <i class="nav-icon fas fa-users"></i>
@@ -154,7 +157,9 @@
             </li>
           </ul>
         </li>
+        @endcannot
 
+        @cannot('isViewer')
         <li class="nav-item menu-open">
           <a href="#" class="nav-link expense_navs">
             <i class="nav-icon fas fa-users"></i>
@@ -190,7 +195,9 @@
             </li>
           </ul>
         </li>
+        @endcannot
 
+        @cannot('isViewer')
         <li class="nav-item menu-open">
           <a href="#" class="nav-link inventory_navs">
             <i class="nav-icon fas fa-users"></i>
@@ -226,6 +233,7 @@
             </li>
           </ul>
         </li>
+        @endcannot
 
         <li class="nav-item menu-open">
           <a href="#" class="nav-link donor_nav">

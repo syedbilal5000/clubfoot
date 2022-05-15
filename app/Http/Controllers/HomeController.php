@@ -236,12 +236,18 @@ class HomeController extends Controller
     // show patients create
     public function patient_create()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $donors = $this->get_donors();
         return view('patient.create', ['donors' => $donors]);
     }
 
     public function visit_create()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $patients = $this->get_patients();
         $date = $this->generate_date();
         return view('visit.create', ['patients' => $patients, 'date' => $date]);
@@ -249,46 +255,70 @@ class HomeController extends Controller
 
     public function item_create()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         return view('item.create');
     }
 
     public function item_index()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $iitems = DB::select("SELECT id, name, price, description FROM item;");
         return view('item.index', ['items' => $iitems]);
     }
 
     public function category_create()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         return view('category.create');
     }
 
     public function category_index()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $category = DB::select("SELECT id, name, description FROM category;");
         return view('category.index', ['category' => $category]);
     }
 
     public function inventory_create()
     {
+        if(!\Gate::allows('isAdmin')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $inventory = DB::select("SELECT id, name, price, description FROM item");
         return view('inventory.create', ['inventory' => $inventory]);
     }
 
     public function inventory_index()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $inventory = DB::select("SELECT i.id, item_id, item.name as item_name, user_id,  i.name as inv_name, u.name as user_name, i.unit_cost, i.total_amount, i.unit_balance, i.description, i.inserted_at FROM inventory i LEFT JOIN users u on i.user_id = u.id LEFT JOIN item as item on item.id = i.item_id;");
         return view('inventory.index', ['inventory' => $inventory]);
     }
 
     public function expense_create()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $expense = DB::select("SELECT id, name, description FROM category");
         return view('expense.create', ['expense' => $expense]);
     }
 
     public function expense_index()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $expense = DB::select("SELECT e.id, cat_id, c.name as c_name, user_id,  e.name as e_name, u.name as user_name, e.amount, e.description, e.inserted_at FROM expense e LEFT JOIN users u on e.user_id = u.id LEFT JOIN category as c on c.id = e.cat_id;");
         return view('expense.index', ['expense' => $expense]);
     }
@@ -296,6 +326,9 @@ class HomeController extends Controller
     // show donors create
     public function donor_create()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $cities = $this->get_cities();
         return view('donor.create', ['cities' => $cities]);
     }
@@ -303,6 +336,9 @@ class HomeController extends Controller
     // show appointment create
     public function appoint_create($patient_id=0)
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $patients = $this->get_patients();
         $date = $this->generate_date();
         $data = ['patients' => $patients, 'date' => $date, 'patient_id' => $patient_id, 'success' => 'Patient added successfully.'];
@@ -331,6 +367,9 @@ class HomeController extends Controller
     }
     public function followup_create()
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $patients = $this->get_patients();
         return view('followup.create', ['patients' => $patients]);
     }
@@ -381,6 +420,9 @@ class HomeController extends Controller
     // show patients edit
     public function patient_edit($id)
     {
+        if(\Gate::allows('isViewer')) {
+            abort(403, "Sorry, you don't have permission.");
+        }
         $patient = DB::select("SELECT * FROM patients p LEFT JOIN patient_families pf ON pf.patient_id = p.patient_id LEFT JOIN patient_diagnoses pd ON pd.patient_id = p.patient_id LEFT JOIN patient_examinations pe ON pe.patient_id = p.patient_id WHERE p.patient_id = " . $id . ";");
         if (!$patient) {
             return redirect('patient')->with('error', 'Incorrect Patient.');
