@@ -53,6 +53,7 @@ Route::post('followup/add', [App\Http\Controllers\HomeController::class, 'follow
 Route::get('analytic', [App\Http\Controllers\HomeController::class, 'analytic_index'])->name('analytic');
 Route::get('home/dashboard/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'dashboard_report']);
 Route::get('analytic/casted_more', [App\Http\Controllers\HomeController::class, 'casted_more_view'])->name('analytic.casted_more_view');
+Route::get('analytic/main_report', [App\Http\Controllers\HomeController::class, 'main_report_view'])->name('analytic.main_report_view');
 Route::get('analytic/casted_more_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'casted_more_report']);
 Route::get('analytic/casted_same', [App\Http\Controllers\HomeController::class, 'casted_same_view'])->name('analytic.casted_same_view');
 Route::get('analytic/casted_same_report/{st_dt}/{ed_dt}/', [App\Http\Controllers\HomeController::class, 'casted_same_report']);

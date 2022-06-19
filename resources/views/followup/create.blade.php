@@ -117,11 +117,11 @@
           <select id="treatment_drop" name="treatment" class="form-control select2" style="width: 100%;">
             <option value="0" disabled hidden selected>Select Treatment</option>
             <option value="3">Reassurance</option>
-            <option value="4">New Brace</option>
+            <option value="4">First Brace</option>
             <option value="6">Change Brace</option>
             <option value="7">Completed</option>
-            <option value="1">Casted</option>
-            <option value="2">Tenotomy</option>
+            <option value="1">ReCast</option>
+            <option value="2">ReTenotomy</option>
             <option value="5">Referred</option>
           </select>
         </div>
