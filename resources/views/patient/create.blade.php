@@ -35,9 +35,24 @@
   @csrf
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-md-6">
         <h3 id="general_info" onclick="general_clickable();" style="cursor: pointer; text-decoration: underline;">General Information</h3>
       </div>
+      <div class="col-md-6">
+          <div class="form-group">
+            <label>Reg No: </label><label style="color: red;"> &nbsp;*</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
+              <input type="text" name="" id="patient_id" class="form-control" placeholder="Reg No"  required>
+            </div>
+          </div>
+          <!-- <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
+            </div>
+            <input type="text" name="patient_name" class="form-control" placeholder="Enter Patient Name">
+          </div> -->
+        </div>
     </div>
     <div id="general_view">
       <div class="row">

@@ -481,6 +481,7 @@ class HomeController extends Controller
         // dd($request);
         // Add patient general info
         $patient = new Patient;
+        $patient->patient_id = $request->patient_id;
         $patient->patient_name = $request->patient_name;
         $patient->father_name = $request->father_name;
         // 0: "Other", 1: "Male", 2: "Female"

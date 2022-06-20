@@ -12,6 +12,6 @@ class Patient extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'patient_name', 'father_name', 'gender', 'birth_date', 'address', 'address2', 'out_of_city', 'has_photo_consent', 'relation_to_patient', 'guardian_name', 'guardian_number', 'guardian_number_2', 'guardian_cnic', 'icr_number', 'donor_id', 'inserted_at'
+        'patient_id', 'patient_name', 'father_name', 'gender', 'birth_date', 'address', 'address2', 'out_of_city', 'has_photo_consent', 'relation_to_patient', 'guardian_name', 'guardian_number', 'guardian_number_2', 'guardian_cnic', 'icr_number', 'donor_id', 'inserted_at'
     ];
 }
