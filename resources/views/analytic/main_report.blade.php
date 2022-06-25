@@ -100,58 +100,28 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="patient_name" value="1"> &nbsp; Patient Name </label>
+          <label><input type="checkbox" value="p.patient_name" class="patient" name="patient_name" value="1"> &nbsp; Patient Name </label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="father_name" value="1"> &nbsp; Father Name </label>
+          <label><input type="checkbox" value="p.father_name" class="patient" name="father_name" value="1"> &nbsp; Father Name </label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="gender" value="1"> &nbsp; Gender </label>
+          <label><input type="checkbox" value="p.gender" class="patient" name="gender" value="1"> &nbsp; Gender </label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="birth_date" value="1"> &nbsp; DOB </label>
-        </div>
-      </div>
-    </div>
-  </div> <!-- row end -->
-  <div class="row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="age" value="1"> &nbsp; age </label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="address" value="1"> &nbsp; Address </label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="icr_number" value="1"> &nbsp; ICR Number </label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="inserted_at" value="1"> &nbsp; Registration Date </label>
+          <label><input type="checkbox" value="p.birth_date" class="patient" name="birth_date" value="1"> &nbsp; DOB </label>
         </div>
       </div>
     </div>
@@ -160,28 +130,58 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="guardian_name" value="1"> &nbsp; Guardian Name </label>
+          <label><input type="checkbox" value="p.age" class="patient" name="age" value="1"> &nbsp; age </label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="guardian_number" value="1"> &nbsp; Guardian Number </label>
+          <label><input type="checkbox" value="p.address" class="patient" name="address" value="1"> &nbsp; Address </label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="guardian_cnic" value="1"> &nbsp; Guardian CNIC </label>
+          <label><input type="checkbox" value="p.icr_number" class="patient" name="icr_number" value="1"> &nbsp; ICR Number </label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="relation_to_patient" value="1"> &nbsp; Guardian Relation </label>
+          <label><input type="checkbox" value="p.inserted_at" class="patient" name="inserted_at" value="1"> &nbsp; Registration Date </label>
+        </div>
+      </div>
+    </div>
+  </div> <!-- row end -->
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="p.guardian_name" class="patient" name="guardian_name" value="1"> &nbsp; Guardian Name </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="p.guardian_number" class="patient" name="guardian_number" value="1"> &nbsp; Guardian Number </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="p.guardian_cnic" class="patient" name="guardian_cnic" value="1"> &nbsp; Guardian CNIC </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="p.relation_to_patient" class="patient" name="relation_to_patient" value="1"> &nbsp; Guardian Relation </label>
         </div>
       </div>
     </div>
@@ -196,28 +196,28 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="evaluator_name" value="1"> &nbsp; Evaluator Name</label>
+          <label><input type="checkbox" value="pd.evaluator_name" class="patient_dia" name="evaluator_name" value="1"> &nbsp; Evaluator Name</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="evaluation_date" value="1"> &nbsp; Evaluation Date</label>
+          <label><input type="checkbox" value="pd.evaluation_date" class="patient_dia" name="evaluation_date" value="1"> &nbsp; Evaluation Date</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="evaluator_title" value="1"> &nbsp; Evaluator Title</label>
+          <label><input type="checkbox" value="pd.evaluator_title" class="patient_dia" name="evaluator_title" value="1"> &nbsp; Evaluator Title</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="feet_affected" value="1"> &nbsp; Feet Affected</label>
+          <label><input type="checkbox" value="pd.feet_affected" class="patient_dia" name="feet_affected" value="1"> &nbsp; Feet Affected</label>
         </div>
       </div>
     </div>
@@ -226,58 +226,28 @@
   <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="diagnosis" value="1"> &nbsp; Diagnosis</label>
+          <label><input type="checkbox" value="pd.diagnosis" class="patient_dia" name="diagnosis" value="1"> &nbsp; Diagnosis</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="other_diagnosis" value="1"> &nbsp; Other Diagnosis</label>
+          <label><input type="checkbox" value="pd.other_diagnosis" class="patient_dia" name="other_diagnosis" value="1"> &nbsp; Other Diagnosis</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="has_birth_deformity" value="1"> &nbsp; Has Birth Deformity</label>
+          <label><input type="checkbox" value="pd.has_birth_deformity" class="patient_dia" name="has_birth_deformity" value="1"> &nbsp; Has Birth Deformity</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="has_treated" value="1"> &nbsp; Has Treated</label>
-        </div>
-      </div>
-    </div>
-  </div> <!-- row end -->
-  <div class="row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="treatments" value="1"> &nbsp; Treatments</label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="treatment_type" value="1"> &nbsp; Treatment Type</label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="has_diagnosed" value="1"> &nbsp; Has Diagnosed</label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="preg_week" value="1"> &nbsp; pregnancy Week</label>
+          <label><input type="checkbox" value="pd.has_treated" class="patient_dia" name="has_treated" value="1"> &nbsp; Has Treated</label>
         </div>
       </div>
     </div>
@@ -286,7 +256,37 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="has_birth_confirmed" value="1"> &nbsp; Confirmed at birth</label>
+          <label><input type="checkbox" value="pd.treatments" class="patient_dia" name="treatments" value="1"> &nbsp; Treatments</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="pd.treatment_type" class="patient_dia" name="treatment_type" value="1"> &nbsp; Treatment Type</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="pd.has_diagnosed" class="patient_dia" name="has_diagnosed" value="1"> &nbsp; Has Diagnosed</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="pd.preg_week" class="patient_dia" name="preg_week" value="1"> &nbsp; pregnancy Week</label>
+        </div>
+      </div>
+    </div>
+  </div> <!-- row end -->
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="pd.has_birth_confirmed" class="patient_dia" name="has_birth_confirmed" value="1"> &nbsp; Confirmed at birth</label>
         </div>
       </div>
     </div>
@@ -301,58 +301,28 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="visit_date" value="1"> &nbsp; visit_date</label>
+          <label><input type="checkbox" value="v.visit_date" class="visit" name="visit_date" value="1"> &nbsp; visit_date</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="next_visit_date" value="1"> &nbsp; next_visit_date</label>
+          <label><input type="checkbox" value="v.next_visit_date" class="visit" name="next_visit_date" value="1"> &nbsp; next_visit_date</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="side" value="1"> &nbsp; side</label>
+          <label><input type="checkbox" value="v.side" class="visit" name="side" value="1"> &nbsp; side</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="CLB" value="1"> &nbsp; CLB</label>
-        </div>
-      </div>
-    </div>
-    </div> <!-- row end -->
-  <div class="row">
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="MC" value="1"> &nbsp; MC</label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="LHT" value="1"> &nbsp; LHT</label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="PC" value="1"> &nbsp; PC</label>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="RE" value="1"> &nbsp; RE</label>
+          <label><input type="checkbox" value="v.CLB" class="visit" name="CLB" value="1"> &nbsp; CLB</label>
         </div>
       </div>
     </div>
@@ -361,28 +331,28 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="EH" value="1"> &nbsp; EH</label>
+          <label><input type="checkbox" value="v.MC" class="visit" name="MC" value="1"> &nbsp; MC</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="mid_foot_score" value="1"> &nbsp; mid_foot_score</label>
+          <label><input type="checkbox" value="v.LHT" class="visit" name="LHT" value="1"> &nbsp; LHT</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="hind_foot_score" value="1"> &nbsp; hind_foot_score</label>
+          <label><input type="checkbox" value="v.PC" class="visit" name="PC" value="1"> &nbsp; PC</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="total_score" value="1"> &nbsp; total_score</label>
+          <label><input type="checkbox" value="v.RE" class="visit" name="RE" value="1"> &nbsp; RE</label>
         </div>
       </div>
     </div>
@@ -391,14 +361,44 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="treatment" value="1"> &nbsp; treatment</label>
+          <label><input type="checkbox" value="v.EH" class="visit" name="EH" value="1"> &nbsp; EH</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="complication" value="1"> &nbsp; complication</label>
+          <label><input type="checkbox" value="v.mid_foot_score" class="visit" name="mid_foot_score" value="1"> &nbsp; mid_foot_score</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="v.hind_foot_score" class="visit" name="hind_foot_score" value="1"> &nbsp; hind_foot_score</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="v.total_score" class="visit" name="total_score" value="1"> &nbsp; total_score</label>
+        </div>
+      </div>
+    </div>
+    </div> <!-- row end -->
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="v.treatment" class="visit" name="treatment" value="1"> &nbsp; treatment</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <div class="form-check form-check-inline" style="padding-top: 5px;">
+          <label><input type="checkbox" value="v.complication" class="visit" name="complication" value="1"> &nbsp; complication</label>
         </div>
       </div>
     </div>
@@ -635,10 +635,22 @@
   function generate_option()
   {
     var data_lists = "patient_id, patient_name, father_name, gender, birth_date, address, address2, out_of_city, has_photo_consent, relation_to_patient, guardian_name, guardian_number, guardian_number_2, guardian_cnic, icr_number, donor_id, inserted_at";
+
+    var vist_lists = "visit_date, next_visit_date, appointment_id, side, CLB, MC, LHT, PC, RE, EH, mid_foot_score, hind_foot_score, total_score, treatment, complication";
+
+    var folow_lists = "appointment_id, visit_date, next_visit_date, relapse, size, hours, treatment, is_virtual";
     var data_list = data_lists.split(",");
+    var vist_list = vist_lists.split(",");
+    var folow_list = folow_lists.split(",");
     var result = "";
     for (var i = data_list.length - 1; i >= 0; i--) {
-        result += "<option value="+ data_list[i]  +" > " +data_list[i]+" </option> ";
+        result += "<option value=p."+ data_list[i]  +" > " +data_list[i]+" </option> ";
+    }
+    for (var i = vist_list.length - 1; i >= 0; i--) {
+        result += "<option value=v."+ vist_list[i]  +" > " +vist_list[i]+" </option> ";
+    }
+    for (var i = folow_list.length - 1; i >= 0; i--) {
+        result += "<option value=f."+ folow_list[i]  +" > " +folow_list[i]+" </option> ";
     }
     return result;
   }
