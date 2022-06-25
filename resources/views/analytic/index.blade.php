@@ -115,9 +115,9 @@
                       <div class="transaction-summary">
                         <h3>Miscellaneous</h3>
                         <h5>View other valuable reports</h5>
+                        <a href="analytic/main_report">Main Report</a>
+                        <hr>
                         <a href="donor">Donors List</a>
-                        <!-- <hr>
-                        <a href="reports/expenses">Expenses List</a> -->
                       </div>
                     </div>
                   </div>

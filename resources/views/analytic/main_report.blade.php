@@ -413,28 +413,28 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="visit_date" value="1"> &nbsp; visit_date</label>
+          <label><input type="checkbox" name="visit_date" class="followup" value="f.visit_date"> &nbsp; visit_date</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="next_visit_date" value="1"> &nbsp; next_visit_date</label>
+          <label><input type="checkbox" name="next_visit_date" class="followup" value="f.next_visit_date"> &nbsp; next_visit_date</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="relapse" value="1"> &nbsp; relapse</label>
+          <label><input type="checkbox" name="relapse" class="followup" value="f.relapse"> &nbsp; relapse</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="size" value="1"> &nbsp; size</label>
+          <label><input type="checkbox" name="size" class="followup" value="f.size"> &nbsp; size</label>
         </div>
       </div>
     </div>
@@ -443,21 +443,21 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="hours" value="1"> &nbsp; hours</label>
+          <label><input type="checkbox" name="hours" class="followup" value="f.hours"> &nbsp; hours</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="treatment" value="1"> &nbsp; treatment</label>
+          <label><input type="checkbox" name="treatment" class="followup" value="f.treatment"> &nbsp; treatment</label>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" name="is_virtual" value="1"> &nbsp; is_virtual</label>
+          <label><input type="checkbox" name="is_virtual" class="followup" value="f.is_virtual"> &nbsp; is_virtual</label>
         </div>
       </div>
     </div>
@@ -574,7 +574,8 @@
 <!-- Page specific script -->
 <script type="text/javascript">
 
-  var patient_id = 0, output = '', st_dt, ed_dt, url, status_dict, current_filter_id =2;
+  var patient_id = 0, output = '', st_dt, ed_dt, url, status_dict, keys, conditions, values, current_filter_id =2;
+  var select_p = [], select_v = [], select_f = [];
   // var appoint_delayed = {! ! json_encode($appoint_delayed) ! !};
   
   // view_appoint_delayed(appoint_delayed);
@@ -604,8 +605,20 @@
   {
     $("#appointment_id").val(appointment_id)
   }
-  // search records on date range
+  // search records on query
   function search_records() {
+    keys = Array.from($('.key_filter').get(), e => e.value);
+    conditions = Array.from($('.condition_filter').get(), e => e.value);
+    values = Array.from($('.value_filter').get(), e => e.value);
+    $('input.patient:checkbox:checked').each(function () {
+      select_p.push($(this).val());
+    });
+    $('input.visit:checkbox:checked').each(function () {
+      select_v.push($(this).val());
+    });
+    $('input.followup:checkbox:checked').each(function () {
+      select_f.push($(this).val());
+    });
     st_dt = $('#start_date').val();
     ed_dt = $('#end_date').val();
     $.ajax({
