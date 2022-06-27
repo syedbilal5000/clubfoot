@@ -569,7 +569,7 @@
   var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, row;
   var main_report = {!! json_encode($main_report) !!};
   
-  view_main_report(main_report);
+  // view_main_report(main_report);
 
   function view_main_report(main_report, selections) {
     output = '';
