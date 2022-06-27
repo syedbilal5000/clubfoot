@@ -571,6 +571,7 @@
 	for (i = 0; i < selections.length; i++) {
 	  idx = selections[i].indexOf('.');
 	  column = selections[i].slice(idx+1, );
+	  console.log(column);
 	  output += `<th>${column}</th>`;
 	}
 	$('#columns_h').html(output);
@@ -578,7 +579,9 @@
 	output = '';
 	for (j = 0; j < main_report.length; j++) {
       row = main_report[j][selections[j]];
+	  output += "<tr>";
 	  output += `<td>${row}</td> `;
+	  console.log(main_report[j]);
 	  console.log(row);
     }
     if (output == '') {
