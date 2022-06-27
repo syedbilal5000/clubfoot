@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailController;
 use Illuminate\Support\Facades\Http;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -138,8 +137,9 @@ class HomeController extends Controller
 	// get main report data
     public function main_data($selections, $collections, $filterations)
     {
-		print($selections, $collections, $filterations);
-		dd(12);
+        print($selections);
+        print($collections);
+        print($filterations);
         $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date, COALESCE(ad.reason, 0) reason FROM (SELECT * FROM appointment WHERE appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "' AND appointment_status = (SELECT id FROM status WHERE status_name = 'Pending')) a LEFT JOIN patients p ON p.patient_id = a.patient_id LEFT JOIN appoint_delayed ad ON ad.appointment_id = a.appointment_id"; 
         $appoint_delayed = DB::select($query);
         // dd($query);

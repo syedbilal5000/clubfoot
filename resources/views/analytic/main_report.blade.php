@@ -494,7 +494,7 @@
   <!-- <hr> -->
   <div class="row">
     <div class="col-md-12">
-      <h4 class="txt_heading">Appointments Delayed / Missed</h4>
+      <h4 class="txt_heading">Generic / Main Report</h4>
       <table id="home_table" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -507,7 +507,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody id="appoint_delayed">
+        <tbody id="main_report">
         </tbody>
         <tfoot>
             <tr>
@@ -523,7 +523,7 @@
       </table>
     </div>
     </div>
-    <form action="appoint_delayed/add" method="POST" id="appoint_form">
+    <!-- <form action="main_report/add" method="POST" id="appoint_form">
       @csrf
     <div class="row">
     <input type="hidden" name="appointment_id" id="appointment_id" value="0" class="form-control">
@@ -550,12 +550,11 @@
     <div class="col-md-4">
       <div class="form-group">
         <label>&nbsp;</label>
-        <!-- <a class="form-control pull-right btn btn-primary" type="submit">Submit</a> -->
         <button type="submit" style="margin-bottom: 10px;" class="form-control btn btn-primary">Submit</button>
       </div>
     </div>
   </div>
-  </form>
+  </form> -->
 </div>
 
 <!-- ./wrapper -->
@@ -576,29 +575,29 @@
 
   var patient_id = 0, output = '', st_dt, ed_dt, url, status_dict, keys, conditions, values, current_filter_id =2;
   var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {};
-  // var appoint_delayed = {! ! json_encode($appoint_delayed) ! !};
+  // var main_report = {! ! json_encode($main_report) ! !};
   
-  // view_appoint_delayed(appoint_delayed);
+  // view_main_report(main_report);
 
-  // function view_appoint_delayed(appoint_delayed) {
+  // function view_main_report(main_report) {
   //   url = '';
   //   status_dict = { 0: "-", 1: "Called", 2: "No Response", 3: "Wrong Number" };
   //   output = '';
-  //   for (i = 0; i < appoint_delayed.length; i++) {
-  //     patient_id = appoint_delayed[i]['patient_id'];
+  //   for (i = 0; i < main_report.length; i++) {
+  //     patient_id = main_report[i]['patient_id'];
   //     url = `../patient/${patient_id}/edit`;
-  //     output += `<tr><td><a href="${url}" class="txt_link">Pc-${appoint_delayed[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
-  //     output += `<td>${appoint_delayed[i]['patient_name']}</td> `;
-  //     output += `<td>${appoint_delayed[i]['guardian_number']}</td> `;
-  //     output += `<td>${appoint_delayed[i]['appointment_date']}</td> `;
+  //     output += `<tr><td><a href="${url}" class="txt_link">Pc-${main_report[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
+  //     output += `<td>${main_report[i]['patient_name']}</td> `;
+  //     output += `<td>${main_report[i]['guardian_number']}</td> `;
+  //     output += `<td>${main_report[i]['appointment_date']}</td> `;
   //     output += `<td>Pending</td> `;
-  //     output += `<td>${status_dict[appoint_delayed[i]['reason']]}</td> `;
-  //     output += `<td><a class="btn btn-success " onclick="setIDFunction(${appoint_delayed[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
+  //     output += `<td>${status_dict[main_report[i]['reason']]}</td> `;
+  //     output += `<td><a class="btn btn-success " onclick="setIDFunction(${main_report[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
   //   }
   //   if (output == '') {
   //     output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
   //   }
-  //   $('#appoint_delayed').html(output);
+  //   $('#main_report').html(output);
   // }
 
   function setIDFunction(appointment_id)
@@ -615,7 +614,6 @@
 	  dct[keys[i][0]] = 1;
 	}
 	filterations = filterations.slice(0, -2);
-	console.log(filterations);
 	$('input.patient:checkbox:checked').each(function () {
       select_p.push($(this).val());
     });
@@ -649,7 +647,7 @@
 	  dct['f'] = 1;
 	}
 	selections = selections.slice(0, -2);
-	collections += "patients p ";
+	collections = "patients p ";
 	if ('pd' in dct) {
 	  collections += "LEFT JOIN patient_diagnoses pd ON pd.patient_id = p.patient_id ";
 	}
@@ -659,16 +657,23 @@
 	if ('f' in dct) {
 	  collections += "LEFT JOIN followup f ON f.patient_id = p.patient_id ";
 	}
+	selections = selections.replaceAll(' ', '_');
+	selections = selections.replaceAll('=', '-');
+	collections = collections.replaceAll(' ', '_');
+	collections = collections.replaceAll('=', '-');
+	filterations = filterations.replaceAll(' ', '_');
+	filterations = filterations.replaceAll('=', '-');
 	console.log(selections);
-	console.log(dct);
 	console.log(collections);
-    st_dt = $('#start_date').val();
-    ed_dt = $('#end_date').val();
+	console.log(filterations);
     $.ajax({
       type: 'GET',
-      url: '../analytic/appoint_delayed_report/' + st_dt + '/' + ed_dt,
+      url: '../analytic/main_data/ppatient_name/patients_p_/pinserted_at-12',
+	  dataType: 'json',
       success: function (data) {
-        view_appoint_delayed(data);
+        view_main_report(data);
+		console.log("here comes the data");
+		console.log(data);
       },
       error: function() { 
         console.log("none");
