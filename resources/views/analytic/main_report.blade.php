@@ -497,20 +497,12 @@
       <h4 class="txt_heading">Generic / Main Report</h4>
       <table id="home_table" class="table table-striped table-bordered">
         <thead>
-            <tr id="header"></tr>
+            <tr id="columns_h"></tr>
         </thead>
         <tbody id="main_report">
         </tbody>
         <tfoot>
-            <tr>
-                <th>Reg no.</th>
-                <th>Patient Name</th>
-                <th>Guardian Number</th>
-                <th>Appointment Date</th>
-                <th>Status</th>
-                <th>Call Status</th>
-                <th>Action</th>
-            </tr>
+            <tr id="columns_f"></tr>
         </tfoot>
       </table>
     </div>
@@ -573,6 +565,7 @@
 
   function view_main_report(main_report, selections) {
     output = '';
+    console.log("Inside");
     console.log(selections);
 	selections = selections.split(',');
 	for (i = 0; i < selections.length; i++) {
@@ -580,7 +573,8 @@
 	  column = selections[i].slice(idx+1, );
 	  output += `<th>${column}</th>`;
 	}
-	$('#header').html(output);
+	$('#columns_h').html(output);
+	$('#columns_f').html(output);
 	output = '';
 	for (j = 0; j < main_report.length; j++) {
       row = main_report[j][selections[j]];
