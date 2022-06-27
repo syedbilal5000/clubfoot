@@ -581,7 +581,7 @@
 	for (j = 0; j < main_report.length; j++) {
       output += "<tr>";
 	  for (k = 0; k < columns.length; k++) {
-	    row = main_report[j][selections[k]];
+	    row = main_report[j][columns[k]];
 		output += `<td>${row}</td> `;
 	  }
 	  output += "</tr>";
