@@ -653,19 +653,22 @@
 	console.log(selections);
 	console.log(collections);
 	console.log(filterations);
-    $.ajax({
-      type: 'GET',
-      url: '../analytic/main_data/' + selections + '/' + collections + '/' + filterations,
-	  dataType: 'json',
-      success: function (data) {
-        view_main_report(data, selections);
-		console.log("here comes the data");
-		console.log(data);
-      },
-      error: function() { 
-        console.log("none");
-      }
-    });
+	if (selections != "" && collections != "" && filterations != "") {
+      $.ajax({
+        type: 'GET',
+        url: '../analytic/main_data/' + selections + '/' + collections + '/' + filterations,
+	    dataType: 'json',
+        success: function (data) {
+          view_main_report(data, selections);
+		  console.log(data);
+        },
+        error: function() { 
+          console.log("none");
+        }
+      });
+	} else {
+	  alert("Select column / filter to view");
+	}
   }
   function generate_option()
   {
