@@ -583,9 +583,8 @@
 	$('#header').html(output);
 	output = '';
 	for (j = 0; j < main_report.length; j++) {
-      // patient_id = main_report[i]['patient_id'];
-	  row = main_report[j][selections[j]];
-	  // output += `<td>${row}</td> `;
+      row = main_report[j][selections[j]];
+	  output += `<td>${row}</td> `;
 	  console.log(row);
     }
     if (output == '') {
