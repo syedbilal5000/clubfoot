@@ -497,15 +497,7 @@
       <h4 class="txt_heading">Generic / Main Report</h4>
       <table id="home_table" class="table table-striped table-bordered">
         <thead>
-            <tr>
-                <th>Reg no.</th>
-                <th>Patient Name</th>
-                <th>Guardian Number</th>
-                <th>Appointment Date</th>
-                <th>Status</th>
-                <th>Call Status</th>
-                <th>Action</th>
-            </tr>
+            <tr id="header"></tr>
         </thead>
         <tbody id="main_report">
         </tbody>
@@ -574,25 +566,27 @@
 <script type="text/javascript">
 
   var patient_id = 0, output = '', st_dt, ed_dt, url, status_dict, keys, conditions, values, current_filter_id =2;
-  var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {};
+  var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, row;
   var main_report = {!! json_encode($main_report) !!};
   
   view_main_report(main_report);
 
-  function view_main_report(main_report) {
-    url = '';
-    status_dict = { 0: "-", 1: "Called", 2: "No Response", 3: "Wrong Number" };
+  function view_main_report(main_report, selections) {
     output = '';
-    for (i = 0; i < main_report.length; i++) {
-      patient_id = main_report[i]['patient_id'];
-      url = `../patient/${patient_id}/edit`;
-      output += `<tr><td><a href="${url}" class="txt_link">Pc-${main_report[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
-      output += `<td>${main_report[i]['patient_name']}</td> `;
-      output += `<td>${main_report[i]['guardian_number']}</td> `;
-      output += `<td>${main_report[i]['appointment_date']}</td> `;
-      output += `<td>Pending</td> `;
-      output += `<td>${status_dict[main_report[i]['reason']]}</td> `;
-      output += `<td><a class="btn btn-success " onclick="setIDFunction(${main_report[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
+    console.log(selections);
+	selections = selections.split(',');
+	for (i = 0; i < selections.length; i++) {
+	  idx = selections[i].indexOf('.');
+	  column = selections[i].slice(idx+1, );
+	  output += `<th>${column}</th>`;
+	}
+	$('#header').html(output);
+	output = '';
+	for (j = 0; j < main_report.length; j++) {
+      // patient_id = main_report[i]['patient_id'];
+	  row = main_report[j][selections[j]];
+	  // output += `<td>${row}</td> `;
+	  console.log(row);
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
@@ -662,10 +656,10 @@
 	console.log(filterations);
     $.ajax({
       type: 'GET',
-      url: '../analytic/main_data/ppatient_name/patients_p_/pinserted_at-12',
+      url: '../analytic/main_data/' + selections + '/' + collections + '/' + filterations,
 	  dataType: 'json',
       success: function (data) {
-        // view_main_report(data);
+        view_main_report(data, selections);
 		console.log("here comes the data");
 		console.log(data);
       },
