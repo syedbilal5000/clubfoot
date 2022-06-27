@@ -134,6 +134,17 @@ class HomeController extends Controller
         // dd(1);
         return $curr_records;
     }
+	
+	// get main report data
+    public function main_data($selections, $collections, $filterations)
+    {
+		print($selections, $collections, $filterations);
+		dd(12);
+        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date, COALESCE(ad.reason, 0) reason FROM (SELECT * FROM appointment WHERE appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "' AND appointment_status = (SELECT id FROM status WHERE status_name = 'Pending')) a LEFT JOIN patients p ON p.patient_id = a.patient_id LEFT JOIN appoint_delayed ad ON ad.appointment_id = a.appointment_id"; 
+        $appoint_delayed = DB::select($query);
+        // dd($query);
+        return $appoint_delayed;
+    }
 
     // get report data for appointment delayed
     public function appoint_delayed_report($st_dt, $ed_dt)
@@ -211,7 +222,7 @@ class HomeController extends Controller
         return view('analytic.casted_same')->with($data);
     }
 
-    // alert for casted more than seven
+    // alert for appoint delayed
     public function appoint_delayed_view()
     {
         // $start_date = date('Y-m-d');
