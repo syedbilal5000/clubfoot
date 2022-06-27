@@ -575,30 +575,30 @@
 
   var patient_id = 0, output = '', st_dt, ed_dt, url, status_dict, keys, conditions, values, current_filter_id =2;
   var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {};
-  // var main_report = {! ! json_encode($main_report) ! !};
+  var main_report = {!! json_encode($main_report) !!};
   
-  // view_main_report(main_report);
+  view_main_report(main_report);
 
-  // function view_main_report(main_report) {
-  //   url = '';
-  //   status_dict = { 0: "-", 1: "Called", 2: "No Response", 3: "Wrong Number" };
-  //   output = '';
-  //   for (i = 0; i < main_report.length; i++) {
-  //     patient_id = main_report[i]['patient_id'];
-  //     url = `../patient/${patient_id}/edit`;
-  //     output += `<tr><td><a href="${url}" class="txt_link">Pc-${main_report[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
-  //     output += `<td>${main_report[i]['patient_name']}</td> `;
-  //     output += `<td>${main_report[i]['guardian_number']}</td> `;
-  //     output += `<td>${main_report[i]['appointment_date']}</td> `;
-  //     output += `<td>Pending</td> `;
-  //     output += `<td>${status_dict[main_report[i]['reason']]}</td> `;
-  //     output += `<td><a class="btn btn-success " onclick="setIDFunction(${main_report[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
-  //   }
-  //   if (output == '') {
-  //     output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
-  //   }
-  //   $('#main_report').html(output);
-  // }
+  function view_main_report(main_report) {
+    url = '';
+    status_dict = { 0: "-", 1: "Called", 2: "No Response", 3: "Wrong Number" };
+    output = '';
+    for (i = 0; i < main_report.length; i++) {
+      patient_id = main_report[i]['patient_id'];
+      url = `../patient/${patient_id}/edit`;
+      output += `<tr><td><a href="${url}" class="txt_link">Pc-${main_report[i]['inserted_at'].substr(2,2)}|${patient_id}</a></td> `;
+      output += `<td>${main_report[i]['patient_name']}</td> `;
+      output += `<td>${main_report[i]['guardian_number']}</td> `;
+      output += `<td>${main_report[i]['appointment_date']}</td> `;
+      output += `<td>Pending</td> `;
+      output += `<td>${status_dict[main_report[i]['reason']]}</td> `;
+      output += `<td><a class="btn btn-success " onclick="setIDFunction(${main_report[i]['appointment_id']})"><i class="fa fa-plus"></i></a></td> `;
+    }
+    if (output == '') {
+      output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
+    }
+    $('#main_report').html(output);
+  }
 
   function setIDFunction(appointment_id)
   {

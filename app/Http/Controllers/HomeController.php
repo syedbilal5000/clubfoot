@@ -147,9 +147,9 @@ class HomeController extends Controller
     public function appoint_delayed_report($st_dt, $ed_dt)
     {
         $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date, COALESCE(ad.reason, 0) reason FROM (SELECT * FROM appointment WHERE appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "' AND appointment_status = (SELECT id FROM status WHERE status_name = 'Pending')) a LEFT JOIN patients p ON p.patient_id = a.patient_id LEFT JOIN appoint_delayed ad ON ad.appointment_id = a.appointment_id"; 
-        $appoint_delayed = DB::select($query);
+        $main_report = DB::select($query);
         // dd($query);
-        return $appoint_delayed;
+        return $main_report;
     }
 
     // get visits report data by treatment type
