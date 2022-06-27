@@ -643,13 +643,13 @@
 	selections = selections.slice(0, -2);
 	collections = "patients p ";
 	if ('pd' in dct) {
-	  collections += "LEFT JOIN patient_diagnoses pd ON pd.patient_id = p.patient_id ";
+	  collections += "RIGHT JOIN patient_diagnoses pd ON pd.patient_id = p.patient_id ";
 	}
 	if ('v' in dct) {
-	  collections += "LEFT JOIN visit_details v ON v.patient_id = p.patient_id ";
+	  collections += "RIGHT JOIN visit_details v ON v.patient_id = p.patient_id ";
 	}
 	if ('f' in dct) {
-	  collections += "LEFT JOIN followup f ON f.patient_id = p.patient_id ";
+	  collections += "RIGHT JOIN followup f ON f.patient_id = p.patient_id ";
 	}
 	console.log(selections);
 	console.log(collections);
