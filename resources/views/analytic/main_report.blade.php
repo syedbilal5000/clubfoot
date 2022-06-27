@@ -657,12 +657,6 @@
 	if ('f' in dct) {
 	  collections += "LEFT JOIN followup f ON f.patient_id = p.patient_id ";
 	}
-	selections = selections.replaceAll(' ', '_');
-	selections = selections.replaceAll('=', '-');
-	collections = collections.replaceAll(' ', '_');
-	collections = collections.replaceAll('=', '-');
-	filterations = filterations.replaceAll(' ', '_');
-	filterations = filterations.replaceAll('=', '-');
 	console.log(selections);
 	console.log(collections);
 	console.log(filterations);
@@ -671,7 +665,7 @@
       url: '../analytic/main_data/ppatient_name/patients_p_/pinserted_at-12',
 	  dataType: 'json',
       success: function (data) {
-        view_main_report(data);
+        // view_main_report(data);
 		console.log("here comes the data");
 		console.log(data);
       },

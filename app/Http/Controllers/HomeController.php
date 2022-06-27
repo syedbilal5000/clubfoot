@@ -137,19 +137,20 @@ class HomeController extends Controller
 	// get main report data
     public function main_data($selections, $collections, $filterations)
     {
-        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date, COALESCE(ad.reason, 0) reason FROM (SELECT * FROM appointment WHERE appointment_status = (SELECT id FROM status WHERE status_name = 'Pending')) a LEFT JOIN patients p ON p.patient_id = a.patient_id LEFT JOIN appoint_delayed ad ON ad.appointment_id = a.appointment_id"; 
-        $appoint_delayed = DB::select($query);
+        $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date, COALESCE(ad.reason, 0) reason FROM (SELECT * FROM appointment WHERE appointment_status = (SELECT id FROM status WHERE status_name = 'Pending')) a LEFT JOIN patients p ON p.patient_id = a.patient_id LEFT JOIN appoint_delayed ad ON ad.appointment_id = a.appointment_id";
+        $query = "SELECT " . $selections . " FROM " . $collections . " WHERE " . $filterations;
+		$main_report = DB::select($query);
         // dd($query);
-        return $appoint_delayed;
+        return $main_report;
     }
 
     // get report data for appointment delayed
     public function appoint_delayed_report($st_dt, $ed_dt)
     {
         $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date, COALESCE(ad.reason, 0) reason FROM (SELECT * FROM appointment WHERE appointment_date >= '" . $st_dt . "' AND appointment_date <= '" . $ed_dt . "' AND appointment_status = (SELECT id FROM status WHERE status_name = 'Pending')) a LEFT JOIN patients p ON p.patient_id = a.patient_id LEFT JOIN appoint_delayed ad ON ad.appointment_id = a.appointment_id"; 
-        $main_report = DB::select($query);
+        $appoint_delayed = DB::select($query);
         // dd($query);
-        return $main_report;
+        return $appoint_delayed;
     }
 
     // get visits report data by treatment type
