@@ -558,13 +558,13 @@
 <script type="text/javascript">
 
   var patient_id = 0, output = '', st_dt, ed_dt, url, status_dict, keys, conditions, values, current_filter_id =2;
-  var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, row;
+  var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, columns = [], row;
   var main_report = {!! json_encode($main_report) !!};
   
   // view_main_report(main_report);
 
   function view_main_report(main_report, selections) {
-    output = '';
+    output = '', columns = [];
     console.log("Inside");
     console.log(selections);
 	selections = selections.split(',');
@@ -572,17 +572,20 @@
 	  idx = selections[i].indexOf('.');
 	  column = selections[i].slice(idx+1, );
 	  console.log(column);
+	  columns.push(column);
 	  output += `<th>${column}</th>`;
 	}
 	$('#columns_h').html(output);
 	$('#columns_f').html(output);
 	output = '';
 	for (j = 0; j < main_report.length; j++) {
-      row = main_report[j][selections[j]];
-	  output += "<tr>";
-	  output += `<td>${row}</td> `;
+      output += "<tr>";
+	  for (k = 0; k < columns.length; k++) {
+	    row = main_report[j][selections[k]];
+		output += `<td>${row}</td> `;
+	  }
+	  output += "</tr>";
 	  console.log(main_report[j]);
-	  console.log(row);
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
@@ -596,7 +599,8 @@
   }
   // search records on query
   function search_records() {
-    keys = Array.from($('.key_filter').get(), e => e.value);
+    selections = "", collections = "", filterations = "";
+	keys = Array.from($('.key_filter').get(), e => e.value);
     conditions = Array.from($('.condition_filter').get(), e => e.value);
     values = Array.from($('.value_filter').get(), e => e.value);
 	for (i = 0; i < values.length; i++) {
