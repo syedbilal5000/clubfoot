@@ -599,7 +599,7 @@
   }
   // search records on query
   function search_records() {
-    selections = "", collections = "", filterations = "";
+    select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, columns = [], row;
 	keys = Array.from($('.key_filter').get(), e => e.value);
     conditions = Array.from($('.condition_filter').get(), e => e.value);
     values = Array.from($('.value_filter').get(), e => e.value);
