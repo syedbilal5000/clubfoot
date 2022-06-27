@@ -137,9 +137,6 @@ class HomeController extends Controller
 	// get main report data
     public function main_data($selections, $collections, $filterations)
     {
-        print($selections);
-        print($collections);
-        print($filterations);
         $query = "SELECT p.patient_id, p.patient_name, p.guardian_number, p.inserted_at, a.appointment_id, a.appointment_date, COALESCE(ad.reason, 0) reason FROM (SELECT * FROM appointment WHERE appointment_status = (SELECT id FROM status WHERE status_name = 'Pending')) a LEFT JOIN patients p ON p.patient_id = a.patient_id LEFT JOIN appoint_delayed ad ON ad.appointment_id = a.appointment_id"; 
         $appoint_delayed = DB::select($query);
         // dd($query);
