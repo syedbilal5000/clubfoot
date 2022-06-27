@@ -558,7 +558,7 @@
 <script type="text/javascript">
 
   var patient_id = 0, output = '', st_dt, ed_dt, url, status_dict, keys, conditions, values, current_filter_id =2;
-  var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, columns = [], row;
+  var select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, columns = [], row, query = "";
   var main_report = {!! json_encode($main_report) !!};
   
   // view_main_report(main_report);
@@ -599,7 +599,7 @@
   }
   // search records on query
   function search_records() {
-    select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, columns = [], row;
+    select_p = [], select_pd = [], select_v = [], select_f = [], filterations = "", selections = "", collections = "", temp = "", dct = {}, idx, column, columns = [], row, query = "";
 	keys = Array.from($('.key_filter').get(), e => e.value);
     conditions = Array.from($('.condition_filter').get(), e => e.value);
     values = Array.from($('.value_filter').get(), e => e.value);
@@ -655,9 +655,11 @@
 	console.log(collections);
 	console.log(filterations);
 	if (selections != "" && collections != "" && filterations != "") {
-      $.ajax({
+      query = "SELECT " + selections + " FROM " + collections + " WHERE " + filterations;
+	  console.log(query);
+	  $.ajax({
         type: 'GET',
-        url: '../analytic/main_data/' + selections + '/' + collections + '/' + filterations,
+        url: '../analytic/main_data/' + query,
 	    dataType: 'json',
         success: function (data) {
           view_main_report(data, selections);
