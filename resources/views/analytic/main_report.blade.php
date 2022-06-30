@@ -130,7 +130,7 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" value="p.age" class="patient" name="age"> &nbsp; age </label>
+          <label><input type="checkbox" value="p.birth_date" class="patient" name="birth_date"> &nbsp; age </label>
         </div>
       </div>
     </div>
@@ -684,13 +684,13 @@
     var vist_list = vist_lists.split(",");
     var folow_list = folow_lists.split(",");
     var result = "";
-    for (var i = data_list.length - 1; i >= 0; i--) {
+    for (var i = 0; i < data_list.length; i++) {
         result += "<option value='p." + data_list[i] + "' > " +data_list[i]+" </option> ";
     }
-    for (var i = vist_list.length - 1; i >= 0; i--) {
+    for (var i = 0; i < vist_list.length; i++) {
         result += "<option value='v." + vist_list[i] + "' > " +vist_list[i]+" </option> ";
     }
-    for (var i = folow_list.length - 1; i >= 0; i--) {
+    for (var i = 0; i < folow_list.length; i++) {
         result += "<option value='f." + folow_list[i] + "' > " +folow_list[i]+" </option> ";
     }
     return result;
