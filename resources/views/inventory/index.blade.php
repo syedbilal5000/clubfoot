@@ -72,6 +72,37 @@
     </div>  <!-- row end -->
   </div>
 </form>
+<div class="modal fade" id="modal-defaultedit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title">Edit To Do Item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+              <form method="post" id="form">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Task</label>
+                  <input type="number" id="less_amount" class="form-control" value="0" />
+                  <input type="hidden" id="inv_id" class="form-control"/>
+                </div>
+                <!-- /.form-group -->
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button onclick="submitCalling()" id="edittaskbtn" type="button" class="btn btn-primary">Edit</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -90,10 +121,32 @@
     var output = "";
     if (inventory.length > 0) {
         for (i = 0; i < inventory.length; i++) {
-          output += `<tr id="${inventory[i]['id']}"><td>${inventory[i]['item_name']}</td><td>${inventory[i]['user_name']}</td><td>${inventory[i]['inv_name']}</td><td>${inventory[i]['unit_cost']}</td><td>${inventory[i]['total_amount']}</td><td>${inventory[i]['unit_balance']}</td><td>${inventory[i]['description']}</td><td class="text-center"><a href="inventory/${inventory[i]['id']}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a></td></tr>`;
+          output += `<tr id="${inventory[i]['id']}"><td>${inventory[i]['item_name']}</td><td>${inventory[i]['user_name']}</td><td>${inventory[i]['inv_name']}</td><td>${inventory[i]['unit_cost']}</td><td>${inventory[i]['total_amount']}</td><td id="balance_${inventory[i]['id']}">${inventory[i]['unit_balance']}</td><td>${inventory[i]['description']}</td><td class="text-center"><a href="#" class="btn btn-primary " data-toggle="modal" data-target="#modal-defaultedit" data-backdrop="static" onclick="editModelClick(${inventory[i]['unit_balance']}, ${inventory[i]['id']})"><i class="fa fa-minus"></i></a></td></tr>`;
       }
     }
     $('#table_body').html(output);
+  }
+  function editModelClick(bal, id)
+  {
+    // $("#less_amount").val(bal);
+    $("#inv_id").val(id);
+  }
+  function submitCalling()
+  {
+    let id = $("#inv_id").val();
+    let bal = $("#less_amount").val();
+    $.ajax({
+        type: 'GET',
+        url: 'inventory/update/' + bal + "/" + id,
+        dataType: 'json',
+        success: function (data) {
+          $("#balance_"+id).html($("#balance_"+id).html() - bal);
+          $('#modal-defaultedit').modal('hide');
+        },
+        error: function() { 
+          console.log("none");
+        }
+      });
   }
    
   $(function() {

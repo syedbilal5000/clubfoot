@@ -943,4 +943,10 @@ class HomeController extends Controller
         }
         return false;
     }
+    public function inv_update($less_amount, $inv_id)
+    {
+        $query = "update inventory set unit_balance = unit_balance - ".$less_amount." where id = ".$inv_id;
+        $result = DB::select($query);
+        return $result;
+    }
 }

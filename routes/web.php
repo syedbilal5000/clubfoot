@@ -77,3 +77,4 @@ Route::post('item/add', [App\Http\Controllers\HomeController::class, 'item_store
 Route::get('inventory', [App\Http\Controllers\HomeController::class, 'inventory_index'])->name('inventory');
 Route::get('inventory/create', [App\Http\Controllers\HomeController::class, 'inventory_create'])->name('inventory.create');
 Route::post('inventory/add', [App\Http\Controllers\HomeController::class, 'inventory_store'])->name('inventory_store');
+Route::get('inventory/update/{less_amount}/{inv_id}', [App\Http\Controllers\HomeController::class, 'inv_update'])->name('inventory.update');

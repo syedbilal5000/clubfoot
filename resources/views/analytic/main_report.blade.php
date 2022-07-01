@@ -57,11 +57,12 @@
         <label>Condition: </label>
         <div class="input-group">
           <select id="condition" name="" class="form-control select2 condition_filter" style="width: 100%;">
-            <option value="=" > equal </option>
-            <option value=">" > greater </option>
-            <option value="<" > less </option>
-            <option value=">=" > greater equal </option>
-            <option value="<=" > less equal </option>
+            <option value=" = " > equal </option>
+            <option value=" > " > greater </option>
+            <option value=" < " > less </option>
+            <option value=" >= " > greater equal </option>
+            <option value=" <= " > less equal </option>
+            <option value=" like " > like </option>
           </select>
         </div>
       </div>
