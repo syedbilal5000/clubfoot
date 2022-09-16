@@ -621,8 +621,8 @@ class HomeController extends Controller
         if($request->hasFile('img_file'))
         {
             foreach ($files as $file) {
-               // $request->validate([
-               //      'img_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
+               $request->validate([
+                    'img_file*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
                 // $file = $request->file('img_file');
                 // $filename = date('YmdHis') . $file->getClientOriginalName();
                 
@@ -632,15 +632,17 @@ class HomeController extends Controller
                 $path_file = $path_dir . '/' . $filename;
                 $file->move(public_path($path_dir), $filename);
                 $visit->img_path .= $filename . ",";
-                $message = substr($message, 0, -1);
-                // $email = 'syedbilalhussain168@gmail.com';
-                $query = DB::select("SELECT donor_email FROM donors WHERE id IN (SELECT donor_id FROM patients WHERE patient_id = " . $patient_id . ")");
-                $email = ($query != array()) ? $query[0]->donor_email : "";
-                if ($this->send_mail($email, $patient_id, $path_file)) {
-                    $message .= ", also email sent.";
-                } else {
-                    $message .= ", but email not send.";
-                }
+                
+                
+            }
+            // $email = 'bilal.saeed.ansari@gmail.com';
+            $message = substr($message, 0, -1);
+            $query = DB::select("SELECT donor_email FROM donors WHERE id IN (SELECT donor_id FROM patients WHERE patient_id = " . $patient_id . ")");
+            $email = ($query != array()) ? $query[0]->donor_email : "";
+            if ($this->send_mail($email, $patient_id, $path_file)) {
+                $message .= ", also email sent.";
+            } else {
+                $message .= ", but email not send.";
             }
             $visit->img_path = rtrim($visit->img_path, ",");
         }
@@ -813,7 +815,7 @@ class HomeController extends Controller
         $inv->total_amount = $request->total_amount;
         $inv->unit_balance = $request->unit_balance;
         $inv->description = $request->description;
-        $inv->inserted_at = date("Y-m-d");
+        $inv->inserted_at = $request->insert_date;
         $inv->save();
         return redirect('/inventory')->with('success', 'Inventory added successfully.');
     }

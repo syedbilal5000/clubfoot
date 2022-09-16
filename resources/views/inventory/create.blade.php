@@ -34,7 +34,15 @@
   @csrf
   <div class="container-fluid">
   <div>
-    
+    <div class="row">
+      <div class="col-md-6"></div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date: </label><label style="color: red;"> &nbsp;*</label>
+          <input type="date" name="insert_date" id="insert_date" class="form-control" value="@php echo date('Y-m-d');@endphp">
+        </div>
+      </div>
+    </div> <!-- row end -->
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
