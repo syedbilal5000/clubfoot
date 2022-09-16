@@ -615,27 +615,36 @@ class HomeController extends Controller
         $visit->inserted_at = date("Y-m-d");
         $message = 'Visit added successfully.';
         // adding image file
-        if($request->file('img_file')){
-            $request->validate([
-                'img_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
-            $file = $request->file('img_file');
-            // $filename = date('YmdHis') . $file->getClientOriginalName();
-            $filename = date('YmdHis') . '_' . $patient_id . '.' . $request->img_file->extension();;
-            $year_month = substr($filename, 0, 6);
-            $path_dir = 'img/upload/' . $year_month;
-            $path_file = $path_dir . '/' . $filename;
-            $file->move(public_path($path_dir), $filename);
-            $visit->img_path = $filename;
-            $message = substr($message, 0, -1);
-            // $email = 'syedbilalhussain168@gmail.com';
-            $query = DB::select("SELECT donor_email FROM donors WHERE id IN (SELECT donor_id FROM patients WHERE patient_id = " . $patient_id . ")");
-            $email = ($query != array()) ? $query[0]->donor_email : "";
-            if ($this->send_mail($email, $patient_id, $path_file)) {
-                $message .= ", also email sent.";
-            } else {
-                $message .= ", but email not send.";
+
+        $files = $request->file('img_file');
+
+        if($request->hasFile('img_file'))
+        {
+            foreach ($files as $file) {
+               // $request->validate([
+               //      'img_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
+                // $file = $request->file('img_file');
+                // $filename = date('YmdHis') . $file->getClientOriginalName();
+                
+                $filename = date('YmdHis').'_'. rand(100,999) . '_' . $patient_id . '.' . $file->extension();
+                $year_month = substr($filename, 0, 6);
+                $path_dir = 'img/upload/' . $year_month;
+                $path_file = $path_dir . '/' . $filename;
+                $file->move(public_path($path_dir), $filename);
+                $visit->img_path .= $filename . ",";
+                $message = substr($message, 0, -1);
+                // $email = 'syedbilalhussain168@gmail.com';
+                $query = DB::select("SELECT donor_email FROM donors WHERE id IN (SELECT donor_id FROM patients WHERE patient_id = " . $patient_id . ")");
+                $email = ($query != array()) ? $query[0]->donor_email : "";
+                if ($this->send_mail($email, $patient_id, $path_file)) {
+                    $message .= ", also email sent.";
+                } else {
+                    $message .= ", but email not send.";
+                }
             }
+            $visit->img_path = rtrim($visit->img_path, ",");
         }
+
         $visit->save();
 
         if(isset($request->side2)) {

@@ -330,7 +330,7 @@
     <div class="row">
       <div class="col-md-8">
         <div class="form-group">
-          <input class="form-control" type="file" name="img_file" id="img_file" style="padding-top: 3px;">
+          <input class="form-control" type="file" name="img_file[]" id="img_file" style="padding-top: 3px;" multiple="multiple">
         </div>
       </div>
       <!-- <div class="col-md-3">
