@@ -36,19 +36,13 @@
   <div>
     
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="form-group">
           <label>Name: </label><label style="color: red;"> &nbsp;*</label>
           <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name" required>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>Price: </label>
-          <input type="number" name="price" id="price" class="form-control" placeholder="Enter Price">
-        </div>
-      </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="form-group">
           <label>Description: </label>
           <input type="text" name="description" id="description" class="form-control" placeholder="Enter Description">

@@ -293,7 +293,7 @@ class HomeController extends Controller
         if(\Gate::allows('isViewer')) {
             abort(403, "Sorry, you don't have permission.");
         }
-        $iitems = DB::select("SELECT id, name, price, description FROM item;");
+        $iitems = DB::select("SELECT id, name, description FROM item;");
         return view('item.index', ['items' => $iitems]);
     }
 
@@ -796,7 +796,6 @@ class HomeController extends Controller
         // Add category
         $item = new Item;
         $item->name = $request->name;
-        $item->price = $request->price;
         $item->description = $request->description;
         $item->save();
         return redirect('/item')->with('success', 'Item added successfully.');
