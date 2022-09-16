@@ -319,7 +319,7 @@ class HomeController extends Controller
         if(!\Gate::allows('isAdmin')) {
             abort(403, "Sorry, you don't have permission.");
         }
-        $inventory = DB::select("SELECT id, name, price, description FROM item");
+        $inventory = DB::select("SELECT id, name, description FROM item");
         return view('inventory.create', ['inventory' => $inventory]);
     }
 

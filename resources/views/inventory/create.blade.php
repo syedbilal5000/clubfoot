@@ -106,8 +106,21 @@
     $('.inventory_navs').addClass('active');
     $('.inventory_nav_add').addClass('active');
 
+    $("#unit_balance").on('change', function(){
+      changeAmount();
+    });
+    $("#unit_cost").on('change', function(){
+      changeAmount();
+    });
+    
   });
 
+  function changeAmount()
+  {
+    var bal = $("#unit_balance").val() == 0 ? 1 : $("#unit_balance").val();
+    var unit = $("#unit_cost").val() == 0 ? 1 : $("#unit_cost").val();
+    $("#total_amount").val(bal * unit);
+  }
   var inventory = {!! json_encode($inventory) !!};
   
   view_inventory(inventory);
@@ -123,7 +136,7 @@
           }
           else {
             inventoryCheck[inventory[i]['id']] = true;
-            output += `<option value="${inventory[i]['id']}">${inventory[i]['name']}, ${inventory[i]['price']}</option>`;
+            output += `<option value="${inventory[i]['id']}">${inventory[i]['name']}</option>`;
           }
         }
     } else {
