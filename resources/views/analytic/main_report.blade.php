@@ -605,7 +605,10 @@
     conditions = Array.from($('.condition_filter').get(), e => e.value);
     values = Array.from($('.value_filter').get(), e => e.value);
 	for (i = 0; i < values.length; i++) {
-	  filterations += keys[i] + conditions[i] + '"' + values[i] + '"' + ' AND ';
+    if(conditions[i] == " like ")
+      filterations += keys[i] + conditions[i] + '"%25' + values[i] + '%25"' + ' AND ';
+    else
+      filterations += keys[i] + conditions[i] + '"' + values[i] + '"' + ' AND ';
 	  dct[keys[i][0]] = 1;
 	}
 	filterations = filterations.slice(0, -4);
