@@ -42,7 +42,7 @@
             <thead class="table_header">
               <tr>
               <th>Item Name</th>
-              <th>User Name</th>
+              <th>Date</th>
               <th>Inventory Name</th>
               <th>Unit Cost</th>
               <th>Total Amount</th>
@@ -56,7 +56,7 @@
             <tfoot>
               <tr>
               <th>Item Name</th>
-              <th>User Name</th>
+              <th>Date</th>
               <th>Inventory Name</th>
               <th>Unit Cost</th>
               <th>Total Amount</th>
@@ -121,7 +121,7 @@
     var output = "";
     if (inventory.length > 0) {
         for (i = 0; i < inventory.length; i++) {
-          output += `<tr id="${inventory[i]['id']}"><td>${inventory[i]['item_name']}</td><td>${inventory[i]['user_name']}</td><td>${inventory[i]['inv_name']}</td><td>${inventory[i]['unit_cost']}</td><td>${inventory[i]['total_amount']}</td><td id="balance_${inventory[i]['id']}">${inventory[i]['unit_balance']}</td><td>${inventory[i]['description']}</td><td class="text-center"><a href="#" class="btn btn-primary " data-toggle="modal" data-target="#modal-defaultedit" data-backdrop="static" onclick="editModelClick(${inventory[i]['unit_balance']}, ${inventory[i]['id']})"><i class="fa fa-minus"></i></a></td></tr>`;
+          output += `<tr id="${inventory[i]['id']}"><td>${inventory[i]['item_name']}</td><td>${inventory[i]['inserted_at']}</td><td>${inventory[i]['inv_name']}</td><td>${inventory[i]['unit_cost']}</td><td>${inventory[i]['total_amount']}</td><td id="balance_${inventory[i]['id']}">${inventory[i]['unit_balance']}</td><td>${inventory[i]['description']}</td><td class="text-center"><a href="#" class="btn btn-primary " data-toggle="modal" data-target="#modal-defaultedit" data-backdrop="static" onclick="editModelClick(${inventory[i]['unit_balance']}, ${inventory[i]['id']})"><i class="fa fa-minus"></i></a></td></tr>`;
       }
     }
     $('#table_body').html(output);

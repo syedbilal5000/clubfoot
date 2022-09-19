@@ -681,9 +681,11 @@
     var vist_lists = "visit_date,next_visit_date,appointment_id,side,CLB,MC,LHT,PC,RE,EH,mid_foot_score,hind_foot_score,total_score,treatment,complication";
 
     var folow_lists = "appointment_id,visit_date_followup,next_visit_date,relapse,size,hours,treatment,is_virtual";
+    var appointments = "appointment_id,appointment_date,patient_id,appointment_status,previous_appointment_id,inserted_at"
     var data_list = data_lists.split(",");
     var vist_list = vist_lists.split(",");
     var folow_list = folow_lists.split(",");
+    var appointment = appointments.split(",");
     var result = "";
     for (var i = 0; i < data_list.length; i++) {
         result += "<option value='p." + data_list[i] + "' > " +data_list[i]+" </option> ";
@@ -693,6 +695,9 @@
     }
     for (var i = 0; i < folow_list.length; i++) {
         result += "<option value='f." + folow_list[i] + "' > " +folow_list[i]+" </option> ";
+    }
+    for (var i = 0; i < appointment.length; i++) {
+        result += "<option value='a." + appointment[i] + "' > " +appointment[i]+" </option> ";
     }
     return result;
   }
