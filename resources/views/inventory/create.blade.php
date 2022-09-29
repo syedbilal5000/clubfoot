@@ -58,7 +58,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Unit Cost: </label>
+          <label>Unit Cost: </label><label style="color: red;"> &nbsp;*</label>
           <input type="number" name="unit_cost" id="unit_cost" class="form-control" placeholder="Enter Cost">
         </div>
       </div>
