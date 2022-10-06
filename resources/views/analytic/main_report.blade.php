@@ -58,6 +58,7 @@
         <div class="input-group">
           <select id="condition" name="" class="form-control select2 condition_filter" style="width: 100%;">
             <option value=" = " > equal </option>
+            <option value=" <> " > not equal </option>
             <option value=" > " > greater </option>
             <option value=" < " > less </option>
             <option value=" >= " > greater equal </option>
@@ -115,7 +116,7 @@
     <div class="col-md-3">
       <div class="form-group">
         <div class="form-check form-check-inline" style="padding-top: 5px;">
-          <label><input type="checkbox" value="p.gender" class="patient" name="gender"> &nbsp; Gender </label>
+          <label><input type="checkbox" value="case when p.gender = 1 then 'Male' else 'Female' end as gender" class="patient" name="gender"> &nbsp; Gender </label>
         </div>
       </div>
     </div>
@@ -567,12 +568,12 @@
   function view_main_report(main_report, selections) {
     output = '', columns = [];
     console.log("Inside");
-    console.log(selections);
+    //console.log(selections);
 	selections = selections.split(',');
 	for (i = 0; i < selections.length; i++) {
 	  idx = selections[i].indexOf('.');
 	  column = selections[i].slice(idx+1, );
-	  console.log(column);
+	  //console.log(column);
 	  columns.push(column);
 	  output += `<th>${column}</th>`;
 	}
@@ -586,7 +587,7 @@
 		output += `<td>${row}</td> `;
 	  }
 	  output += "</tr>";
-	  console.log(main_report[j]);
+	  //console.log(main_report[j]);
     }
     if (output == '') {
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
@@ -655,9 +656,9 @@
 	if ('f' in dct) {
 	  collections += "RIGHT JOIN followup f ON f.patient_id = p.patient_id ";
 	}
-	console.log(selections);
-	console.log(collections);
-	console.log(filterations);
+	// console.log(selections);
+	// console.log(collections);
+	// console.log(filterations);
 	if (selections != "" && collections != "" && filterations != "") {
       query = "SELECT " + selections + " FROM " + collections + " WHERE " + filterations;
 	  console.log(query);
@@ -666,8 +667,9 @@
         url: '../analytic/main_data/' + query,
 	    dataType: 'json',
         success: function (data) {
+          selections = selections.replace("case when p.gender = 1 then 'Male' else 'Female' end as gender", "p.gender");
           view_main_report(data, selections);
-		  console.log(data);
+		  // console.log(data);
         },
         error: function() { 
           console.log("none");
@@ -710,7 +712,7 @@
   }
   function add_record()
   {
-    $(".containing_filter").append('<div class="row filter_row_'+current_filter_id+'"> <div class="col-md-4"> <div class="form-group"> <label>Filter Column: </label> <div class="input-group"> <select id="key_'+current_filter_id+'" name="key_'+current_filter_id+'" class="form-control select2 key_filter" style="width: 100%;"> </select> </div> </div> </div> <div class="col-md-3"> <div class="form-group"> <label>Condition: </label> <div class="input-group"> <select id="condition_'+current_filter_id+'" name="" class="form-control select2 condition_filter" style="width: 100%;"> <option value="=" > equal </option> <option value=">" > greater </option> <option value="<" > less </option> <option value=">=" > greater equal </option> <option value="<=" > less equal </option> </select> </div> </div> </div> <div class="col-md-3"> <div class="form-group"> <label>Value</label> <div class="input-group"> <input type="text" name="value_'+current_filter_id+'" id="value_'+current_filter_id+'" placeholder="Enter fixed value" class="form-control value_filter"> </div> </div> </div> <div class="col-md-2"> <div class="form-group"> <label>&nbsp;</label> <a class="form-control pull-right btn btn-danger" id="delete_btn" onclick="delete_record('+current_filter_id+')">Delete</a> </div> </div> </div>');
+    $(".containing_filter").append('<div class="row filter_row_'+current_filter_id+'"> <div class="col-md-4"> <div class="form-group"> <label>Filter Column: </label> <div class="input-group"> <select id="key_'+current_filter_id+'" name="key_'+current_filter_id+'" class="form-control select2 key_filter" style="width: 100%;"> </select> </div> </div> </div> <div class="col-md-3"> <div class="form-group"> <label>Condition: </label> <div class="input-group"> <select id="condition_'+current_filter_id+'" name="" class="form-control select2 condition_filter" style="width: 100%;"> <option value="=" > equal </option> <option value=" <> " > not equal </option> <option value=">" > greater </option> <option value="<" > less </option> <option value=">=" > greater equal </option> <option value="<=" > less equal </option> <option value=" like " > like </option> </select> </div> </div> </div> <div class="col-md-3"> <div class="form-group"> <label>Value</label> <div class="input-group"> <input type="text" name="value_'+current_filter_id+'" id="value_'+current_filter_id+'" placeholder="Enter fixed value" class="form-control value_filter"> </div> </div> </div> <div class="col-md-2"> <div class="form-group"> <label>&nbsp;</label> <a class="form-control pull-right btn btn-danger" id="delete_btn" onclick="delete_record('+current_filter_id+')">Delete</a> </div> </div> </div>');
 
     $("#key_"+current_filter_id).html(generate_option());
     current_filter_id++;
@@ -730,16 +732,16 @@
         return false;
       }
     });
-    $('#home_table').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    } );
-    $('#home_table').addClass('table-responsive');
+    // $('#home_table').DataTable( {
+    //     dom: 'Bfrtip',
+    //     buttons: [
+    //         'copyHtml5',
+    //         'excelHtml5',
+    //         'csvHtml5',
+    //         'pdfHtml5'
+    //     ]
+    // } );
+    // $('#home_table').addClass('table-responsive');
   
     // fill_data(patients_appoint);
 
