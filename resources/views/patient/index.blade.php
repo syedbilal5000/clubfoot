@@ -146,7 +146,7 @@
       output += (patients[i]['has_birth_deformity'] == '1'? 'Yes' : 'No');
       output += '</td> <td>';
       output += treatment_type;
-      output += `</td> <td class="text-center"> <a href="pdf/${patient_id}" class="btn btn-link btn-info " target="_blank"><i class="fa fa-file"></i></a> <a href="patient/${patient_id}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a> <a href="patient/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger "><i class="fa fa-times"></i></a> </td></tr>`;
+      output += `</td> <td class="text-center"> <a href="pdf/${patient_id}" class="btn btn-link btn-info " target="_blank" title="PDF Report"><i class="fa fa-file"></i></a> <a href="patient/${patient_id}/edit" class="btn btn-link btn-warning " title="Update"><i class="fa fa-edit"></i></a> <a href="patient/{{ Crypt::encrypt(5) }}/delete" class="btn btn-link btn-danger " title="Delete"><i class="fa fa-times"></i></a> </td></tr>`;
     }
     if (output == "") {
       output = '<tr>No Data</tr>';

@@ -80,7 +80,7 @@
     var output = "";
     if (items.length > 0) {
         for (i = 0; i < items.length; i++) {
-          output += `<tr id="${items[i]['id']}"><td>${items[i]['name']}</td><td>${items[i]['description']}</td><td class="text-center"><a href="item/${items[i]['id']}/edit" class="btn btn-link btn-warning "><i class="fa fa-edit"></i></a></td></tr>`;
+          output += `<tr id="${items[i]['id']}"><td>${items[i]['name']}</td><td>${items[i]['description']}</td><td class="text-center"><a href="item/${items[i]['id']}/edit" class="btn btn-link btn-warning " title="Update"><i class="fa fa-edit"></i></a></td></tr>`;
       }
     }
     $('#table_body').html(output);

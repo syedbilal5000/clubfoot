@@ -36,6 +36,30 @@
   @csrf
   <div>
     <div class="row">
+      <div class="col-md-6 table-responsive">
+        <div class="form-group">
+          <table id="summary_table" class="table table-striped table-bordered" style="width:100% !important;">
+            <thead class="table_header">
+              <tr>
+              <th>Item Name</th>
+              <th>Inventory Name</th>
+              <th>Unit Balance</th>
+              </tr>
+            </thead> 
+            <tbody id="summary_table_body">
+            </tbody>
+            <tfoot>
+              <tr>
+              <th>Item Name</th>
+              <th>Inventory Name</th>
+              <th>Unit Balance</th>            
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>  <!-- row end -->
+    <div class="row">
       <div class="col-md-12 table-responsive">
         <div class="form-group">
           <table id="inventory_table" class="table table-striped table-bordered" style="width:100% !important;">
@@ -88,6 +112,7 @@
                   <label>Task</label>
                   <input type="number" id="less_amount" class="form-control" value="0" />
                   <input type="hidden" id="inv_id" class="form-control"/>
+                  <input type="hidden" id="item_nam" class="form-control"/>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -121,25 +146,44 @@
     var output = "";
     if (inventory.length > 0) {
         for (i = 0; i < inventory.length; i++) {
-          output += `<tr id="${inventory[i]['id']}"><td>${inventory[i]['item_name']}</td><td>${inventory[i]['inserted_at']}</td><td>${inventory[i]['inv_name']}</td><td>${inventory[i]['unit_cost']}</td><td>${inventory[i]['total_amount']}</td><td id="balance_${inventory[i]['id']}">${inventory[i]['unit_balance']}</td><td>${inventory[i]['description']}</td><td class="text-center"><a href="#" class="btn btn-primary " data-toggle="modal" data-target="#modal-defaultedit" data-backdrop="static" onclick="editModelClick(${inventory[i]['unit_balance']}, ${inventory[i]['id']})"><i class="fa fa-minus"></i></a></td></tr>`;
+          output += `<tr id="${inventory[i]['id']}"><td>${inventory[i]['item_name']}</td><td>${inventory[i]['inserted_at']}</td><td>${inventory[i]['inv_name']}</td><td>${inventory[i]['unit_cost']}</td><td>${inventory[i]['total_amount']}</td><td id="balance_${inventory[i]['id']}">${inventory[i]['unit_balance']}</td><td>${inventory[i]['description']}</td><td class="text-center"><a href="#" class="btn btn-primary " data-toggle="modal" data-target="#modal-defaultedit" data-backdrop="static" title="Minus" onclick="editModelClick(${inventory[i]['item_name']}, ${inventory[i]['id']})"><i class="fa fa-minus"></i></a> <a href="inventory/${inventory[i]['id']}/edit" class="btn btn-link btn-warning " hidden title="Update Record"><i class="fa fa-edit"></i></a></td></tr>`;
       }
+      balance = {};
+      inv_name = {};
+      for(i = 0; i < inventory.length; i++) {
+        if(balance[`${inventory[i]['item_name']}`] !== undefined)
+        {
+          balance[`${inventory[i]['item_name']}`] += parseInt(`${inventory[i]['unit_balance']}`)
+        }
+        else {
+          balance[`${inventory[i]['item_name']}`] = parseInt(`${inventory[i]['unit_balance']}`)
+          inv_name[`${inventory[i]['item_name']}`] = `${inventory[i]['inv_name']}`
+        }
+      }
+      option = "";
+      for (const [key, value] of Object.entries(balance)) {
+        option += `<tr> <td>${key}</td> <td>`+inv_name[`${key}`]+`</td> <td id="balance_${key}">${value}</td> </tr>`;
+      }
+      $('#summary_table_body').html(option);
     }
     $('#table_body').html(output);
   }
   function editModelClick(bal, id)
   {
-    // $("#less_amount").val(bal);
+    $("#item_nam").val(bal);
     $("#inv_id").val(id);
   }
   function submitCalling()
   {
     let id = $("#inv_id").val();
+    let item_nam = $("#item_nam").val();
     let bal = $("#less_amount").val();
     $.ajax({
         type: 'GET',
         url: 'inventory/update/' + bal + "/" + id,
         dataType: 'json',
         success: function (data) {
+          $("#balance_"+item_nam).html($("#balance_"+item_nam).html() - bal);
           $("#balance_"+id).html($("#balance_"+id).html() - bal);
           $('#modal-defaultedit').modal('hide');
         },
