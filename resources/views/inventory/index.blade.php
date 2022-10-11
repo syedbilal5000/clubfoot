@@ -146,7 +146,7 @@
     var output = "";
     if (inventory.length > 0) {
         for (i = 0; i < inventory.length; i++) {
-          output += `<tr id="${inventory[i]['id']}"><td>${inventory[i]['item_name']}</td><td>${inventory[i]['inserted_at']}</td><td>${inventory[i]['inv_name']}</td><td>${inventory[i]['unit_cost']}</td><td>${inventory[i]['total_amount']}</td><td id="balance_${inventory[i]['id']}">${inventory[i]['unit_balance']}</td><td>${inventory[i]['description']}</td><td class="text-center"><a href="#" class="btn btn-primary " data-toggle="modal" data-target="#modal-defaultedit" data-backdrop="static" title="Minus" onclick="editModelClick(${inventory[i]['item_name']}, ${inventory[i]['id']})"><i class="fa fa-minus"></i></a> <a href="inventory/${inventory[i]['id']}/edit" class="btn btn-link btn-warning " hidden title="Update Record"><i class="fa fa-edit"></i></a></td></tr>`;
+          output += `<tr id="${inventory[i]['id']}"><td>${inventory[i]['item_name']}</td><td>${inventory[i]['inserted_at']}</td><td>${inventory[i]['inv_name']}</td><td>${inventory[i]['unit_cost']}</td><td>${inventory[i]['total_amount']}</td><td id="balance_${inventory[i]['id']}">${inventory[i]['unit_balance']}</td><td>${inventory[i]['description']}</td><td class="text-center"><a href="#" class="btn btn-primary " data-toggle="modal" data-target="#modal-defaultedit" data-backdrop="static" title="Minus" onclick="editModelClick('${inventory[i]['item_name']}', ${inventory[i]['id']})"><i class="fa fa-minus"></i></a> <a href="inventory/${inventory[i]['id']}/edit" class="btn btn-link btn-warning " hidden title="Update Record"><i class="fa fa-edit"></i></a></td></tr>`;
       }
       balance = {};
       inv_name = {};
