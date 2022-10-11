@@ -136,7 +136,7 @@
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/ajax/libs/jszip.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/ajax/libs/pdfmake.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/ajax/libs/vs_fonts.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/ajax/libs/vfs_fonts.js') }}"></script>
 <script>
   var inventory = {!! json_encode($inventory) !!};
   
