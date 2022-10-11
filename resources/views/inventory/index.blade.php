@@ -151,13 +151,13 @@
       balance = {};
       inv_name = {};
       for(i = 0; i < inventory.length; i++) {
-        if(balance[`${inventory[i]['item_name']}`] !== undefined)
+        if(balance[`${inventory[i]['item_name']}`.replace(' ', '_')] !== undefined)
         {
-          balance[`${inventory[i]['item_name']}`] += parseInt(`${inventory[i]['unit_balance']}`)
+          balance[`${inventory[i]['item_name']}`.replace(' ', '_')] += parseInt(`${inventory[i]['unit_balance']}`)
         }
         else {
-          balance[`${inventory[i]['item_name']}`] = parseInt(`${inventory[i]['unit_balance']}`)
-          inv_name[`${inventory[i]['item_name']}`] = `${inventory[i]['inv_name']}`
+          balance[`${inventory[i]['item_name']}`.replace(' ', '_')] = parseInt(`${inventory[i]['unit_balance']}`)
+          inv_name[`${inventory[i]['item_name']}`.replace(' ', '_')] = `${inventory[i]['inv_name']}`
         }
       }
       option = "";
@@ -176,15 +176,15 @@
   function submitCalling()
   {
     let id = $("#inv_id").val();
-    let item_nam = $("#item_nam").val();
+    let item_nam = $("#item_nam").val().replace(' ', '_');
     let bal = $("#less_amount").val();
     $.ajax({
         type: 'GET',
         url: 'inventory/update/' + bal + "/" + id,
         dataType: 'json',
         success: function (data) {
-          $("#balance_"+item_nam).html($("#balance_"+item_nam).html() - bal);
-          $("#balance_"+id).html($("#balance_"+id).html() - bal);
+          $("#balance_"+item_nam).html(parseInt($("#balance_"+item_nam).html()) + parseInt(bal));
+          $("#balance_"+id).html(parseInt($("#balance_"+id).html()) + parseInt(bal));
           $('#modal-defaultedit').modal('hide');
         },
         error: function() { 
