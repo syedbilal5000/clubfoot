@@ -593,6 +593,16 @@
       output = `<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>`;
     }
     $('#main_report').html(output);
+    $('#home_table').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+    $('#home_table').addClass('table-responsive');
   }
 
   function setIDFunction(appointment_id)
@@ -732,16 +742,6 @@
         return false;
       }
     });
-    // $('#home_table').DataTable( {
-    //     dom: 'Bfrtip',
-    //     buttons: [
-    //         'copyHtml5',
-    //         'excelHtml5',
-    //         'csvHtml5',
-    //         'pdfHtml5'
-    //     ]
-    // } );
-    // $('#home_table').addClass('table-responsive');
   
     // fill_data(patients_appoint);
 
