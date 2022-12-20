@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Add Category</h1>
+          <h1 class="m-0">Add New Categories</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -39,13 +39,13 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Name: </label><label style="color: red;"> &nbsp;*</label>
+          <label>Category Name: </label><label style="color: red;"> &nbsp;*</label>
           <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name">
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label>Description: </label>
+          <label>Category Description: </label>
           <input type="text" name="description" id="description" class="form-control" placeholder="Enter Description">
         </div>
       </div>
